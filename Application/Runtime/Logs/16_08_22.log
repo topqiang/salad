@@ -1,0 +1,35 @@
+[ 2016-08-22T15:04:10+08:00 ] 192.168.0.125 /xjl/index.php?s=/Thqian/tyq/name/%E9%98%9A%E8%87%AA%E5%BC%BA
+ERR: 非法操作:tyq
+
+[ 2016-08-22T17:15:32+08:00 ] 192.168.0.125 /xjl/
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:16:52+08:00 ] 192.168.0.125 /xjl/index.php?s=/Admin/Manager/login
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:16:53+08:00 ] 192.168.0.125 /xjl/index.php?s=/Admin/Index/index
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:16:53+08:00 ] 192.168.0.125 /xjl/index.php?s=/Admin/Index/top
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:16:53+08:00 ] 192.168.0.125 /xjl/index.php?s=/Admin/Index/left
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:16:58+08:00 ] 192.168.0.125 /xjl/
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:17:03+08:00 ] 192.168.0.125 /xjl/
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+
+[ 2016-08-22T17:17:09+08:00 ] 192.168.0.125 /xjl/
+ERR: 1146:Table 'xjl.dc_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `dc_basic`
+

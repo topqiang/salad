@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="__WEBPUBLIC__/Home/css/basic.css">
+    <link rel="stylesheet" type="text/css" href="__WEBPUBLIC__/Home/css/style.css">
+    <!--<link rel="stylesheet" type="text/css" href="__WEBPUBLIC__/Home/css/expend.css">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" name="viewport" />
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <title></title>
+    <style>
+        body{
+            background: #F4F4F4;
+        }
+        #content{
+            width:320px;
+            margin:0 auto;
+            margin-top: -60px;
+            border: 0px solid #fff;
+            padding: 5px 0 0 0;
+        }
+        #head{
+            height:70px;
+            background: url('__WEBPUBLIC__/Home/images/bg.png');
+        }
+        .vipcard{
+            margin-top: 20px;
+            margin-left: 5px;
+            position: relative;
+        }
+        .card_num{
+            position: absolute;
+            top:15px;
+            left:20px;
+            color: #7A2401;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .instruct{
+            margin-top: 20px;
+            color:#939393;
+            text-align: center;
+            margin-left: 5px;
+        }
+        .box{
+            height:150px;
+            width:310px;
+            border: 1px solid #C4C4C4;
+            margin-top: 30px;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+            margin-left: 5px;
+        }
+        .score{
+            height:25px;
+            padding: 15px 0 10px 20px;
+            border-bottom: 1px solid #BCBCBC;
+        }
+        .tx{
+            padding: 15px 0 10px 15px;
+        }
+        .txx{
+            padding: 15px 0 10px 25px;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="head">
+
+    </div>
+    <div id="content">
+        <div class="vipcard">
+            <img src="__WEBPUBLIC__/Home/images/vip5.png" class="img">
+            <div class="card_num">
+                NO.{$member['m_card_num']}
+            </div>
+        </div>
+        <div class="instruct">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="10%"><img src="__WEBPUBLIC__/Home/images/show.png"></td>
+                    <td>
+                        <span style="font-size: 18px;font-family: '宋体';">使用时向服务员出示此卡</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="box">
+            <div class="score">
+                <table border="0" cellspacing="0" cellpadding="0" width="290">
+                    <tr>
+                        <td width="10%"><img src="__WEBPUBLIC__/Home/images/score.png"></td>
+                        <td>
+                            <span style="font-size: 17px;color:#333333">积分:{$member['m_score']}</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="tx">
+                <table border="0" cellspacing="0" cellpadding="0" width="290">
+                    <tr>
+                        <td width="11%"><img src="__WEBPUBLIC__/Home/images/tx.png"></td>
+                        <td>
+                            <a href="{:U('Index/foodList')}" style="font-size: 17px;color:#333333">会员专享特惠菜肴</a>
+                        </td>
+                        <td width="8%">
+                            <a href="###"><img src="__WEBPUBLIC__/Home/images/go.png"></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="txx">
+                <table border="0" cellspacing="0" cellpadding="0" width="290">
+                    <tr>
+                        <td width="11%"><img src="__WEBPUBLIC__/Home/images/list_4.png" style="width: 26px;height: 26px;"></td>
+                        <td>
+                            <a href="{:U('Index/loginOut')}" style="font-size: 17px;color:#333333">退出登录</a>
+                        </td>
+                        <td width="8%">
+                            <a href="###"><img src="__WEBPUBLIC__/Home/images/go.png"></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

@@ -1,0 +1,147 @@
+<include file="Index:header"/>
+	<header>
+		<a href="http://daisyfresh.21move.net/df5.html" class="arrow-l"></a>
+		<h2><font id="_select_main" style="">选主菜</font></h2>
+		<font id="CartLine"><span class="cart-ico"><em>{$count}</em></span></font>
+	</header>
+	<div class="con-wrap-bt2">
+		<div class="menu-wrap">
+			<div class="main-menu" id="MainClassList">
+				<volist name="catelist" id="obj">
+					<a href="javascript:;" id="{$obj.id}" <if condition="$key eq 0">class="mainherf menu-1 on"<else/>class="mainherf menu-1"</if>>
+						<img src="__WEBPUBLIC__/Home/images/nav-back.png">
+						<span>{$obj.name}</span>
+					</a>
+				</volist>
+			</div>
+		</div>
+		<p style="font-size: 14px; color: rgb(187, 187, 187); line-height: 22px; text-align: center; padding: 6px 12px 0px;"><font id="_df5_1tipbig" style="">
+		<if condition="$totalnum eq 12">
+		规则：大碗沙拉主菜可选12份，单个菜品可重复选择
+		</if>
+		<if condition="$totalnum eq 9">
+		规则：小碗沙拉主菜可选9份，单个菜品可重复选择
+		</if>
+		 <if condition="$totalnum eq 4">
+		 规则：自选卷沙拉主菜可选4份，单个菜品可重复选择
+		 </if>
+		</font></p>
+		<div class="choose-con">
+			<ul class="{$catelist[0]['id']}">
+				<volist name="list" id="vo">
+				<li>
+					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+						<tbody>
+							<tr>
+								<td class="td-1">
+									<img src="__WEBROOT__/{$vo.fpic}">
+								</td>
+								<td class="td-2">{$vo.fname}</td>
+								<td class="td-3 fl-clr">
+									<em class="car-add-l"></em>
+									<input type="text" id="{$vo.fid}" name="{$vo.fname}" value="0" readonly="" class="inpt-shu">
+									<em class="car-add-r"></em>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+	<div class="cart-menu">
+		<div>
+			<table width="100%" cellspacing="0" cellpadding="0" border="0">
+				<tbody>
+					<tr>	
+						<td class="td-2"><font id="_df5_hace" style="">已有</font><i id="MainTotalCountLine">0</i><font id="_df5_unit" style="">份</font></td>
+						<td class="td-3" onclick="savejc()"><i><font id="_df5_choose_saue" style="">去选酱料</font></i></td>
+					</tr>
+				</tbody>
+			</table>
+            <input type="hidden" name="MainIsShred" id="MainIsShred" value="1">
+		</div>
+	</div>
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
+<!-- <script src="./js/wewing.token.js"></script>
+<script src="./js/wewing.init.js"></script> -->
+<script src="__WEBPUBLIC__/Home/js/salad.js"></script>
+<script language="javascript">
+
+function savejc(){
+	var goods =JSON.parse(sessionStorage.getItem("goods"));
+	var type = goods.name ? goods.name : "big";
+	var foods = goods.foods ? goods.foods : [];
+	$(".inpt-shu").each(function(){
+		var obj = {};
+		var self = $(this);
+		if ( self.val() > 0) {
+			obj.foodsid = self.attr("id");
+			obj.foodsname = self.attr("name");
+			obj.num =  self.val();
+			foods.push(obj);
+		};
+	});
+	goods.foods= foods ;
+	if (sessionStorage) {
+		sessionStorage.setItem("goods",JSON.stringify(goods));
+	};
+	window.location.href = '{:U("Index/diyjl")}';
+}
+$(function(){
+	var totalnum = {$totalnum};//存储最多可选数
+	function updem(){
+		var self = $(this);
+		var input =  self.siblings("input");
+		var BaseTotalCountLine = $("#MainTotalCountLine");
+		var total = BaseTotalCountLine.html();
+		var num = input.val();
+		if ( self.hasClass("car-add-l") ) {
+			total--;
+			if (num > 0) {
+				input.val(--num);
+				BaseTotalCountLine.html(total);
+			};
+		};
+		if ( self.hasClass("car-add-r") ) {
+			if (total < totalnum ) {
+				input.val(++num);
+				BaseTotalCountLine.html(++total);
+			}
+		};
+	}
+	$("td.td-3.fl-clr em").on('tap',updem);
+	$(".main-menu a").on("tap",function(){
+		var self = $(this);
+		var id = self.attr("id");
+		if ($(".choose-con ul."+id).size() == 1) {
+			var self = $("ul."+id);
+			self.show().siblings().hide();
+		}else{
+			$.ajax({
+				url:"{:U('Index/diyzc')}",
+				type:"post",
+				data:{"fid":id},
+				dataType:"json",
+				success:function(data){
+					var datajson = eval(data);
+					var newdom = $("<ul/>",{class:id}).appendTo(".choose-con");
+					for(var index in datajson){
+						var obj = datajson[index];
+						newdom.append('<li><table width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="td-1"><img src="/salad/'+obj.fpic+'"></td><td class="td-2">'+obj.fname+'</td><td class="td-3 fl-clr"><em class="car-add-l"></em><input type="text" id="'+obj.fid+'" name="'+obj.fname+'" value="0" readonly="" class="inpt-shu"><em class="car-add-r"></em></td></tr></tbody></table></li>');
+					}
+					newdom.find("td.td-3.fl-clr em").on('tap',updem);
+					newdom.siblings().hide();
+				}
+			})	
+		}
+	});
+});
+
+</script>
+
+</body></html>

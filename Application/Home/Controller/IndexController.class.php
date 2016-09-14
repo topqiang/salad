@@ -1,0 +1,223 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+
+/**
+ * Class IndexController
+ * @package Home\Controller
+ */
+class IndexController extends BaseController {
+    public function _initialize(){
+    	parent::_initialize();
+    	//完善购物车数量查询
+    	$num=D('Gley')->count('id');
+    	$this->assign('glexnum',$num);
+    }
+
+    /**
+     * 系统首页
+     */
+    public function index(){
+	    $this -> display();
+    }
+
+    public function diy(){
+    	$foodcate = D("Foodcate");
+    	$where['cname'] = array('eq' , '基菜' );
+    	$list = $foodcate -> field("fid,fpic,fname") -> where($where) -> select();
+    	$this->assign( 'list' , $list );
+    	$this->display("Index/diyjc");
+    }
+
+    public function diyzc(){
+    	$type = $_GET['type'];
+    	switch ( $type ) {
+    		case 'big':
+    			$this->assign( 'totalnum' , 12 );
+    			break;
+    		case 'small':
+    			$this->assign( 'totalnum' , 9 );
+    			break;
+    		case 'free':
+    			$this->assign( 'totalnum' , 4 );
+    			break;
+    	}
+    	$foodcate = D("Foodcate");
+    	$fcate = D("Fcate");
+    	$catew['name'] = array('not in' , '基菜,酱料');
+    	$catelist = $fcate -> field("id,name") -> where($catew) -> select();
+    	$this->assign( 'catelist' , $catelist );
+    	$where['fcate_id'] = isset($_POST['fid']) ? $_POST['fid'] : $catelist[0]['id'];
+    	$list = $foodcate -> field("fid,fpic,fname,fcate_id") -> where($where) -> select();
+    	if (isset($_POST['fid'])) {
+    		$this -> ajaxReturn(json_encode($list));
+    		exit();
+    	}
+    	$this->assign( 'list' , $list );
+    	$this->display("Index/diyzc");
+    }
+
+    public function diyjl(){
+    	$foodcate = D( "Foodcate" );
+    	$where['cname'] = array( 'eq' , '酱料' );
+    	$list = $foodcate -> field( "fid,fpic,fname" ) -> where( $where ) -> select();
+    	$this -> assign( 'list' , $list );
+    	$this -> display( "Index/diyjl" );
+    }
+
+    public function diycp(){
+    	$goodtype = isset($_POST['goodtype']) ? $_POST['goodtype'] : "big";
+    	$jc = 4;
+    	$zc = 12;
+    	switch ($goodtype) {
+    		case 'small':
+    			$zc = 9;
+    			break;
+    		case 'free':
+    			$zc = 4;
+    			$jc = 1;
+    			break;
+    	}
+
+    	$foodcate = D("Foodcate");
+    	$where['cname'] = array('eq' , '基菜' );
+    	$jclist = $foodcate -> field("fid,fpic,fname") ->order('rand()') ->limit($jc)->where($where) -> select();
+    	$hubfooduser = D("Hubfooduser");
+    	$userid = session("userid");
+    	$argarr['uid'] = array('eq' , $userid);
+    	$argarr['well'] = array('eq' , "1");
+    	$zclist = $hubfooduser -> field("fid,fpic,fname,fcate_id") -> order('rand()') ->limit($zc) -> where($argarr) -> select();
+    	$oldnum = count($zclist);
+    	if ($oldnum < $zc) {
+    		$newnum = $zc - $oldnum;
+    		$resid =$hubfooduser -> field("fid") -> where(array('uid' => array('eq', $userid))) -> select();
+    		foreach ($resid as $key => $value) {
+    			$guoluid[$key] = $value['fid'];
+    		}
+    		$zclist2 = $foodcate -> field("fid,fpic,fname") ->order('rand()') ->limit($newnum) -> where(array('fid' => array('not in',$guoluid),'cname' => array('not in' , '基菜,酱料'))) -> select();
+    		$zclist = array_merge( $zclist , $zclist2 );
+    	}
+    	$list['jclist'] = $jclist;
+    	$list['zclist'] = $zclist;
+    	$result = json_encode($list);
+    	$this->ajaxReturn($result);
+    }
+
+
+    public function saselect(){
+    	$foodcate = D("Foodcate");
+    	$fcate = D("Fcate");
+    	$Hub = D("Hub");
+    	$catew['name'] = array('not in' , '基菜,酱料');
+    	$catelist = $fcate -> field("id,name") -> where($catew) -> select();
+    	$this->assign( 'catelist' , $catelist );
+    	$where1['fcate_id'] = isset($_POST['fid']) ? $_POST['fid'] : $catelist[0]['id'];
+    	$list = $foodcate -> field("fid,fpic,fname,fcate_id") -> where($where1) -> select();
+
+    	$hubdata['uid'] = array('eq',session('userid'));
+    	$hubdata['well'] = array('eq','1');
+    	$well = count($Hub->where($hubdata)->select());
+    	$hubdata['well'] = array('eq','0');
+    	$hubdata['bad'] = array('eq','1');
+    	$bad = count($Hub->where($hubdata)->select());
+    	$this -> assign('well',$well);
+    	$this -> assign('bad',$bad);
+
+    	foreach ($list as $key => $food) {
+    		$where['uid'] = array('eq' , session('userid'));
+    		$where['fid'] = array('eq' , $food['fid']);
+    		$hub = $Hub->where($where)->select();
+    		if (isset($hub[0]['well']) && $hub[0]['well'] == "1") {
+    			$food['well'] = $hub[0]['well'];
+    			$food['hid'] = $hub[0]['id']; 
+    		}else if (isset($hub[0]['bad']) && $hub[0]['bad'] == "1") {
+    			$food['bad'] = $hub[0]['bad'];
+    			$food['hid'] = $hub[0]['id']; 
+    		}
+    		$list[$key] = $food;
+    	}
+
+    	if (isset($_POST['fid'])) {
+    		$this -> ajaxReturn(json_encode($list));
+    		exit();
+    	}
+    	$this->assign( 'list' , $list );
+    	// dump($list);
+    	// exit();
+    	$this -> display();
+    }
+
+	
+	public function listClear(){
+		unset($_SESSION['myList']);
+		redirect(U('Index/foodList'));
+	}
+	/***本类公共方法***/
+	public function getDis(){
+		$myList=$this->getMyList();
+		$this->assign('food_num',$myList);
+		foreach($myList as $k=>$v){
+			$cate_num[$v['cate_id']]=$cate_num[$v['cate_id']]+$v['num'];
+		}
+		$this->assign('cate_num',$cate_num);
+	}
+
+	public function getTotal(){
+		if(empty($_GET['pay_type'])){
+			$pay_type=2;
+		}else{
+			$pay_type=$_GET['pay_type'];
+		}
+		$myList=$this->getMyList();
+		$total=0;
+		foreach($myList as $k=>$v){
+			if(!empty($v['num'])){
+				if($pay_type==1){
+					$total=$total+$v['score']*$v['num'];
+				}else{
+					$total=$total+$v['price']*$v['num'];
+				}
+			}
+		}
+		$this->ajaxReturn($total);
+	}
+	/**
+	 * @return array
+	 */
+	public function getMyList(){
+		$obj=D('Food');
+		foreach($_SESSION['myList'] as $k=>$v){
+			$fid=$k;
+			$info=$obj->where(array('fid'=>$fid))->find();
+
+			$arr[$fid]['num']=$v;
+			$arr[$fid]['name']=$info['name'];
+			$arr[$fid]['price']=$info['price'];
+			$arr[$fid]['score']=$info['score'];
+			$arr[$fid]['cate_id']=$info['cate_id'];
+			$arr[$fid]['unit']=$info['unit'];
+		}
+		return $arr;
+	}
+	public function addFood(){
+		if(empty($_POST['fid']))$this->ajaxReturn('error');
+		$_SESSION['myList'][$_POST['fid']]++;
+		$this->ajaxReturn('success');
+	}
+	public function lowerFood(){
+		if(empty($_POST['fid']))$this->ajaxReturn('error');
+		$_SESSION['myList'][$_POST['fid']]--;
+		if($_SESSION['myList'][$_POST['fid']]<1){
+			unset($_SESSION['myList'][$_POST['fid']]);
+		}
+		$this->ajaxReturn('success');
+	}
+
+    /**
+     * 退出登录
+     */
+    public function loginOut(){
+        session(null);
+        redirect(U('Index/vipCard'));
+    }
+}

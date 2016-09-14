@@ -1,0 +1,26 @@
+body{
+    background: #EEEEEE;
+}
+#content{
+    width:320px;
+    margin:0 auto;
+    border: 0px solid #000;
+}
+.vipcard{
+    position: relative;
+}
+.card_num{
+    position: absolute;
+    top:181px;
+    left:200px;
+    color: #7A2401;
+    font-weight: bold;
+}
+.instruct{
+    margin-top: 10px;
+    font-size: 14px;
+    color:#939393;
+    font-family: '宋体';
+    font-weight: bold;
+    text-align: center;
+}

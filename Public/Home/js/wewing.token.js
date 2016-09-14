@@ -1,0 +1,1 @@
+﻿$.trim(localStorage.getItem('token_value')) == '' || $.trim(localStorage.getItem('token_value')) == 'null' || $.trim(localStorage.getItem('token_value')) == 'undefined'?(localStorage.setItem('token_backurl',window.location),document.location = '/getToken.html'):null
