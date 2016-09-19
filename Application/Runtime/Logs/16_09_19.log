@@ -5752,3 +5752,147 @@ INFO: [ app_end ] --START--
 INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001280s ]
 INFO: [ app_end ] --END-- [ RunTime:0.001527s ]
 
+[ 2016-09-19T17:35:33+08:00 ] 192.168.0.125 /salad/index.php?s=/Room/bulidshop
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000051s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000859s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000965s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001246s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000171s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000409s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025412s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025681s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000658s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000888s ]
+
+[ 2016-09-19T17:35:51+08:00 ] 192.168.0.125 /salad/index.php?s=/User/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000051s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000918s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000946s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001176s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_user` [ RunTime:0.005164s ]
+SQL: SELECT * FROM `shala_user` WHERE ( `tel` = '123456' )  [ RunTime:0.000664s ]
+
+[ 2016-09-19T17:35:52+08:00 ] 192.168.0.125 /salad/index.php?s=/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000050s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000773s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001217s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001497s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_gleygood` [ RunTime:0.005910s ]
+SQL: SELECT SUM(goodnum) AS tp_sum FROM `shala_gleygood` LIMIT 1   [ RunTime:0.000787s ]
+SQL: SELECT `goodnum`,`gprice` FROM `shala_gleygood`  [ RunTime:0.000844s ]
+SQL: SHOW COLUMNS FROM `shala_gley` [ RunTime:0.005678s ]
+SQL: SELECT COUNT(id) AS tp_count FROM `shala_gley` LIMIT 1   [ RunTime:0.000609s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000213s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000504s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020848s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.021105s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000790s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001023s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001158s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001406s ]
+
+[ 2016-09-19T17:57:13+08:00 ] ::1 /salad/index.php?s=/Admin/Index/left
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000051s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000881s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002420s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002973s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_basic` [ RunTime:0.004222s ]
+ERR: 1146:Table 'shala.shala_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `shala_basic`
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000178s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000416s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.027982s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.028264s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000734s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000966s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001091s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001343s ]
+
+[ 2016-09-19T17:57:17+08:00 ] ::1 /salad/index.php?s=/Admin/Order/OrderList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000054s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000787s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000819s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001071s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_admin` [ RunTime:0.024271s ]
+SQL: SELECT `g_id` FROM `shala_admin` WHERE ( `aid` = 1 ) LIMIT 1   [ RunTime:0.000595s ]
+SQL: SHOW COLUMNS FROM `shala_basic` [ RunTime:0.005494s ]
+ERR: 1146:Table 'shala.shala_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `shala_basic`
+NOTIC: [8] Undefined index: type D:\wamp\www\salad\Application\Admin\Controller\OrderController.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `shala_order` [ RunTime:0.004883s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `shala_order` LIMIT 1   [ RunTime:0.000640s ]
+SQL: SELECT * FROM `shala_order` ORDER BY ctime desc LIMIT 0,15   [ RunTime:0.000487s ]
+ERR: 1054:Unknown column 'ctime' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `shala_order` ORDER BY ctime desc LIMIT 0,15  
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\salad\Application\Admin\Controller\OrderController.class.php 第 35 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000187s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000422s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031798s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032046s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000588s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000820s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000889s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001127s ]
+
+[ 2016-09-19T17:57:20+08:00 ] ::1 /salad/index.php?s=/Admin/Order/OrderList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000056s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000781s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000843s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001113s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_admin` [ RunTime:0.004959s ]
+SQL: SELECT `g_id` FROM `shala_admin` WHERE ( `aid` = 1 ) LIMIT 1   [ RunTime:0.000627s ]
+SQL: SHOW COLUMNS FROM `shala_basic` [ RunTime:0.003847s ]
+ERR: 1146:Table 'shala.shala_basic' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `shala_basic`
+NOTIC: [8] Undefined index: type D:\wamp\www\salad\Application\Admin\Controller\OrderController.class.php 第 26 行.
+SQL: SHOW COLUMNS FROM `shala_order` [ RunTime:0.005130s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `shala_order` LIMIT 1   [ RunTime:0.000682s ]
+SQL: SELECT * FROM `shala_order` ORDER BY ctime desc LIMIT 0,15   [ RunTime:0.000637s ]
+ERR: 1054:Unknown column 'ctime' in 'order clause'
+ [ SQL语句 ] : SELECT * FROM `shala_order` ORDER BY ctime desc LIMIT 0,15  
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\salad\Application\Admin\Controller\OrderController.class.php 第 35 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000188s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000419s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.027002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027253s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000502s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000729s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000814s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001067s ]
+

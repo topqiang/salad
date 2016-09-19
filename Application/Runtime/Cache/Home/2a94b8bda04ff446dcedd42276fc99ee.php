@@ -94,7 +94,7 @@
 			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-1"><font id="_df4_home" style="">首页</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/saselect');?>" class="menu-ico ico-2"><font id="_df4_plan" style="">订餐</font></a>
+			<a href="<?php echo U('Goods/goodlist');?>" class="menu-ico ico-2"><font id="_df4_plan" style="">订餐</font></a>
 		</li>
 		<li>
 			<a href="<?php echo U('Index/diy');?>" class="menu-ico ico-3"><font id="_df4_self_pick" style="">自选</font></a>
