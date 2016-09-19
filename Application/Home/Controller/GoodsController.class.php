@@ -5,17 +5,16 @@ class GoodsController extends BaseController{
 	public function _initialize(){
 		parent::_initialize();
 	}
-	public function goodsAdd(){
-		// $goods = $_POST['goods'];
-		// dump($goods);
-		// exit();
+	public function goodsAdd(){;
 		$name = $_POST['name'];
 		$foods = $_POST['foods'];
 		$pic = 'Uploads/goods/201609/4c086e017b084739bfec686dfd5fe5c0.jpg';
 		$price = 48;
 		$cate_id = 5;
-		// echo($foods[0]['foodsname']);
-		// exit();
+		if (count($foods) == 0) {
+			$this->ajaxReturn("empty");
+			exit();
+		}
 		switch ($name) {
 			case 'big':
 				$name = "自选沙拉大份";
@@ -95,11 +94,173 @@ class GoodsController extends BaseController{
 		}
 	}
 
+
+	public function updHubGood(){
+		$clum = $_POST['clum'];
+		$hid = $_POST['hid'];
+		$gid = $_POST['gid'];
+		$zhi = $_POST['zhi'];
+		$data[$clum] = $zhi;
+		if ($clum == "well") {
+			$data["bad"] = 0;
+		}else{
+			$data["well"] = 0;
+		}
+		if (isset($hid) && !empty($hid)) {
+			$data['id'] = $hid;
+			$res = D("Hubgood")->save($data);
+			$this->ajaxReturn("success");
+		}else{
+			$data['uid'] = session("userid");
+			$data['gid'] = $gid;
+			$res = D("Hubgood")->add($data);
+			$this->ajaxReturn($res);
+		}
+	}
+
+
 	public function rangood(){
 		$foodcate = D( "Foodcate" );
     	$where['cname'] = array( 'eq' , '酱料' );
     	$list = $foodcate -> field( "fid,fpic,fname" ) -> where( $where ) -> select();
     	$this -> assign( 'list' , $list );
 		$this->display();
+	}
+
+
+	public function goodlist(){
+		$goodcate = D("Goodcate");
+    	$gcate = D("Gcate");
+    	$Hubgood = D("Hubgood");
+    	$catew['name'] = array('not in' , '自选沙拉大份,自选沙拉小份,自选卷');
+    	$catelist = $gcate -> field("id,name") -> where($catew) -> select();
+    	$this->assign( 'catelist' , $catelist );
+    	if (isset($_GET['cname'])) {
+    		$where1['cname'] = $_GET['cname'];
+    	}else{
+    		$where1['gcate_id'] = isset($_POST['cid']) ? $_POST['cid'] : $catelist[0]['id'];
+    	}
+    	$list = $goodcate -> field("gid,gpic,gprice,gconstituent,gname,gcate_id,cname") -> where($where1) -> select();
+    	// dump($list);
+    	// exit();
+    	$curid = $list[0]['gcate_id'];
+    	$this->assign("curid" ,$curid);
+    	foreach ($list as $key => $good) {
+    		$countarg['gid'] = array('eq' , $good['gid']);
+    		$countarg['well'] = array('eq' , 1);
+    		$wellnum = $Hubgood->where($countarg)->count();
+    		$countarg['well'] = array('eq' , 0);
+    		$countarg['bad'] = array('eq' , 1);
+    		$badnum = $Hubgood->where($countarg)->count();
+    		$good['wellnum'] = $wellnum;
+    		$good['badnum']	= $badnum;
+
+
+    		$where['gid'] = array('eq' , $good['gid']);
+    		$where['uid'] = array('eq' , session('userid'));
+    		$hub = $Hubgood->where($where)->select();
+    		if (isset($hub[0]['well']) && $hub[0]['well'] == "1") {
+    			$good['well'] = $hub[0]['well'];
+    			$good['hid'] = $hub[0]['id']; 
+    		}else if (isset($hub[0]['bad']) && $hub[0]['bad'] == "1") {
+    			$good['bad'] = $hub[0]['bad'];
+    			$good['hid'] = $hub[0]['id']; 
+    		}
+    		$list[$key] = $good;
+    	}
+
+    	if (isset($_POST['cid'])) {
+    		$this -> ajaxReturn(json_encode($list));
+    		exit();
+    	}
+    	$this->assign( 'list' , $list );
+    	// dump($list);
+    	// exit();
+    	$this -> display();
+	}
+
+	public function delgley(){
+
+		if (isset($_GET['glid'])) {
+			$gley = D("Gley");
+			$where["id"] = $_GET['glid'];
+			$res = $gley -> where($where) -> delete();
+			if (isset($res)) {
+				$this ->ajaxReturn("success");
+			}else{
+				$this ->ajaxReturn("error");
+			}
+		}
+
+
+	}
+	public function togley(){
+		$goods = $_POST['goods'];
+		$userid = session("userid");
+		$gley = D("Gley");
+		$flag = true;
+		foreach ($goods as $key => $good) {
+			$data['goods'] = $good['gid'];
+			$data['fromuser'] = $userid;
+			$ids = $gley->field('id')->where(array('goods' =>$good['gid'],'fromuser' =>$userid))->select();
+			if (isset($ids) && count($ids) > 0) {
+				$data['id'] = $ids[0]['id'];
+				$data['goodnum'] = $good['goodnum'];
+				$res = D("Gley")->save($data);
+			}else{
+				$data['goodnum'] = $good['goodnum'];
+				$res = D("Gley")->add($data);
+			}
+			if (!isset($res)) {
+				$flag = false;
+			}
+		}
+		if ( $flag ) {
+			$this->ajaxReturn($res);
+		}else{
+			$this->ajaxReturn("error");
+		}
+	}
+
+	public function findgood(){
+		$key = $_GET['key'];
+		$goodcate = D("Goodcate");
+		if (isset($key)){
+			$where1['gname'] = array('like' ,"%$key%");
+			$where1['cname'] =  array('not in' , '自选沙拉大份,自选沙拉小份,自选卷');
+			$list = $goodcate -> field("gid,gpic,gprice,gconstituent,gname,gcate_id,cname") -> where($where1) -> select();
+			$num = count($list);
+			if ($num > 0) {
+				$this->assign("text","为您找到".$num."个有关“".$key."”的菜品");
+				$Hubgood = D("Hubgood");
+				foreach ($list as $key => $good) {
+	    		$countarg['gid'] = array('eq' , $good['gid']);
+	    		$countarg['well'] = array('eq' , 1);
+	    		$wellnum = $Hubgood->where($countarg)->count();
+	    		$countarg['well'] = array('eq' , 0);
+	    		$countarg['bad'] = array('eq' , 1);
+	    		$badnum = $Hubgood->where($countarg)->count();
+	    		$good['wellnum'] = $wellnum;
+	    		$good['badnum']	= $badnum;
+
+
+	    		$where['gid'] = array('eq' , $good['gid']);
+	    		$where['uid'] = array('eq' , session('userid'));
+	    		$hub = $Hubgood->where($where)->select();
+	    		if (isset($hub[0]['well']) && $hub[0]['well'] == "1") {
+	    			$good['well'] = $hub[0]['well'];
+	    			$good['hid'] = $hub[0]['id']; 
+	    		}else if (isset($hub[0]['bad']) && $hub[0]['bad'] == "1") {
+	    			$good['bad'] = $hub[0]['bad'];
+	    			$good['hid'] = $hub[0]['id']; 
+	    		}
+	    		$list[$key] = $good;
+	    	}
+	    	$this-> assign("list" , $list);
+			}
+	    	$this-> display("goodlist");
+		}else{
+			$this-> display();
+		}
 	}
 }

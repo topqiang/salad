@@ -57,8 +57,9 @@ function savejc(){
 	obj.num = 1;
 	foods.push(obj);
 	goods.foods = foods ;
-	if (sessionStorage) {
-		// sessionStorage.setItem("goods",null);
+	if (foods.length == 0) {
+		alert("您未选择菜品，无法下单！");
+		return;
 	};
 	$.ajax({
 		url  : "{:U('Goods/goodsAdd')}",
@@ -69,6 +70,9 @@ function savejc(){
 			if (data == "error") {
 				alert("购买失败！请重新购买！");
 				window.location.href = '{:U("Index/diyjc")}';
+			}else if(data == "empty"){
+				alert("您未选择菜品，无法下单！");
+				return;
 			}else{
 				window.location.href = '{:U("Goods/gley")}';
 			}

@@ -1,0 +1,32 @@
+<include file="Index:header"/>
+	<header>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
+		<h2><font id="_df7_title" style="">订餐</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</header>
+	<div>
+		<div class="sch-inner fl-clr">
+			<input type="text" class="pro-inp inpt" placeholder="搜索商品名称" id="key" name="key">
+			<button class="sch-btn" onclick="searchDo()"></button>
+		</div>
+	</div>
+	<div class="black-layer-2">
+		<dl class="hot-list" id="hotwordlist"><dt>热门搜索</dt><dd>沙拉</dd><dd>可乐</dd><dd>营养</dd></dl>
+	</div>
+	<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+	<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+	<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+	<script src="__WEBPUBLIC__/Home/js/search.js"></script>
+	<script language="javascript">
+	function searchDo () {
+		var key = $.trim($("#key").val());
+		if (key == "") {
+			alert("搜索内容不能为空！");
+		}else{
+			window.location.href="{:U('Goods/findgood')}/key/"+key;
+		}
+	}
+	</script>
+</body>
+</html>

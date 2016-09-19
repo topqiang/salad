@@ -1,0 +1,56 @@
+<include file="Index:header"/>
+<link rel="stylesheet" type="text/css" href="__WEBPUBLIC__/Home/css/xq_slide.css"/>
+	<div class="top-bar-wrap">
+		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+		<h2><font id="_df37_title" style="">线下门店</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"></a><span class="cart-ico"><em>{$count}</em></span></font>
+	</div>
+    <div class="index-top">
+		<div class="banner" style="height: 245px;">
+			<div class="xq_slide_out">
+				<ul class="xq_slide_in">
+					<volist name="pic" id="obj">
+					<li>
+						<a href="javascript:;"><img src="__WEBROOT__/{$obj.pic}"></a>
+					</li>
+					</volist>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="off-list">
+		<div id="StoreList">
+			<volist name="shop" id="vo">
+			<dl>
+				<dt>{$vo.name}</dt>
+				<dd class="addr">{$vo.address}</dd>
+				<dd class="phone">电话：{$vo.tel}</dd>
+				<dd class="timer">{$vo.working}</dd>
+			</dl>
+			</volist>
+		</div>
+	</div>
+    <include file="Index:menu"/>
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/xq_slide.js" type="text/javascript"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+<script type="text/javascript" src="__WEBPUBLIC__/Home/js/jquery.picSlide.storeHome.js"></script>
+<script type="text/javascript" src="__WEBPUBLIC__/Home/js/jquery.touchwipe.js"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/store.js"></script> -->
+<script language="javascript">
+$(".xq_slide_out").xq_slide({
+	type:"h",//轮播方式  h水平轮播；v垂直轮播；o透明切换
+	vatical:false,//图片描述性文本 true 显示  false不显示
+	choseBtn:false,//是否显示上下切换按钮
+	speed:2000,//动画间隔的时间，以毫秒为单位。
+	mousestop:true,//当鼠标移上去是否停止循环,针对PC端
+	showbar:true,//是否显示轮播导航bar
+	openmb:true//是否开启移动端支持
+});
+</script>
+
+</body></html>

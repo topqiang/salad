@@ -137,7 +137,7 @@ class FoodsController extends AdminBasicController {
         //include_once 'uploadfile.php';
         $save_path = "./Uploads/".$file."/".date('Ym')."/";
         //$save_path = "./Uploads/".$file."/201404/";
-        $upload_info = $this->getUpLoadFiles('',$save_path,'','','200','200','',$is_thumb=true);
+        $upload_info = $this->getUpLoadFiles('',$save_path,'','','200','200','');
         if(count($upload_info[0])<=1){
             return array('error'=>$upload_info);
         }else{

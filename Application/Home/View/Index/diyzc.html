@@ -1,8 +1,8 @@
 <include file="Index:header"/>
 	<header>
-		<a href="http://daisyfresh.21move.net/df5.html" class="arrow-l"></a>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
 		<h2><font id="_select_main" style="">选主菜</font></h2>
-		<font id="CartLine"><span class="cart-ico"><em>{$count}</em></span></font>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
 	</header>
 	<div class="con-wrap-bt2">
 		<div class="menu-wrap">
@@ -92,6 +92,8 @@ function savejc(){
 	};
 	window.location.href = '{:U("Index/diyjl")}';
 }
+
+
 $(function(){
 	var totalnum = {$totalnum};//存储最多可选数
 	function updem(){
@@ -119,8 +121,8 @@ $(function(){
 		var self = $(this);
 		var id = self.attr("id");
 		if ($(".choose-con ul."+id).size() == 1) {
-			var self = $("ul."+id);
-			self.show().siblings().hide();
+			var self1 = $("ul."+id);
+			self1.show().siblings().hide();
 		}else{
 			$.ajax({
 				url:"{:U('Index/diyzc')}",
@@ -139,6 +141,7 @@ $(function(){
 				}
 			})	
 		}
+		self.addClass("on").siblings().removeClass("on");
 	});
 });
 

@@ -28,7 +28,18 @@ class UserController extends Controller{
 		}
 		$this->ajaxReturn($msg.session('userid'));
 	}
+
+
+	public function self(){
+		A('Base');
+		$userid = session("userid");
+		$where['id'] = $userid;
+		$user = $this->user->where( $where )->select();
+		$this -> assign('user' ,$user[0]);
+		$this -> display();
+	}
 	public function loginout(){
 		session(null);
+		redirect(U('User/index'));
 	}
 }

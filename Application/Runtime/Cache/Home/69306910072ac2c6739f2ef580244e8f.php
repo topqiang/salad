@@ -12,7 +12,7 @@
 <body>
 	<div class="fakeloader" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 999; display: none; background-color: rgb(68, 68, 68);"><div class="fl spinner2" style="position: fixed; left: 50%; top: 50%;"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div></div>
 	<header>
-		<a href="http://daisyfresh.21move.net/df4.html" class="arrow-l"></a>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
 		<h2><font id="_df8_title" style="">帮我选沙拉</font></h2>
 		<font id="CartLine"><a href="<?php echo U('Goods/gley');?>"><span class="cart-ico"><em><?php echo ($count); ?></em></span></a></font>
 	</header>
@@ -21,7 +21,7 @@
 			<div class="top-tit fl-clr">
 				<ul class="tit-1 fl-clr">
 					<li type="big" class="on"><font id="_df5_big" style="">我要大份</font></li>
-					<li type="samll"><font id="_df5_small" style="">我要小份</font></li>
+					<li type="small"><font id="_df5_small" style="">我要小份</font></li>
 					<li type="free"><font id="_df5_free" style="">自由卷</font></li>
 				</ul>
 			</div>
@@ -111,7 +111,7 @@ $(function(){
 		var self = $(this);
 		if (self.hasClass("on")) {
 			self.removeClass("on");
-			sessionStorage.setItem("cut","true");
+			sessionStorage.setItem("cut","false");
 		}else{
 			self.addClass("on");
 			sessionStorage.setItem("cut","true");
@@ -166,7 +166,7 @@ $(function(){
 				if (data == "success") {
 
 				}else{
-					self.attr("hid","data").siblings().attr("hid",data);
+					self.attr("hid",data).siblings().attr("hid",data);
 				}
 				$("#LikeCount").html(well);
 				$("#UnLikeCount").html(bad);

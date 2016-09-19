@@ -11,81 +11,32 @@
 <link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/df2015.css"></head>
 <body>
 	<div class="fakeloader" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 999; display: none; background-color: rgb(68, 68, 68);"><div class="fl spinner2" style="position: fixed; left: 50%; top: 50%;"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div></div>
-<style type="text/css">
-	body{
-		background: #005740;
-    	padding-bottom: 52px;
-	}
-</style>
-	<div class="index-top">
-		<div class="banner">
-			<div class="swipe">
-				<ul class="swipe-wrap fl-clr" id="HomeFocusImgList" style="width: 375px; margin-left: 0px;"><li style="width: 375px;"><a href="javascript:;"><img src="/salad/Public/Home/images/d4-img-1.jpg"></a></li></ul>
-			</div>
-			<ul class="position" id="HomeFocusImgIndex"><li class="cur"></li></ul>
-		</div>
-        <div class="index-hd">
-			<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
-			<div id="CartLine">
-				<a href="<?php echo U('Goods/gley');?>">
-					<span class="cart-ico">
-						<em><?php echo ($count); ?></em>
-					</span>
-				</a>
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/xq_slide.css"/>
+	<div class="top-bar-wrap">
+		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+		<h2><font id="_df37_title" style="">线下门店</font></h2>
+		<font id="CartLine"><a href="<?php echo U('Goods/gley');?>"></a><span class="cart-ico"><em><?php echo ($count); ?></em></span></font>
+	</div>
+    <div class="index-top">
+		<div class="banner" style="height: 245px;">
+			<div class="xq_slide_out">
+				<ul class="xq_slide_in">
+					<?php if(is_array($pic)): $i = 0; $__LIST__ = $pic;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$obj): $mod = ($i % 2 );++$i;?><li>
+						<a href="javascript:;"><img src="/salad/<?php echo ($obj["pic"]); ?>"></a>
+					</li><?php endforeach; endif; else: echo "" ;endif; ?>
+				</ul>
 			</div>
 		</div>
 	</div>
-	<div class="index-logo">
-		<img src="/salad/Public/Home/images/d4-logo.png" width="100%">
-	</div>
-	<a href="<?php echo U('Index/diy');?>">
-		<div class="adv">
-			<img src="/salad/Public/Home/images/d4-tit-icon.png" width="32"><font id="_sala_diy" style="">沙拉DIY</font>
+	<div class="off-list">
+		<div id="StoreList">
+			<?php if(is_array($shop)): $i = 0; $__LIST__ = $shop;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><dl>
+				<dt><?php echo ($vo["name"]); ?></dt>
+				<dd class="addr"><?php echo ($vo["address"]); ?></dd>
+				<dd class="phone">电话：<?php echo ($vo["tel"]); ?></dd>
+				<dd class="timer"><?php echo ($vo["working"]); ?></dd>
+			</dl><?php endforeach; endif; else: echo "" ;endif; ?>
 		</div>
-	</a>
-	<div class="nav">
-    	<table>
-			<tbody>
-				<tr>
-					<td class="homeNav nav-1">
-						<a href="<?php echo U('Index/saselect');?>">
-							<div>
-								<img src="/salad/Public/Home/images/nav-back.png" width="100%">
-								<p><font id="_help_select" style="">帮选沙拉</font></p>
-							</div>
-						</a>
-					</td>
-					<td class="homeNav nav-2">
-						<a href="<?php echo U('Goods/goodlist',array('cname'=>'三明治'));?>">
-							<div>
-								<img src="/salad/Public/Home/images/nav-back.png" width="100%">
-								<p id="HomeSubject_2">三明治</p>
-							</div>
-						</a>
-					</td>
-					<td class="homeNav nav-3">
-						<a href="<?php echo U('Goods/goodlist',array('cname'=>'健康饮品'));?>">
-							<div>
-								<img src="/salad/Public/Home/images/nav-back.png" width="100%">
-								<p id="HomeSubject_3">健康饮品</p>
-							</div>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
-    <div class="bottom-menu"> 
-		<ul class="bt-menu-inner fl-clr">
-			<li>
-				<span>到店自提</span>
-			</li>
-			<li>
-				<span>送货上门</span>
-			</li>
-			
-		</ul>
 	</div>
     <div class="select-menu" style="display:none" id="HomeLeftNav">
 	<span onclick="$(&#39;#HomeLeftNav&#39;).slideUp(&#39;slow&#39;);"></span>
@@ -94,7 +45,7 @@
 			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-1"><font id="_df4_home" style="">首页</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/saselect');?>" class="menu-ico ico-2"><font id="_df4_plan" style="">订餐</font></a>
+			<a href="<?php echo U('Goods/goodlist');?>" class="menu-ico ico-2"><font id="_df4_plan" style="">订餐</font></a>
 		</li>
 		<li>
 			<a href="<?php echo U('Index/diy');?>" class="menu-ico ico-3"><font id="_df4_self_pick" style="">自选</font></a>
@@ -112,14 +63,23 @@
 </div>
 <script src="/salad/Public/Home/js/config.js"></script>
 <script src="/salad/Public/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-<!-- <script src="js/wewing.token.js"></script> -->
-<!-- <script src="js/wewing.init.js"></script> -->
+<script src="/salad/Public/Home/js/zepto.js" type="text/javascript"></script>
+<script src="/salad/Public/Home/js/touch.js" type="text/javascript"></script>
+<script src="/salad/Public/Home/js/xq_slide.js" type="text/javascript"></script>
+<!-- <script src="/salad/Public/Home/js/wewing.token.js"></script>
+<script src="/salad/Public/Home/js/wewing.init.js"></script> -->
 <script type="text/javascript" src="/salad/Public/Home/js/jquery.picSlide.storeHome.js"></script>
 <script type="text/javascript" src="/salad/Public/Home/js/jquery.touchwipe.js"></script>
-<script src="/salad/Public/Home/js/home.js"></script>
+<!-- <script src="/salad/Public/Home/js/store.js"></script> -->
 <script language="javascript">
-$(function(){
-
+$(".xq_slide_out").xq_slide({
+	type:"h",//轮播方式  h水平轮播；v垂直轮播；o透明切换
+	vatical:false,//图片描述性文本 true 显示  false不显示
+	choseBtn:false,//是否显示上下切换按钮
+	speed:2000,//动画间隔的时间，以毫秒为单位。
+	mousestop:true,//当鼠标移上去是否停止循环,针对PC端
+	showbar:true,//是否显示轮播导航bar
+	openmb:true//是否开启移动端支持
 });
 </script>
 

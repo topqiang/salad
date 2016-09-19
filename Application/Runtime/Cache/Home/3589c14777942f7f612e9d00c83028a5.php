@@ -70,23 +70,24 @@
 			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-1"><font id="_df4_home" style="">首页</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-2"><font id="_df4_plan" style="">订餐</font></a>
+			<a href="<?php echo U('Goods/goodlist');?>" class="menu-ico ico-2"><font id="_df4_plan" style="">订餐</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-3"><font id="_df4_self_pick" style="">自选</font></a>
+			<a href="<?php echo U('Index/diy');?>" class="menu-ico ico-3"><font id="_df4_self_pick" style="">自选</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-4"><font id="_df4_order" style="">订单</font></a>
+			<a href="<?php echo U('Order/orderlist');?>" class="menu-ico ico-4"><font id="_df4_order" style="">订单</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-5"><font id="_df4_shop" style="">门店</font></a>
+			<a href="<?php echo U('Room/bulidshop');?>" class="menu-ico ico-5"><font id="_df4_shop" style="">门店</font></a>
 		</li>
 		<li>
-			<a href="<?php echo U('Index/index');?>" class="menu-ico ico-6"><font id="_df4_mine" style="">我的</font></a>
+			<a href="<?php echo U('User/self');?>" class="menu-ico ico-6"><font id="_df4_mine" style="">我的</font></a>
 		</li>
 	</ul>
 </div>
 <script src="/salad/Public/Home/js/config.js"></script>
+<script src="/salad/Public/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="/salad/Public/Home/js/zepto.js" type="text/javascript"></script>
 <script src="/salad/Public/Home/js/touch.js" type="text/javascript"></script>
 <!-- <script src="./js/wewing.token.js"></script>

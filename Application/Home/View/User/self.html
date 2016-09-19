@@ -1,0 +1,104 @@
+<include file="Index:header"/>
+<style type="text/css">
+	body{
+		background: #e6e7e1;
+	}
+</style>
+	<div class="top-bar-wrap">
+		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+		<h2><font id="_df_35_title" style="">我的账户</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</div>
+	<div class="myacc-tit">
+		<dl>
+			<dt><div class="hd-inner"><img src="http://wx.qlogo.cn/mmopen/H62lvy3MeAicyN1bzMcShHgibibpfspZo6C6x6k8cwYmP4BI1QayLVFpiaI6cnicuMyKVGVzlmGKRiaJ9iazHzwyhdibacxsX8ug43as/0" id="UserIcon"></div></dt>
+			<dd>
+				<p id="UserName">{$user.tel}</p>
+				<h2 style="display:none">会员等级：初级</h2>
+			</dd>
+		</dl>
+	</div>
+	<div class="con-wrap">
+		<ul class="account-list">
+	        <li>
+	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
+	                <tbody>
+	                <a href="{:U('Order/orderlist')}">
+	                <tr>
+	                  <td align="left"><span class="U-black-color icons-1"><font id="_df22_0_title" style="">最近订单</font></span></td>
+	                  <td><span class="r-arrow"></span></td>
+	                 </tr>
+	                 </a>
+	       			</tbody>
+	       		</table>
+	        </li>  
+	    </ul>
+		<ul class="account-list">
+	        <li>
+	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+	                    <tr>
+	                      <td align="left"><span class="U-black-color icons-2"><font id="_df35_manager_address" style="">管理收货地址</font></span></td>
+	                      <td><span class="r-arrow"></span></td>
+	                    </tr>
+           			</tbody>
+	           </table>
+	        </li>  
+	        <li>
+	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+	                    <tr>
+	                      <td align="left"><span class="U-black-color icons-3"><font id="_df29_title" style="">储值账户</font></span><span class="mark-bl" id="cardamount">￥0.00</span></td>
+	                    </tr>
+	           		</tbody>
+	           </table>
+	        </li>
+	     
+	        <li style="display:none">
+	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
+	                <tbody><tr>
+	                    <td align="left"><span class="U-black-color icons-4"><font id="_df47_title" style="">我的卡包</font></span><span class="mark-bl" id="kbamount">(0张未使用)</span></td>
+	                      <td><span class="r-arrow">&nbsp;</span> </td></tr>
+	        		</tbody>
+	           </table>
+	        </li>
+		</ul>
+		<ul class="account-list">
+	        <li>
+	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
+	                <tbody>
+	                	<tr>
+		                    <td align="left"><span class="U-black-color icons-5"><font id="_df36_title" style="">设置</font></span></td>
+		                    <td><span class="r-arrow"></span></td>
+	                    </tr>
+	           		</tbody>
+	           </table>
+	        </li>  
+	        <li style="display:none">
+	           	<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	                <tbody>
+		                <tr>
+		                   	<td align="left"><span class="U-black-color icons-6">常见问题</span></td>
+		                    <td><span class="r-arrow"></span></td>
+		                </tr>
+	           		</tbody>
+	            </table>
+	        </li>
+		</ul>
+	</div>
+	<a href="tel:010-64796887" class="tel">010-64796887</a>
+    
+	<include file="Index:menu"/>
+	<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+	<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+	<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+	<script src="__WEBPUBLIC__/Home/js/personal.js"></script>
+	<script language="javascript">
+		$(function(){
+			
+		});
+	</script>
+
+</body>
+</html>

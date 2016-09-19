@@ -14,7 +14,13 @@
 		</div>
         <div class="index-hd">
 			<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
-			<div id="CartLine"><span class="cart-ico" onclick="H5Method.JUMPUrl(&#39;/df17.html&#39;);"><em>{$count}</em></span></div>
+			<div id="CartLine">
+				<a href="{:U('Goods/gley')}">
+					<span class="cart-ico">
+						<em>{$count}</em>
+					</span>
+				</a>
+			</div>
 		</div>
 	</div>
 	<div class="index-logo">
@@ -29,24 +35,29 @@
     	<table>
 			<tbody>
 				<tr>
-					<td class="homeNav nav-1" onclick="H5Method.JUMPUrl(&#39;/df8.html&#39;)">
-						<div>
-							<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
-							<p><font id="_help_select" style="">帮选沙拉</font></p>
-						</div>
+					<td class="homeNav nav-1">
+						<a href="{:U('Index/saselect')}">
+							<div>
+								<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
+								<p><font id="_help_select" style="">帮选沙拉</font></p>
+							</div>
+						</a>
 					</td>
 					<td class="homeNav nav-2">
-						<div>
-							<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
-							<p id="HomeSubject_2">三明治</p>
-						</div>
+						<a href="{:U('Goods/goodlist',array('cname'=>'三明治'))}">
+							<div>
+								<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
+								<p id="HomeSubject_2">三明治</p>
+							</div>
+						</a>
 					</td>
 					<td class="homeNav nav-3">
-						<div>
-							<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
-							<p id="HomeSubject_3">健康饮品</p>
-						</div>
-						
+						<a href="{:U('Goods/goodlist',array('cname'=>'健康饮品'))}">
+							<div>
+								<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
+								<p id="HomeSubject_3">健康饮品</p>
+							</div>
+						</a>
 					</td>
 				</tr>
 			</tbody>
@@ -55,10 +66,10 @@
 	
     <div class="bottom-menu"> 
 		<ul class="bt-menu-inner fl-clr">
-			<li onclick="H.ShopJump();">
+			<li>
 				<span>到店自提</span>
 			</li>
-			<li onclick="H.AddressJump();">
+			<li>
 				<span>送货上门</span>
 			</li>
 			
@@ -74,9 +85,7 @@
 <script src="__WEBPUBLIC__/Home/js/home.js"></script>
 <script language="javascript">
 $(function(){
-	H.GetDefaultAddress();
-	H.GetHomeFocusImgList();
-	H.GetProductClassList();
+
 });
 </script>
 

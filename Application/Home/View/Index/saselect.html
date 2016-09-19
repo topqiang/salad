@@ -1,6 +1,6 @@
 <include file="Index/header"/>
 	<header>
-		<a href="http://daisyfresh.21move.net/df4.html" class="arrow-l"></a>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
 		<h2><font id="_df8_title" style="">帮我选沙拉</font></h2>
 		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
 	</header>
@@ -158,7 +158,7 @@ $(function(){
 				if (data == "success") {
 
 				}else{
-					self.attr("hid","data").siblings().attr("hid",data);
+					self.attr("hid",data).siblings().attr("hid",data);
 				}
 				$("#LikeCount").html(well);
 				$("#UnLikeCount").html(bad);

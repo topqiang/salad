@@ -36,12 +36,20 @@
                     <ul>
                         <li><a href="{:U('Goods/GoodsList')}" target="main">商品列表</a></li>
                         <li><a href="{:U('Cate/CateList',array('cate'=>'Gcate'))}" target="main">商品分类</a></li>
+                        <li><a href="" target="main">评论管理</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#" class="nav-top-item">订单管理</a>
                     <ul>
-                        <li><a href="{:U('Order/OrderList',array('type'=>'2'))}" target="main">订单列表</a></li>
+                        <li><a href="{:U('Order/OrderList')}" target="main">订单列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="nav-top-item">门店管理</a>
+                    <ul>
+                        <li><a href="{:U('Shop/manapic')}" target="main">门店轮播</a></li>
+                        <li><a href="{:U('Shop/shoplist')}" target="main">门店列表</a></li>
                     </ul>
                 </li>
 				<li>

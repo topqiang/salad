@@ -12,7 +12,7 @@
 <body>
 	<div class="fakeloader" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 999; display: none; background-color: rgb(68, 68, 68);"><div class="fl spinner2" style="position: fixed; left: 50%; top: 50%;"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div></div>
 	<header>
-		<a href="" class="arrow-l"></a>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
 	  <h2><font id="_df17_car" style="">购物车</font></h2>
 		<font id="CartLine"><a href="<?php echo U('Goods/gley');?>"><span class="cart-ico"><em class="goodtotal"><?php echo ($count); ?></em></span></a></font>
 	</header>
@@ -21,9 +21,11 @@
             <p>
             <font id="_df17_empty_car" style="">购物车还空着呢，快去挑选美味沙拉吧。</font>
             </p>
-            <div class="no-btn">
-                <font id="_df17_go" style="">去逛逛</font>
-            </div>
+            <a href="<?php echo U('Goods/goodlist');?>">
+	            <div class="no-btn">
+	                <font id="_df17_go" style="">去逛逛</font>
+	            </div>
+            </a>
         </div>
         <?php else: ?>
 		<div class="choose-con cart-con" id="myDataShowArea">
@@ -45,7 +47,7 @@
 									</td>
 									<td class="td-3 fl-clr">
 										<em class="car-add-l"></em>
-										<input type="text" value="<?php echo ($good["goodnum"]); ?>" readonly="" class="inpt-shu">
+										<input type="text" value="<?php echo ($good["goodnum"]); ?>" readonly="" glid="<?php echo ($good["glid"]); ?>" class="inpt-shu">
 										<em class="car-add-r"></em>
 									</td>
 								</tr>
@@ -65,7 +67,7 @@
     <div class="cart-bt">
 		<div>
 			<span class="amount on" id="AmountLine"><font id="_df17_counts" style="">数量：</font><font class="goodtotal"><?php echo ($count); ?></font></span>
-			<em><font id="_df17_totall_price" style="">总价</font><i>￥<font id="totalprice"></font></i></em><input type="hidden" name="AmountStatus" id="AmountStatus" value="1">
+			<em><font id="_df17_totall_price" style="">总价</font>￥<i><font id="totalprice"><?php echo ($totalprice); ?></font></i></em><input type="hidden" name="AmountStatus" id="AmountStatus" value="1">
 		</div>
 		<?php if($count != 0): ?><ul class="fl-clr" id="Bottom_Button_1">
 			<li class="fl-left">
@@ -75,7 +77,9 @@
 				<span><font id="_df17_go_buy" style="">去下单</font></span>
 			</li>
 		</ul>
-		<div class="cart-btn-other" id="Bottom_Button_2"><font id="_df17_add_sank" style="">添加其他小吃</font></div><?php endif; ?>
+		<a href="<?php echo U('Goods/goodlist');?>">
+		<div class="cart-btn-other" id="Bottom_Button_2"><font id="_df17_add_sank" style="">添加其他小吃</font></div>
+		</a><?php endif; ?>
 	</div>
     
 <script src="/salad/Public/Home/js/config.js"></script>
@@ -86,7 +90,7 @@
 <script src="/salad/Public/Home/js/wewing.init.js"></script> -->
 <script src="/salad/Public/Home/js/cart.js"></script>
 <script language="javascript">
-var totalprice = 0;
+var totalprice =<?php echo ($totalprice); ?>*100;
 $(function(){
 	$("#AmountLine").on('tap',function() {
 		var self = $(this);
@@ -99,12 +103,12 @@ $(function(){
 		}
 	});
 
-	$(".goodprice").each(function(){
-		var price = $(this).html();
-		var num = $(this).parent().parent().next().find(".inpt-shu").val();
-		totalprice += parseInt(price) * parseInt(num);
-	});
-	$("#totalprice").html(totalprice);
+	// $(".goodprice").each(function(){
+	// 	var price = $(this).html();
+	// 	var num = $(this).parent().parent().next().find(".inpt-shu").val();
+	// 	totalprice +=( parseInt(price) * parseInt(num) );
+	// });
+	// $("#totalprice").html(totalprice/100);
 
 
 	$(".td-1").on('tap',function(){
@@ -113,16 +117,16 @@ $(function(){
 		var goodtotal = $(".goodtotal");
 		var total = parseInt(goodtotal.html());
 		if (self.hasClass("on")) {
-			totalprice= totalprice - parseInt(self.siblings().find(".goodprice").html())*num;
+			totalprice= totalprice - parseInt(self.siblings().find(".goodprice").html() * 100 )*num;
 			self.removeClass("on");
 			total-=num;
 		}else{
-			totalprice= totalprice + parseInt(self.siblings().find(".goodprice").html())*num;
+			totalprice= totalprice + parseInt(self.siblings().find(".goodprice").html() * 100)*num;
 			self.addClass("on");
 			total+=num;
 		}
 		goodtotal.html(total);
-		$("#totalprice").html(totalprice);
+		$("#totalprice").html(totalprice/100);
 	});
 	$("td.td-3.fl-clr em").on('tap',function(){
 		var self = $(this);
@@ -135,18 +139,34 @@ $(function(){
 				input.val(--num);
 				self.parent().prev().find("small").html(num);
 				if (self.parent().siblings(".td-1").hasClass("on")) {
-					totalprice= totalprice - parseInt(self.parent().prev().find(".goodprice").html());
-					$("#totalprice").html(totalprice);
+					totalprice= totalprice - parseInt(self.parent().prev().find(".goodprice").html() * 100);
+					$("#totalprice").html(totalprice/100);
 					goodtotal.html(--total);
 				}
+				if (num == 0) {
+					var glid = input.attr("glid");
+					$.ajax({
+						url : "<?php echo U('Goods/delgley');?>",
+						type : "get",
+						data : {"glid" : glid},
+						dataType : "json",
+						success : function (data) {
+							if (data = "success") {
+								self.parents("li").remove();
+							}else{
+								alert("删除失败！");
+							}	
+						}
+					})
+				};
 			};
 		};
 		if ( self.hasClass("car-add-r") ) {
 			input.val(++num);
 			self.parent().prev().find("small").html(num);
 			if (self.parent().siblings(".td-1").hasClass("on")) {
-				totalprice= totalprice + parseInt(self.parent().prev().find(".goodprice").html());
-				$("#totalprice").html(totalprice);
+				totalprice= totalprice + parseInt(self.parent().prev().find(".goodprice").html() * 100);
+				$("#totalprice").html(totalprice/100);
 				goodtotal.html(++total);
 			};
 		};
