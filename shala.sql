@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2016-09-19 17:24:18
+Date: 2016-09-20 20:39:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,21 +22,28 @@ DROP TABLE IF EXISTS `shala_address`;
 CREATE TABLE `shala_address` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '收货地址ID',
   `name` varchar(255) DEFAULT NULL COMMENT '收货人姓名',
-  `sex` int(11) DEFAULT NULL COMMENT '收货人性别',
+  `sex` varchar(11) DEFAULT NULL COMMENT '收货人性别',
   `tel` int(11) DEFAULT NULL COMMENT '电话',
   `city` varchar(255) DEFAULT NULL COMMENT '所在城市',
   `detailadd` varchar(255) DEFAULT NULL COMMENT '详细地址',
   `numhouse` varchar(255) DEFAULT NULL COMMENT '门牌号',
   `label` varchar(255) DEFAULT NULL COMMENT '地址标签',
   `fromuser` int(11) DEFAULT NULL COMMENT '改地址所属用户',
+  `provice` varchar(255) DEFAULT '北京' COMMENT '地址省份',
   PRIMARY KEY (`id`),
   KEY `add_user` (`fromuser`),
   CONSTRAINT `add_user` FOREIGN KEY (`fromuser`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shala_address
 -- ----------------------------
+INSERT INTO `shala_address` VALUES ('1', '阚自强', '男', '12345678', '房山区', '北京市丰台区北京西站-南广场', '1234', '小区', '5', '北京');
+INSERT INTO `shala_address` VALUES ('2', '小王', '男', '12345678', '朝阳区', '北京市丰台区北京西站-南广场', '1234', '学校', '5', '北京');
+INSERT INTO `shala_address` VALUES ('3', '再见', '男', '84932058', '海淀区', '北京市海淀区北京大学口腔医院', '4321', '学校\n', '5', '北京');
+INSERT INTO `shala_address` VALUES ('4', 'zizi', '男', '2147483647', '西城区', '北京市东城区褡裢火烧(东四北大街)', '7890', '公司', '5', '北京');
+INSERT INTO `shala_address` VALUES ('5', 'zizi', '男', '2147483647', '朝阳区', '北京市朝阳区朝阳公园', '4321', '学校', '5', '北京');
+INSERT INTO `shala_address` VALUES ('6', 'QIANG', '男', '52435525', '西城区', '北京市西城区西城区', '1234', '学校', '5', '北京');
 
 -- ----------------------------
 -- Table structure for `shala_admin`
@@ -200,13 +207,12 @@ CREATE TABLE `shala_gley` (
   KEY `gley_good` (`goods`),
   CONSTRAINT `gley_good` FOREIGN KEY (`goods`) REFERENCES `shala_goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `gley_user` FOREIGN KEY (`fromuser`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shala_gley
 -- ----------------------------
-INSERT INTO `shala_gley` VALUES ('5', '2', '5', '1');
-INSERT INTO `shala_gley` VALUES ('6', '17', '5', '1');
+INSERT INTO `shala_gley` VALUES ('7', '19', '6', '1');
 
 -- ----------------------------
 -- Table structure for `shala_goods`
@@ -226,7 +232,7 @@ CREATE TABLE `shala_goods` (
   PRIMARY KEY (`id`),
   KEY `good_gcate` (`cate_id`),
   CONSTRAINT `good_gcate` FOREIGN KEY (`cate_id`) REFERENCES `shala_gcate` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shala_goods
@@ -245,6 +251,8 @@ INSERT INTO `shala_goods` VALUES ('15', '自选沙拉小份', '苦菊X1份    �
 INSERT INTO `shala_goods` VALUES ('16', '测试', '大法师法师的放大', '1', 'Uploads/goods/201609/57de03e1951dc.png', '43.23', '0', '', '1474167777', '1474167777');
 INSERT INTO `shala_goods` VALUES ('17', '非常可乐', '水', '4', 'Uploads/goods/201609/57de0400c4632.jpg', '2.99', '0', '', '1474167808', '1474167808');
 INSERT INTO `shala_goods` VALUES ('18', '测试', '谁啊哈对撒发', '2', 'Uploads/goods/201609/57de0424e10a5.png', '12.45', '0', '', '1474167844', '1474167844');
+INSERT INTO `shala_goods` VALUES ('19', '自选沙拉大份', '罗马生菜X3份    球形生菜X1份    苦菊X1份    橙子X2份    菠萝X1份    甜酱X1份    ', '5', 'Uploads/goods/201609/4c086e017b084739bfec686dfd5fe5c0.jpg', '48.00', '0', 'diy', '1474278066', '1474278066');
+INSERT INTO `shala_goods` VALUES ('20', '自选卷', '球形生菜X1份    苦菊X1份    橙子X1份    鸡蛋X1份    烤土豆X1份    辣酱X1份    ', '7', 'Uploads/goods/201609/efc3527e79264b90aa657037f19780e1.jpg', '25.00', '0', 'diy', '1474358840', '1474358840');
 
 -- ----------------------------
 -- Table structure for `shala_hub`
@@ -308,22 +316,49 @@ DROP TABLE IF EXISTS `shala_order`;
 CREATE TABLE `shala_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `name` varchar(255) NOT NULL COMMENT '订单编号',
-  `goods` varchar(255) NOT NULL COMMENT '订单商品集合',
   `fromuser` int(11) NOT NULL COMMENT '订单所属用户',
-  `create_time` date DEFAULT NULL COMMENT '订单创建时间',
-  `update_time` date DEFAULT NULL COMMENT '订单修改时间',
-  `price` double(11,2) NOT NULL COMMENT '订单总金额',
-  `type` int(11) NOT NULL COMMENT '订单当前状态',
+  `create_time` int(11) NOT NULL COMMENT '订单创建时间',
+  `update_time` int(11) NOT NULL COMMENT '订单修改时间',
+  `price` double(11,2) DEFAULT NULL COMMENT '订单总金额',
+  `type` int(11) NOT NULL DEFAULT '0' COMMENT '订单当前状态',
   `paytype` int(11) DEFAULT NULL COMMENT '支付方式',
   `delivertype` int(11) DEFAULT NULL COMMENT '送货方式',
+  `address` int(11) NOT NULL COMMENT '该订单配送地址',
   PRIMARY KEY (`id`),
   KEY `or_user` (`fromuser`),
   CONSTRAINT `or_user` FOREIGN KEY (`fromuser`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shala_order
 -- ----------------------------
+INSERT INTO `shala_order` VALUES ('5', '52016092017061777011', '5', '0', '0', '55.00', '0', null, '1', '6');
+INSERT INTO `shala_order` VALUES ('7', '52016092017271442481', '5', '1474363634', '1474363634', '109.23', '0', null, '1', '6');
+INSERT INTO `shala_order` VALUES ('8', '52016092017363126531', '5', '1474364191', '1474364191', '15.44', '0', null, '1', '6');
+
+-- ----------------------------
+-- Table structure for `shala_orgo`
+-- ----------------------------
+DROP TABLE IF EXISTS `shala_orgo`;
+CREATE TABLE `shala_orgo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单商品关联表id',
+  `gid` int(11) NOT NULL COMMENT '商品id',
+  `gprice` double(11,2) NOT NULL COMMENT '商品价格',
+  `gnum` int(11) NOT NULL COMMENT '商品数量',
+  `oid` int(11) NOT NULL COMMENT '订单id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of shala_orgo
+-- ----------------------------
+INSERT INTO `shala_orgo` VALUES ('1', '2', '30.00', '1', '5');
+INSERT INTO `shala_orgo` VALUES ('2', '20', '25.00', '1', '5');
+INSERT INTO `shala_orgo` VALUES ('3', '16', '43.23', '1', '7');
+INSERT INTO `shala_orgo` VALUES ('4', '2', '30.00', '1', '7');
+INSERT INTO `shala_orgo` VALUES ('5', '3', '36.00', '2', '7');
+INSERT INTO `shala_orgo` VALUES ('6', '18', '12.45', '1', '8');
+INSERT INTO `shala_orgo` VALUES ('7', '17', '2.99', '1', '8');
 
 -- ----------------------------
 -- Table structure for `shala_preference`
@@ -391,13 +426,13 @@ CREATE TABLE `shala_user` (
   `name` varchar(20) DEFAULT NULL COMMENT '用户姓名',
   `tel` int(15) NOT NULL COMMENT '用户电话',
   `wx_id` int(11) DEFAULT NULL COMMENT '微信授权id',
-  `address` varchar(255) DEFAULT NULL COMMENT '用户地址集合',
+  `address` int(255) DEFAULT NULL COMMENT '用户地址',
   `sex` int(11) DEFAULT NULL COMMENT '用户性别',
   `pic` varchar(255) DEFAULT NULL COMMENT '用户头像地址',
   `balance` float DEFAULT NULL COMMENT '用户余额',
   `pwd` varchar(255) DEFAULT '' COMMENT '用户密码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of shala_user
@@ -406,7 +441,8 @@ INSERT INTO `shala_user` VALUES ('1', null, '2323323', null, null, null, null, n
 INSERT INTO `shala_user` VALUES ('2', null, '23233', null, null, null, null, null, '');
 INSERT INTO `shala_user` VALUES ('3', null, '22222222', null, null, null, null, null, '');
 INSERT INTO `shala_user` VALUES ('4', null, '1243543', null, null, null, null, null, '');
-INSERT INTO `shala_user` VALUES ('5', null, '123456', null, null, null, null, null, '');
+INSERT INTO `shala_user` VALUES ('5', null, '123456', null, '6', null, null, null, '');
+INSERT INTO `shala_user` VALUES ('6', null, '2147483647', null, null, null, null, null, '');
 
 -- ----------------------------
 -- View structure for `shala_foodcate`
@@ -437,3 +473,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- ----------------------------
 DROP VIEW IF EXISTS `shala_hubgooduser`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shala_hubgooduser` AS select `shala_goodcate`.`gid` AS `gid`,`shala_goodcate`.`gname` AS `gname`,`shala_goodcate`.`gconstituent` AS `gconstituent`,`shala_goodcate`.`gcate_id` AS `gcate_id`,`shala_goodcate`.`gpic` AS `gpic`,`shala_goodcate`.`gprice` AS `gprice`,`shala_goodcate`.`gstatus` AS `gstatus`,`shala_goodcate`.`gremark` AS `gremark`,`shala_goodcate`.`gcreate_time` AS `gcreate_time`,`shala_goodcate`.`gupdate_time` AS `gupdate_time`,`shala_goodcate`.`cname` AS `cname`,`shala_hubgood`.`uid` AS `uid`,`shala_hubgood`.`well` AS `well`,`shala_hubgood`.`bad` AS `bad` from (`shala_goodcate` join `shala_hubgood`) where (`shala_hubgood`.`gid` = `shala_goodcate`.`gid`) ;
+
+-- ----------------------------
+-- View structure for `shala_ordadd`
+-- ----------------------------
+DROP VIEW IF EXISTS `shala_ordadd`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shala_ordadd` AS select `shala_address`.`name` AS `addname`,`shala_address`.`sex` AS `sex`,`shala_address`.`tel` AS `tel`,`shala_address`.`city` AS `city`,`shala_address`.`detailadd` AS `detailadd`,`shala_address`.`numhouse` AS `numhouse`,`shala_address`.`label` AS `label`,`shala_address`.`provice` AS `provice`,`shala_order`.`id` AS `oid`,`shala_order`.`name` AS `ordname`,`shala_order`.`fromuser` AS `fromuser`,`shala_order`.`create_time` AS `create_time`,`shala_order`.`update_time` AS `update_time`,`shala_order`.`price` AS `price`,`shala_order`.`type` AS `type`,`shala_order`.`paytype` AS `paytype`,`shala_order`.`delivertype` AS `delivertype`,`shala_order`.`address` AS `address` from (`shala_order` join `shala_address`) where (`shala_order`.`address` = `shala_address`.`id`) ;
+
+-- ----------------------------
+-- View structure for `shala_orgood`
+-- ----------------------------
+DROP VIEW IF EXISTS `shala_orgood`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `shala_orgood` AS select `shala_orgo`.`id` AS `id`,`shala_orgo`.`gid` AS `gid`,`shala_orgo`.`gprice` AS `gprice`,`shala_orgo`.`gnum` AS `gnum`,`shala_orgo`.`oid` AS `oid`,`shala_goods`.`name` AS `name`,`shala_goods`.`constituent` AS `constituent`,`shala_goods`.`pic` AS `pic` from (`shala_orgo` join `shala_goods`) where (`shala_orgo`.`gid` = `shala_goods`.`id`) ;
