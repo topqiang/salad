@@ -1,0 +1,101 @@
+<include file="Index:header"/>
+	<style type="text/css">
+		body{
+			background: #e6e7e1;
+		}
+	</style>
+	<header>
+		<a href="javascript:history.go(-1);" class="arrow-l" id="BackIcon"></a>
+	  	<h2><font id="_df39_title" style="">收货地址</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</header>
+    <div>
+		<div class="addr-locat-3 fl-clr" style="display:none">
+			<span>定位城市：<i>北京</i></span>
+			<em><font id="_select_city" style="">选择城市</font></em>
+		</div>
+
+		<if condition="$_REQUEST['type'] neq 2">
+		<div class="addr-location-2" id="myPickupPointTitle">
+			<font id="_tip_click" style="">到店自提，请选择提货点</font>
+		</div>
+		<div class="addr-list-wrap" id="myPickupPointList">
+			<div class="addr-list after">
+				<dl>
+					<dt>
+						<span>新城店</span>
+						<i> (8:00-20:00)</i>
+					</dt>
+					<dd>北京朝阳区朝外大街6号（新城国际）26号楼底商103号</dd>
+					<dd>
+						<em class="zt-city">朝阳区</em>
+					</dd>
+				</dl>
+				<em class="after-link on">看地图</em>
+			</div>
+			<div class="addr-list after on">
+				<dl>
+					<dt>
+						<span>望京soho店</span>
+						<i> (8:00-20:00)</i>
+					</dt>
+					<dd>望京SOHO 塔3底商3108</dd>
+					<dd>
+						<em class="zt-city">朝阳区</em>
+					</dd>
+				</dl>
+				<em class="after-link on">看地图</em>
+			</div>
+		</div>
+		</if>
+		<if condition="$_REQUEST['type'] neq 1">
+		<div class="addr-location" id="myAddressTitle"><font id="_tip_click2" style="">送货上门，请选择您的收货地址</font></div>
+		<if condition="!empty($cityarr)">
+			<volist name="cityarr" id="address">
+				<div class="addr-list-wrap" id="myAddressList">
+					<div class="addr-list after">
+						<dl>
+							<dt>
+								<span>{$address.name}</span>
+								<i> {$address.tel}</i>
+							</dt>
+							<dd>{$address.detailadd}</dd>
+							<dd>
+								<em class="zt-city">{$address.city}</em>
+							</dd>
+						</dl>
+						<em class="after-link on">看地图</em>
+					</div>
+				</div>
+			</volist>
+		<else/>
+        <div class="addr-list addr-had had-2" id="myNoDataShowArea">
+            <dl>
+                <dt>
+                    <p><font id="_tip_no_address" style="">您尚未添加送货上门的收货地址，</font></p>
+                    <p><font id="_tip_no_address2" style="">您可以现在去添加。</font></p>
+                </dt>
+            </dl>
+        </div>
+        </if>
+	</div>
+	<div class="bt-btn" id="BottomNewLine">
+		<a href="{:U('Address/location')}"><font id="_df3_title" style="">新建收货地址</font></a>
+	</div>
+	</if>
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+<script language="javascript">
+// GetUserLoginInfo();
+</script>
+<script src="__WEBPUBLIC__/Home/js/personal.js"></script>
+<script language="javascript">
+$(function(){
+});
+</script>
+
+</body></html>

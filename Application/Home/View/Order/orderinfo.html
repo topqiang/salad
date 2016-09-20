@@ -1,0 +1,237 @@
+<include file="Index:header"/>
+<link rel="stylesheet" type="text/css" href="__WEBPUBLIC__/Home/css/fakeLoader.css">
+	<header>
+		<a href="javascript:history.go(-1);" class="arrow-l" id="BackIcon"></a>
+		<h2><font id="_df10_title" style="">订单确认</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</header>
+	<div class="con-wrap-bt">
+		<div class="order-detail">
+        	<div class="order-det-mod" style="display:none">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-13"></span><font id="_df10_sent_mothed" style="">送货方式</font>
+				</div>
+				<div class="det-dius-bd">
+					<ul class="send-tit fl-clr">
+						<li id="SendMole_2" onclick="CART.ChangeSendMole(2);" class="on"><font id="_df10_go_shop" style="">到店自提</font></li>
+						<li id="SendMole_1" onclick="CART.ChangeSendMole(1);"><font id="_df10_sent_home" style="">送货上门</font></li>
+					</ul>				
+				</div>
+			</div>
+			<if condition="$ordinfo['delivertype'] eq 1">
+			<div class="order-det-mod" id="SendShowLine">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-11"></span><font id="_df10_your_address" style="">收货地址</font>
+				</div>
+				<ul class="det-dius-bd addr-list">
+					<if condition="!empty($ordinfo['addname'])">
+					<li id="SetAddressLine">
+						<dl>
+							<dt>
+								<span class="mark-bl"><font id="_df10_sent" style="">【配送】</font></span>
+								<font id="linkname">{$ordinfo.addname}</font>
+							</dt>
+							<dd id="linkphone">{$ordinfo.tel}</dd>
+							<dd id="address">{$ordinfo.detailadd}</dd>
+						</dl>
+					</li>
+					</if>
+                    <li id="NewAddressLine">
+						<img src="__WEBPUBLIC__/Home/images/d10-add.png" width="50">
+					</li>
+				</ul>
+			</div>
+			<if condition="$ordinfo['delivertype'] eq 0">
+	            <div class="order-det-mod" id="StoreShowLine">
+					<div class="det-dius-hd">
+						<span class="d10-ico ico-11"></span><font id="_df10_self_shop" style="">自提门店</font>
+					</div>
+					<div class="ord-det-con addr-list">
+						<dl>
+							<dt><span class="mark-bl"><font id="_df10_self" style="">【自提】</font></span><font id="companytitle">{$ordinfo.addname}</font></dt>
+							<dd id="companymobile">{$ordinfo.tel}</dd>
+							<dd id="companyaddress">{$ordinfo.detailadd}</dd>
+						</dl>
+					</div>
+				</div>
+			</if>
+			<if condition="!empty($goods)">
+			<div class="order-det-mod">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-12"></span><font id="_df10_food_list" style="">餐品列表</font>
+				</div>
+				<div class="det-dius-bd ">
+					<div class="tec-order" id="product">
+					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-list">
+						<tbody>
+						<volist name="goods" id="good">
+							<tr>
+								<td class="td-1"><span>{$good.name}</span><i>X{$good.gnum}</i></td>
+								<td class="td-2 mark-bl">￥{$good.gprice}</td>
+							</tr>
+						</volist>
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+			</if>
+			<if condition="$ordinfo['delivertype'] eq 1">
+			<div class="order-det-mod" id="SendTimeLine">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-16"></span><font id="_df10_sent_time_one" style="">配送时间</font>
+				</div>
+				<div class="det-dius-bd">
+					<ul class="send-tit fl-clr">
+						<li forid="AutoSendLine" class="checkon on">
+							<font id="_df10_sent_now" style="">立即配送</font>
+						</li>
+						<li forid="SetDateLine" class="checkon">
+							<font id="_df10_sent_appiont" style="">预约配送</font>
+						</li>
+					</ul>
+					<div class="date-sele" id="SetDateLine" style="display:none">
+						<select id="myFDDate" name="myFDDate">
+							<option value="">选择时间</option>
+							<option value="2016-09-21">2016-09-21</option>
+						</select>
+						<select id="myFDTime" name="myFDTime">
+							<option value="">选择时间</option>
+							<option value="10:00-11:00">10:00-11:00</option>
+							<option value="11:00-12:00">11:00-12:00</option>
+							<option value="12:00-13:00">12:00-13:00</option>
+							<option value="13:00-14:00">13:00-14:00</option>
+							<option value="14:00-15:00">14:00-15:00</option>
+							<option value="15:00-16:00">15:00-16:00</option>
+							<option value="16:00-17:00">16:00-17:00</option>
+							<option value="17:00-18:00">17:00-18:00</option>
+							<option value="18:00-19:00">18:00-19:00</option>
+						</select>
+					</div>
+					<div class="date-sele" id="AutoSendLine">
+						<span><font id="_df10_sent_fast" style="">我们将尽快配送</font></span>
+					</div>
+				</div>
+			</div>
+			</if>
+			<if condition="$ordinfo['delivertype'] eq 0">
+            <div class="order-det-mod" id="StoreTimeLine" style="">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-16"></span><font id="_df10_self_time">自提时间：</font>
+				</div>
+				<div class="det-dius-bd">
+					<ul class="send-tit fl-clr">
+						<li forid="AutoStoreLine" class="checkon on">
+							<font id="_df10_self_now" style="">立即自提</font>
+						</li>
+						<li forid="SetStoreDateLine" class="checkon">
+							<font id="_df10_self_appiont" style="">预约自提</font>
+						</li>
+					</ul>
+					<div class="date-sele date-zt" id="SetStoreDateLine" style="display: block;">
+						<select id="myStoreDate" name="myStoreDate">
+							<option value="">选择时间</option>
+							<option value="2016-09-21">2016-09-21</option>
+						</select>
+						<select id="myStoreTime" name="myStoreTime">
+							<option value="">选择时间</option>
+							<option value="10:00-11:00">10:00-11:00</option>
+							<option value="11:00-12:00">11:00-12:00</option>
+							<option value="12:00-13:00">12:00-13:00</option>
+							<option value="13:00-14:00">13:00-14:00</option>
+							<option value="14:00-15:00">14:00-15:00</option>
+							<option value="15:00-16:00">15:00-16:00</option>
+							<option value="16:00-17:00">16:00-17:00</option>
+							<option value="17:00-18:00">17:00-18:00</option>
+							<option value="18:00-19:00">18:00-19:00</option>
+						</select>
+					</div>
+					<div class="date-sele" id="AutoStoreLine">
+						<span><font id="_df10_self_fast">请尽快到店自提</font></span>
+					</div>
+				</div>
+			</div>
+			</if>
+			<div class="order-det-mod">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-14"></span><font id="_df10_pay_mothed" style="">付款方式</font>
+				</div>
+				<div class="det-dius-bd">
+					<ul class="det-pay" id="payinfo"><li class="on" id="PayTypeLine_1"><em><img src="__WEBPUBLIC__/Home/images/pay-1.png"></em>(推荐)微信支付</li></ul>
+				</div>
+			</div>
+			<div class="order-det-mod" style="display:none">
+				<div class="det-dius-hd">
+					<span class="d10-ico ico-15"></span>发票信息
+				</div>
+				<div class="det-dius-bd">
+					<div class="self-comp">
+						<p>
+							<span id="InvoiceTypeLine_0" class="on" onclick="CART.SetInvoiceType(0);">不需要发票</span>
+                            <span id="InvoiceTypeLine_1" onclick="CART.SetInvoiceType(1);">个人</span>
+                            <span id="InvoiceTypeLine_2" onclick="CART.SetInvoiceType(2);">公司</span>
+						</p>
+						<input style="display:none" type="text" id="myInvoiceTitle" name="myInvoiceTitle" placeholder="请输入发票的抬头" onchange="CART.SaveInvoiceInfo();" onblur="CART.SaveInvoiceInfo();" class="inpt"> 
+					</div>
+				</div>
+			</div>
+			<div class="order-det-mod">
+				<div class="det-dius-bd tb-outer">
+					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-que" id="bonus">
+						<tbody>
+							<tr>
+								<td class="tb-l"><font id="_df10_totall_pay" style="">总金额：</font></td>
+								<td class="tb-r" id="totalprice">￥{$ordinfo.price}</td>
+							</tr>
+							<tr>
+								<td class="tb-l"><font id="_df10_trans_pay" style="">运 费：</font></td>
+								<td class="tb-r" id="freightprice">￥0.00</td>
+							</tr>
+							<tr>
+								<td class="tb-l">总优惠金额：:</td>
+								<td class="tb-r">-￥0.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="order-det-mod">
+				<div class="det-dius-bd msg">
+					<input type="text" placeholder="请输入您的留言" class="inpt" name="remark" id="remark" onkeypress="if(this.value.length&gt;100){this.value=this.value.substr(0,100)}H5Storage.SLV(&#39;order_remark&#39;,value)" onblur="if(this.value.length&gt;100){this.value=this.value.substr(0,100)}H5Storage.SLV(&#39;order_remark&#39;,value)" rows="5" onkeyup="if(this.value.length&gt;100){this.value=this.value.substr(0,100)}H5Storage.SLV(&#39;order_remark&#39;,value)" onafterpaste="if(this.value.length&gt;100){this.value=this.value.substr(0,100)}H5Storage.SLV(&#39;order_remark&#39;,value)">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="choose-menu">
+		<div class="ord-que fl-clr">
+			<span><font id="_df10_have_pay" style="">需要支付：</font></span><i>￥<font id="accountprice">{$ordinfo.price}</font></i>
+			<div class="pay-btn fl-right" onclick="CART.ConfirmCreateOrderDo();"><img src="__WEBPUBLIC__/Home/images/d10-ico-2.png" width="34"><font id="_df10_enter_pay" style="">确认支付</font></div>
+		</div>
+	</div>
+<input type="hidden" name="pay_type" id="pay_type">
+<input type="hidden" name="invoicetype" id="invoicetype">
+<input type="hidden" name="invoicetitle" id="invoicetitle">
+<input type="hidden" name="sendmole" id="sendmole" value="2">
+<input type="hidden" name="sendaddress" id="sendaddress" value="0">
+
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jweixin-1.0.0.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+<script src="__WEBPUBLIC__/Home/js/cart.js"></script>
+<script src="__WEBPUBLIC__/Home/js/orders.js"></script>
+<script language="javascript">
+$(function(){
+	$(".checkon").on('tap',function(){
+		var self = $(this);
+		var id = self.attr("forid");
+		self.addClass("on").siblings().removeClass("on");
+		$("#"+id).show().siblings("div").hide();
+	});
+})
+</script>
+
+</body></html>

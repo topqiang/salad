@@ -8,11 +8,12 @@ class BaseController extends Controller{
 			$this -> display("User/login");
 			exit();
 		}else{
-			$where['fromuser'] = array('eq',$user);
-			$res = D('Gleygood') -> where($where) -> sum("goodnum");
+			$where['glfromuser'] = array('eq',$user);
+			$res = 0;
 			$price = D('Gleygood') -> where($where) -> field("goodnum,gprice")->select();
 			$totalprice = 0;
 			foreach ($price as $key => $obj) {
+				$res += $obj['goodnum'];
 				$totalprice += $obj['goodnum'] * $obj['gprice'];
 			}
 			$this -> assign('count', $res );

@@ -27,7 +27,6 @@
 									<td class="td-1 on">
 										<span><img src="__WEBROOT__/{$good.gpic}"></span>
 										<i></i>
-										<input type="hidden" id="{$good.gid}" value="1">
 									</td>
 									<td class="td-2">
 										<span class="ct-name">{$good.gname}</span>
@@ -37,7 +36,7 @@
 									</td>
 									<td class="td-3 fl-clr">
 										<em class="car-add-l"></em>
-										<input type="text" value="{$good.goodnum}" readonly="" glid="{$good.glid}" class="inpt-shu">
+										<input type="text" value="{$good.goodnum}" readonly="" gid="{$good.gid}" glid="{$good.glid}" class="inpt-shu">
 										<em class="car-add-r"></em>
 									</td>
 								</tr>
@@ -66,7 +65,7 @@
 			<li class="fl-left">
 				<a href="{:U('Index/diy')}"><span><font id="_df17_self_pick" style="">自选沙拉</font></span></a>
 			</li>
-			<li class="fl-right">
+			<li class="fl-right putorder">
 				<span><font id="_df17_go_buy" style="">去下单</font></span>
 			</li>
 		</ul>
@@ -94,6 +93,44 @@ $(function(){
 		}else{
 			self.addClass("on");
 			$(".td-1").trigger("tap");
+		}
+	});
+
+
+	//下订单
+	$(".putorder").on('tap',function(){
+		var goods = [];
+		$("td.td-1.on").each(function(){
+			var siblings = $(this).siblings();
+			var gprice = siblings.find(".goodprice").text();
+			var inpt_shu = siblings.find(".inpt-shu");
+			var gid = inpt_shu.attr("gid");
+			var gnum = inpt_shu.val();
+			var glid = inpt_shu.attr("glid");
+			goods.push({
+				"gid" : gid,
+				"gnum" : gnum,
+				"glid" : glid,
+				"gprice" : gprice
+			});
+		});
+		if (goods.length != 0) {
+			$.ajax({
+				url : "{:U('Order/addorder')}",
+				type : "post",
+				data : {"goods" : goods},
+				dataType : "json",
+				success : function(data){
+					var res = JSON.parse(data);
+					if (res.status && (res.status == "success")) {
+						window.location.href = "{:U('Order/orderinfo')}/id/"+res.id;
+					}else{
+						console.log(data);
+					}
+				}
+			});
+		}else{
+			alert("商品个数不能为空");
 		}
 	});
 
