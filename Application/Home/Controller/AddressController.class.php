@@ -46,6 +46,7 @@ class AddressController extends BaseController{
 			$this -> ajaxReturn("error");
 			exit();
 		}
+		$userid = session("userid");
 		$data = array(
 				"name" => $_POST['name'],
 				"sex" => $_POST['sex'],
@@ -55,10 +56,17 @@ class AddressController extends BaseController{
 				"detailadd" => $_POST['detailadd'],
 				"numhouse" => $_POST['numhouse'],
 				"label" => $_POST['label'],
-				"fromuser" => session("userid")
+				"fromuser" => $userid
 			);
 		$res = D("Address")->add($data);
 		if (!empty($res)) {
+			$touseradd = array('id'=>$userid);
+			$user = D("User");
+			$address = $user -> field('address') ->where( $touseradd ) -> select();
+			if (empty($address[0]['address'])) {
+				$touseradd['address'] = $res;
+				$user -> save( $touseradd );
+			}
 			$this -> ajaxReturn($res);
 		}else{
 			$this -> ajaxReturn("error");

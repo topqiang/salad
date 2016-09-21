@@ -2,58 +2,86 @@
 	<div class="top-bar-wrap">
 		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
 		<h2><font id="_df22_0_title" style="">最近订单</font></h2>
-		<font id="CartLine"><span class="cart-ico" onclick="H5Method.JUMPUrl(&#39;/df17.html&#39;);"><em>0</em></span></font>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"></a><span class="cart-ico"><em>{$count}</em></span></font>
 	</div>
+	<if condition="!empty($ordinfo)">
 	<div class="ord-sch">
 		<div class="sch-inner-2 fl-clr">
 			<input type="text" class="pro-inp inpt-3" placeholder="您可以根据商品名称进行搜索" id="key" name="key">
-			<div class="sch-btn-2" onclick="OM.GetOrdersListBySearch();"></div>
+			<div class="sch-btn-2"></div>
 		</div>
 	</div>
 	<div class="con-wrap-bt" id="myOrdersList" scrollpagination="enabled">
 		<div class="tecent-order-mod">
+		<volist name="ordinfo" id="order">
 			<div class="det-dius-bd">
 				<ul class="fl-clr">
 					<li class="tec-tit">
-						<p>订单编号：<i>160910995700001</i></p>
-						<p>订单状态：<span class="mark-bl">等待付款</span></p>
+						<a href="{:U('Order/orderinfo')}/id/{$order.oid}">
+						<p>订单编号：<i>{$order.addname}</i></p>
+						<p>订单状态：
+							<span class="mark-bl">
+								<if condition="$order['type'] eq 0">待付款
+									<elseif condition="$order['type'] eq 1" />待发货
+									<elseif condition="$order['type'] eq 2" />待收货
+									<elseif condition="$order['type'] eq 3" />已完成
+									<else/>售后中
+								</if>
+							</span>
+						</p>
+						</a>
 					</li>
 					<li class="tec-order">
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-list">
 							<tbody>
+							<volist name="order['goods']" id="good">
 								<tr>
-									<td class="td-1"><span>自选沙拉大份</span><i>X1</i></td>
-									<td class="td-2 mark-bl">￥48.00</td>
+									<td class="td-1"><span>{$good.name}</span><i>X{$good.gnum}</i></td>
+									<td class="td-2 mark-bl">￥{$good.gprice}</td>
 								</tr>
+							</volist>
 							</tbody>
 						</table>
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-list tb-list-2">
 							<tbody>
 								<tr>
-									<td class="td-1 mark-bl">共计1个商品</td>
-									<td class="td-2">实付：<em class="mark-bl">￥48.00</em></td>
+									<td class="td-1 mark-bl">共计{$order.gsnum}个商品</td>
+									<td class="td-2">实付：<em class="mark-bl">￥{$order.price}</em></td>
 								</tr>
 							</tbody>
 						</table>
 					</li>
 					<li class="tec-btn fl-clr">
-						<div class="order-btn-l">确认付款</div>
-						<div class="order-btn-r">取消订单</div>
+						<div class="order-btn-l">
+							<if condition="$order['type'] eq 0">确认付款
+								<elseif condition="$order['type'] eq 1" />催他
+								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 0)" />联系客服
+								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 1)" />确认收货
+								<elseif condition="$order['type'] eq 3" />评价
+							</if>
+						</div>
+						<if condition="$order['type'] eq 0">
+							<div class="order-btn-r">取消订单</div>
+						</if>
 					</li>
 				</ul>
 			</div>
+		</volist>
 		</div>
 	</div>
-	
-    	<div class="no-content" id="myNoDataShowArea" style="display:none;">
+	</if>
+	<if condition="empty($ordinfo)">
+    	<div class="no-content" id="myNoDataShowArea">
             <p id="myNoDataContent">
-             <font id="_non_order" style="">您尚未购买任何商品</font>
+            <font id="_non_order" style="">您尚未购买任何商品</font>
             </p>
-
-            <div class="no-btn" onclick="H5Method.JUMPUrl(&#39;/df7.html&#39;);">
+			<a href="{:U('Goods/goodlist')}">
+            <div class="no-btn">
                 <font id="_df17_go" style="">去逛逛</font>
             </div>
+            </a>
         </div>
+    </if>
     <div class="U-login-warp" id="loading" style="display: none;">
         <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
             <tbody><tr>

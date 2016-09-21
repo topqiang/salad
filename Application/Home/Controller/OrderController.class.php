@@ -10,12 +10,12 @@ class OrderController extends BaseController{
 	public function _initialize(){
 		parent::_initialize();
 	}
-
 	public function addorder(){
 		$goods = $_POST['goods'];
 		$fromuser = session("userid");
 		$name = $fromuser.date("YmdHis").rand(10000,99999);
 		$Order = D("Order");
+		$address = D("User") -> field('address') -> where( array('id'=>$fromuser) ) -> select();
 		if (!empty($goods)) {
 			//查询当前物流方式以及地址
 			$order = array(
@@ -25,7 +25,8 @@ class OrderController extends BaseController{
 				"update_time" =>time(),
 				"price" => 0,
 				"type" => 0,
-				"address" => 6
+				"delivertype" => 1,//session判断物流方式
+				"address" => $address[0]['address']
 				);
 			$res = $Order -> add($order);
 			if (!empty($res)) {
@@ -63,6 +64,24 @@ class OrderController extends BaseController{
 			$this -> ajaxReturn("商品数量为空！");
 		}
 	}
+	/**
+	*
+	*
+	*/
+	public function updorder(){
+		$order = $_POST['order'];
+		if ( isset($order) ) {
+			$ord = D("Order");
+			$res = $ord -> save( $order );
+			if ( isset( $res ) ) {
+				$this -> ajaxReturn( $res );
+			}else{
+				$this -> ajaxReturn( "error" );
+			}
+		}
+	}
+
+
 	public function orderinfo(){
 		$id = $_GET['id'];
 		$where['oid'] = array('eq',$id);
@@ -72,10 +91,28 @@ class OrderController extends BaseController{
 		$goods = $orgood -> where($where) -> select();
 		$this -> assign("goods" , $goods);
 		$this -> assign("ordinfo",$ordinfo[0]);
-		$this -> display();
-	}
-	public function orderlist(){
+		if ($ordinfo[0]['type'] == 0) {
+			$this -> display();
+		}else{
+			$this -> display("orderinfo2");
+		}
 		
-		$this->display();
+	}
+
+	public function orderlist(){
+		$where[ 'fromuser' ] = session("userid");
+		$where[ 'type' ] = array( 'neq' , 9 );
+		$ordadd = D("Ordadd");
+		$orgood = D("Orgood");
+		$ordinfo = $ordadd -> field("oid,addname,type,price,delivertype") -> where($where) -> select();
+		foreach ($ordinfo as $key => $order) {
+			$good[ 'oid' ] = $order[ 'oid' ];
+			$goods = $orgood -> field('gid,name,gnum,gprice') -> where( $good ) -> select();
+			 $ordinfo[ $key ][ 'gsnum' ] = $orgood -> where( $good ) -> sum('gnum');
+			// $ordinfo[ $key ][ 'gsnum' ] = count($goods); 
+			$ordinfo[ $key ][ 'goods' ] = $goods;
+		}
+		$this -> assign("ordinfo", $ordinfo);
+		$this -> display();
 	}
 }

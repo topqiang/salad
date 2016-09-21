@@ -9,35 +9,54 @@
 		<div class="ord-det-bd">
 			<div class="ord-det-hd fl-clr">
 				<font id="_order_state" style="">订单状态：</font>
-				<i class="mark-bl" id="StatusDesc">等待付款</i>
-				<em style="display:none" id="CommentButton">
-					<font id="_df_comment" style="">评价</font>
+				<i class="mark-bl" id="StatusDesc">
+					<if condition="$ordinfo['type'] eq 0">待付款
+						<elseif condition="$ordinfo['type'] eq 1" />待发货
+						<elseif condition="$ordinfo['type'] eq 2" />待收货
+						<elseif condition="$ordinfo['type'] eq 3" />已完成
+						<else/>售后中
+					</if>
+				</i>
+				<em id="PayButton" style="">
+					<font id="_df_pay" style="">
+						<if condition="$ordinfo['type'] eq 0">付款
+							<elseif condition="$ordinfo['type'] eq 1" />催他
+							<elseif condition="($ordinfo['type'] eq 2) AND ($ordinfo['delivertype'] eq 0)" />联系客服
+							<elseif condition="($ordinfo['type'] eq 2) AND ($ordinfo['delivertype'] eq 1)" />确认收货
+							<elseif condition="$ordinfo['type'] eq 3" />评价
+						</if>
+					</font>
 				</em>
-				<em id="ReceivingButton" style="display:none">
-					<font id="_df_ensure_get" style="">确认收货</font>
-				</em>
-				<em id="PayButton" style=""><font id="_df_pay" style="">付款</font></em>
 			</div>
-			<div class="ord-det-con" id="SendShowLine" style="display:none">
+			<if condition="$delivertype eq 1">
+			<div class="ord-det-con" id="SendShowLine">
 				<ul>
-					<li><font id="_consignee" style="">收货人：</font><font id="name">13163177870</font></li>
-					<li><font id="_telephone" style="">手机号</font><font id="phone">13163177870</font></li>
-					<li><font id="_df10_your_address" style="">收货地址</font>：<font id="address"></font></li>
+					<li>
+						<font id="_consignee" style="">收货人：</font><font id="name">{$ordinfo.addname}</font>
+					</li>
+					<li>
+						<font id="_telephone" style="">手机号</font><font id="phone">{$ordinfo.tel}</font>
+					</li>
+					<li>
+						<font id="_df10_your_address" style="">收货地址</font>：<font id="address">{$ordinfo.detailadd}</font>
+					</li>
 				</ul>
 			</div>
+			<else/>
             <div class="ord-det-con" id="StoreShowLine" style="">
 				<dl>
-                	<dt id="companytitle">望京soho店</dt>
+                	<dt id="companytitle">{$ordinfo.addname}</dt>
 					<dd>
 						<font id="_df_shop_phone" style="">电话：</font>
-						<font id="companymobile">01064796887</font>
+						<font id="companymobile">{$ordinfo.tel}</font>
 					</dd>
 					<dd>
 						<font id="_df_shop_address" style="">地址：</font>
-						<font id="companyaddress">望京SOHO 塔3底商3108</font>
+						<font id="companyaddress">{$ordinfo.detailadd}</font>
 					</dd>
 				</dl>
 			</div>
+			</if>
 		</div>
         <div class="ord-det-bd" id="FCodeShowLine" style="display: none;">
 			<div class="ord-det-hd fl-clr"><font id="_pick_up_code" style="">提货码：</font></div>
@@ -54,13 +73,43 @@
 			</div>
 			<div class="ord-det-con">
 				<ul>
-					<li><font id="_order_code" style="">订单编号：</font><font id="code_num">160910995700001</font></li>
-					<li><font id="_completion_time" style="">成交时间：</font><font id="create_date">2016-9-10 10:41:52</font></li>
-                    <li id="completedate_1" style="display:none"><font id="_finish" style="">配送完成时间</font>：<span id="completedate1"></span></li>
-                    <li id="completedate_2" style="display:none"><font id="_pickup_finish" style="">自提完成时间</font>：<span id="completedate2"></span></li>
-					<li><font id="_df10_pay_mothed" style="">付款方式</font>：<font id="pay_type_title">微信支付</font></li>
-					<li><font id="_pay_state" style="">付款状态：</font><font id="pay_status">未付款</font></li>
-					<li><font id="_df10_sent_mothed" style="">送货方式</font>：<font id="sendmoleTitle">到店自提</font></li>
+					<li><font id="_order_code" style="">订单编号：</font><font id="code_num">{$ordinfo.ordname}</font></li>
+					<li><font id="_completion_time" style="">成交时间：</font><font id="create_date">{$ordinfo.create_time|date="y-m-d H:m:i",###}</font></li>
+                    <li id="completedate_1" style="display:none">
+                    	<font id="_finish" style="">配送完成时间</font>：
+                    	<span id="completedate1"></span>
+                    </li>
+                    <li id="completedate_2" style="display:none">
+                    	<font id="_pickup_finish" style="">自提完成时间</font>：
+                    	<span id="completedate2"></span>
+                    </li>
+					<li>
+						<font id="_df10_pay_mothed" style="">付款方式</font>：
+						<font id="pay_type_title">
+							<if condition="$ordinfo['paytype'] eq 1">
+							微信支付
+							<else/>货到付款
+							</if>
+						</font>
+					</li>
+					<li>
+						<font id="_pay_state" style="">付款状态：</font>
+						<font id="pay_status">
+							<if condition="($ordinfo['type'] eq 0) OR (($ordinfo['paytype'] eq 0) OR ($ordinfo['type'] lt 3)) ">
+							未付款
+							<else/>已付款
+							</if>
+						</font>
+					</li>
+					<li>
+						<font id="_df10_sent_mothed" style="">送货方式</font>：
+						<font id="sendmoleTitle">
+							<if condition="$ordinfo['delivertype'] eq 0">
+							到店自提
+							<else/>送货上门
+							</if>
+						</font>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -68,40 +117,45 @@
 			<div class="ord-det-hd fl-clr"><font id="_commodity_info" style="">商品信息</font></div>
 			<div class="ord-det-con-2">
 				<dl id="product">
+				<volist name="goods" id="good">
 					<dt>
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="ord-list">
 							<tbody>
+								
 								<tr>
-									<td class="td-1"><img src="__WEBPUBLIC__/Home/images/4c086e017b084739bfec686dfd5fe5c0.jpg"></td>
+									<td class="td-1"><img src="__WEBROOT__/{$good.pic}"></td>
 									<td class="td-2">
-										<h2>自选沙拉大份</h2>
+										<h2>{$good.name}</h2>
 										<ul>
-											<li class="fl-clr"><i>基：</i><span>紫叶生菜 x 1 球形生菜 x 1 </span></li>
+											{$good.constituent}
+											<!-- <li class="fl-clr"><i>基：</i><span>紫叶生菜 x 1 球形生菜 x 1 </span></li>
 											<li class="fl-clr"><i>配：</i><span>西芹 x 1 芦笋 x 1 </span></li>
-											<li class="fl-clr"><i>酱：</i><span>低脂蜂蜜芥茉酱 x 1 </span></li>
+											<li class="fl-clr"><i>酱：</i><span>低脂蜂蜜芥茉酱 x 1 </span></li> -->
 										</ul>
 									</td>
-									<td class="td-3"><p><em>￥48.00</em>/份</p><i>x1</i></td>
+									<td class="td-3"><p><em>￥{$good.gprice}</em>/份</p><i>x{$good.gnum}</i></td>
 								</tr>
+								
 							</tbody>
 						</table>
 					</dt>
+				</volist>
 				</dl>
 				<div>
 					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="ord-mny" id="bonus">
 						<tbody><tr>
 							<td class="td-l"><font id="_total_amount" style="">商品总金额</font>：</td>
-							<td class="td-r" id="orders_price">￥48.00</td>
+							<td class="td-r" id="orders_price">￥{$ordinfo.price}</td>
 						</tr>
 						<tr>
 							<td class="td-l"><font id="_df10_trans_pay" style="">运 费：</font></td>
-							<td class="td-r" id="f_price">￥0.00</td>
+							<td class="td-r" id="f_price">￥{$ordinfo.luggage}</td>
 						</tr>
-					<tr><td class="td-l">总优惠金额：</td><td class="td-r">-￥0.00</td></tr></tbody></table>
+					<tr><td class="td-l">总优惠金额：</td><td class="td-r">-￥{$ordinfo.benefit}</td></tr></tbody></table>
 					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="ord-mny-2">
 						<tbody><tr>
 							<td class="td-l"><font id="_paid" style="">实付：</font></td>
-							<td class="td-r" id="real_price">￥48.00</td>
+							<td class="td-r" id="real_price">￥{$ordinfo.paymoney}</td>
 						</tr>
 					</tbody></table>
 				</div>
@@ -120,7 +174,7 @@
 			<div class="ord-det-hd fl-clr"><font id="_leave_a_message" style="">留言信息</font></div>
 			<div class="ord-det-con">
 				<ul>
-					<li id="remark"></li>
+					<li id="remark">{$ordinfo.remark}</li>
 				</ul>
 			</div>
 		</div>
@@ -130,7 +184,7 @@
 			<h3><font id="_code_tip" style="">到门店自提请出示此提货二维码</font></h3>
 			<div class="thm">
 				<div class="thm-inner" id="FCodeBigArea">
-					<img src="__WEBPUBLIC__/Home/images/d23-ewm.png" id="FCodeBigImg" onload="ImgLoadOk();">
+					<img src="__WEBPUBLIC__/Home/images/d23-ewm.png" id="FCodeBigImg">
 				</div>
 				
 			</div>
