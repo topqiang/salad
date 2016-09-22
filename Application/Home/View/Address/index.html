@@ -42,7 +42,7 @@
 		<if condition="!empty($cityarr)">
 			<div class="addr-list-wrap" id="myAddressList">
 				<volist name="cityarr" id="address">
-					<div  <if condition="$address['addid'] eq $useradd">class="addr-list after on"<else/>class="addr-list after"</if>  addid="{$address.id}">
+					<div  <if condition="$address['id'] eq $useradd">class="addr-list after on"<else/>class="addr-list after"</if>  addid="{$address.id}">
 						<dl>
 							<dt>
 								<span>{$address.name}</span>

@@ -75,14 +75,13 @@ class GoodsController extends Controller{
 			
 			//存储数据
 			$data=array(
-				'id'			=>$_GET['fid'],
+				'id'			=>$_GET['id'],
 				'name'			=>$_POST['name'],
 				'constituent'	=>$_POST['constituent'],
 				'cate_id'		=>$_POST['cate_id'],
 				'price'			=>$_POST['price'],
 				'update_time'	=>time(),
 				'remark'		=>$_POST['remark'],
-				'status'		=>0,
 			);
 			if($upload_res['flag']=='success')$data['pic']="Uploads/goods/".$upload_res['result'];
 			$res=$this->goods->save($data);
@@ -141,7 +140,7 @@ class GoodsController extends Controller{
         //include_once 'uploadfile.php';
         $save_path = "./Uploads/".$file."/".date('Ym')."/";
         //$save_path = "./Uploads/".$file."/201404/";
-        $upload_info = $this->getUpLoadFiles('',$save_path,'','','200','200','',$is_thumb=true);
+        $upload_info = $this->getUpLoadFiles('',$save_path,'','','200','200','');
         if(count($upload_info[0])<=1){
             return array('error'=>$upload_info);
         }else{

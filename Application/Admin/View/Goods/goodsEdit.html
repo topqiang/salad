@@ -7,11 +7,6 @@
 	<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/invalid.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/simpla.jquery.configuration.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/facebox.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.wysiwyg.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.datePicker.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.date.js"></script>
 </head>
 <body>
 <div id="main-content">
@@ -23,7 +18,7 @@
 		</div>
 		<div class="content-box-content">
 			<div class="tab-content default-tab">
-				<form action="{:U('Goods/goodsEdit',array('gid'=>$gid))}" method="post" enctype="multipart/form-data">
+				<form action="{:U('Goods/goodsEdit',array('id'=>$id))}" method="post" enctype="multipart/form-data">
 					<fieldset>
 						<p>
 							<label>商品名称(ID:{$info.gid})</label>
@@ -51,7 +46,7 @@
 						</p>
 						<p>
 							<label>商品图</label>
-							<img src="__WEBROOT__/{$info.gpic}" width="480" height="320"/>
+							<img src="__WEBROOT__/{$info.gpic}" width="100" height="100"/>
 							<input type="file" name="pic"/>
 						</p>
 						<p>
@@ -68,5 +63,18 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	function ajax(){
+		var self = $(this);
+		var files = this.files;
+		var reader = new FileReader();
+		reader.onload = function(e){
+			var src = e.target.result;
+			self.prev().attr("src",src);
+		}
+		reader.readAsDataURL(files[0]);
+	}
+	$("input[type='file']").on('change',ajax);
+</script>
 </body>
 </html>
