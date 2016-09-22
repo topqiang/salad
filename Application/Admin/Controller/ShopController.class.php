@@ -10,13 +10,13 @@ class ShopController extends AdminBasicController{
 	}
 
 	public function manapic(){
-		$list = D("Shoppic")->select();
+		$list = D("Shoppic") -> select();
 		$this -> assign("list",$list);
-		$this->display();
+		$this -> display();
 	}
 
 	public function shoplist(){
-		$list = D("Shop")->select();
+		$list = D("Shopadd")->select();
 		$this->assign("list",$list);
 		$this->display();
 	}
@@ -30,47 +30,70 @@ class ShopController extends AdminBasicController{
 			$this->error("删除失败！");
 		}
 	}
+
 	public function shopedit(){
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 			$where['id'] = array('eq' , $id); 
-			$list = D("shop")->where( $where )->select();
+			$list = D("shopadd")->where( $where )->select();
 			$this->assign("info",$list[0]);
 			$this-> display();
 		}else{
-			$data = array(
-				'id' => $_POST['id'],
+			$addre = array(
+				'id' => $_POST['addid'],
 				'name' => $_POST['name'],
-				'address' => $_POST['address'],
 				'tel' => $_POST['tel'],
-				'working' => $_POST['working']
+				'detailadd' => $_POST['address'],
+				'numhouse' => $_POST['numhouse'],
+				'city' => $_POST['city']
 				);
-			$result = D("Shop")->save($data);
-			if (!empty($result)) {
-				$this->success("门店修改成功！",U("Shop/shoplist"));
-			}else{
-				$this->error("门店修改失败！");
+			$res = $result = D("Address")->save($addre);
+			if (isset($res)) {
+				$data = array(
+					'id' => $_POST['id'],
+					'name' => $_POST['name'],
+					'tel' => $_POST['tel'],
+					'working' => $_POST['working']
+					);
+				$result = D("Shop")->save($data);
+				if (!empty($result)) {
+					$this->success("门店修改成功！",U("Shop/shoplist"));
+				}else{
+					$this->error("门店修改失败！");
+				}
 			}
 		}
 	}
+
 	public function addshop(){
 		if (empty($_POST['name'])) {
 			$this-> display();
 		}else{
-			$data = array(
+			$addre = array(
 				'name' => $_POST['name'],
-				'address' => $_POST['address'],
 				'tel' => $_POST['tel'],
-				'working' => $_POST['working']
+				'detailadd' => $_POST['address'],
+				'numhouse' => $_POST['numhouse'],
+				'city' => $_POST['city']
 				);
-			$result = D("Shop")->add($data);
-			if (!empty($result)) {
-				$this->success("门店添加成功！",U("Shop/shoplist"));
-			}else{
-				$this->error("门店添加失败！");
+			$res = D("Address")->add($addre);
+			if (isset($res)) {
+				$data = array(
+					'name' => $_POST['name'],
+					'address' => $res,
+					'tel' => $_POST['tel'],
+					'working' => $_POST['working']
+					);
+				$result = D("Shop")->add($data);
+				if (!empty($result)) {
+					$this->success("门店添加成功！",U("Shop/shoplist"));
+				}else{
+					$this->error("门店添加失败！");
+				}
 			}
 		}
 	}
+
 	public function uploadshop(){
 		$pic = $_POST['pic'];
 		$picname = $_POST['picname'];

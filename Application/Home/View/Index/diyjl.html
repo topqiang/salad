@@ -1,8 +1,8 @@
 <include file="Index:header"/>
 	<header>
-		<a href="http://daisyfresh.21move.net/df5-1.html" class="arrow-l"></a>
+		<a href="javascript:history.go(-1);" class="arrow-l"></a>
 		<h2><font id="_df5_2_title" style="">选酱料</font></h2>
-		<font id="CartLine"><span class="cart-ico"><em>{$count}</em></span></font>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
 	</header>
 	<div class="con-wrap-bt">
 		<div class="choose-con-2">
@@ -51,12 +51,18 @@ function savejc(){
 	var goods =JSON.parse(sessionStorage.getItem("goods"));
 	var type = goods.name ? goods.name : "big";
 	var foods = goods.foods ? goods.foods : [];
+	var IsShredLine = $("#IsShredLine").hasClass("on");
 	var obj = {};
 	obj.foodsid = $("li.on").attr("id");
 	obj.foodsname = $("li.on").attr("name");
 	obj.num = 1;
 	foods.push(obj);
 	goods.foods = foods ;
+	if (IsShredLine) {
+		goods.cut = "切碎";
+	}else{
+		goods.cut = "不切碎";
+	}
 	if (foods.length == 0) {
 		alert("您未选择菜品，无法下单！");
 		return;

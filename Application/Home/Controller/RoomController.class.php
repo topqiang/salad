@@ -13,7 +13,7 @@ class RoomController extends BaseController{
 	
 	public function bulidshop(){
 		$pic = D("Shoppic")->select();
-		$shop = D("Shop")->select();
+		$shop = D("Shopadd")->select();
 		$this -> assign("pic",$pic);
 		$this -> assign("shop" ,$shop);
 		$this->display();

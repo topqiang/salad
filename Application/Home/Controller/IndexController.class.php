@@ -18,6 +18,8 @@ class IndexController extends BaseController {
      * 系统首页
      */
     public function index(){
+        $pic = D("Shoppic")->select();
+        $this -> assign("pic",$pic);
 	    $this -> display();
     }
 

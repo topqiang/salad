@@ -1,1 +1,0 @@
-a:8:{i:0;s:3:"aid";i:1;s:7:"account";i:2;s:8:"password";i:3;s:4:"g_id";i:4;s:5:"ctime";i:5;s:6:"status";s:3:"_pk";s:3:"aid";s:5:"_type";a:6:{s:3:"aid";s:7:"int(10)";s:7:"account";s:11:"varchar(20)";s:8:"password";s:11:"varchar(32)";s:4:"g_id";s:6:"int(2)";s:5:"ctime";s:7:"int(10)";s:6:"status";s:6:"int(1)";}}

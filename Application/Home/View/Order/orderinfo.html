@@ -19,28 +19,30 @@
 				</div>
 			</div>
 			<if condition="$ordinfo['delivertype'] eq 1">
-			<div class="order-det-mod" id="SendShowLine">
-				<div class="det-dius-hd">
-					<span class="d10-ico ico-11"></span><font id="_df10_your_address" style="">收货地址</font>
+				<div class="order-det-mod" id="SendShowLine">
+					<div class="det-dius-hd">
+						<span class="d10-ico ico-11"></span><font id="_df10_your_address" style="">收货地址</font>
+					</div>
+					<ul class="det-dius-bd addr-list">
+						<if condition="!empty($ordinfo['addname'])">
+						<li id="SetAddressLine">
+							<dl>
+								<dt>
+									<span class="mark-bl"><font id="_df10_sent" style="">【配送】</font></span>
+									<font id="linkname">{$ordinfo.addname}</font>
+								</dt>
+								<dd id="linkphone">{$ordinfo.tel}</dd>
+								<dd id="address">{$ordinfo.detailadd}</dd>
+							</dl>
+						</li>
+						</if>
+	                    <li id="NewAddressLine">
+							<a href="{:U('Address/location')}"><img src="__WEBPUBLIC__/Home/images/d10-add.png" width="50"></a>
+						</li>
+					</ul>
 				</div>
-				<ul class="det-dius-bd addr-list">
-					<if condition="!empty($ordinfo['addname'])">
-					<li id="SetAddressLine">
-						<dl>
-							<dt>
-								<span class="mark-bl"><font id="_df10_sent" style="">【配送】</font></span>
-								<font id="linkname">{$ordinfo.addname}</font>
-							</dt>
-							<dd id="linkphone">{$ordinfo.tel}</dd>
-							<dd id="address">{$ordinfo.detailadd}</dd>
-						</dl>
-					</li>
-					</if>
-                    <li id="NewAddressLine">
-						<a href="{:U('Address/location')}"><img src="__WEBPUBLIC__/Home/images/d10-add.png" width="50"></a>
-					</li>
-				</ul>
-			</div>
+			</if>
+
 			<if condition="$ordinfo['delivertype'] eq 0">
 	            <div class="order-det-mod" id="StoreShowLine">
 					<div class="det-dius-hd">
@@ -55,76 +57,76 @@
 					</div>
 				</div>
 			</if>
+
 			<if condition="!empty($goods)">
-			<div class="order-det-mod">
-				<div class="det-dius-hd">
-					<span class="d10-ico ico-12"></span><font id="_df10_food_list" style="">餐品列表</font>
-				</div>
-				<div class="det-dius-bd ">
-					<div class="tec-order" id="product">
-					<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-list">
-						<tbody>
-						<volist name="goods" id="good">
-							<tr>
-								<td class="td-1"><span>{$good.name}</span><i>X{$good.gnum}</i></td>
-								<td class="td-2 mark-bl">￥{$good.gprice}</td>
-							</tr>
-						</volist>
-						</tbody>
-					</table>
+				<div class="order-det-mod">
+					<div class="det-dius-hd">
+						<span class="d10-ico ico-12"></span><font id="_df10_food_list" style="">餐品列表</font>
+					</div>
+					<div class="det-dius-bd ">
+						<div class="tec-order" id="product">
+						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-list">
+							<tbody>
+							<volist name="goods" id="good">
+								<tr>
+									<td class="td-1"><span>{$good.name}</span><i>X{$good.gnum}</i></td>
+									<td class="td-2 mark-bl">￥{$good.gprice}</td>
+								</tr>
+							</volist>
+							</tbody>
+						</table>
+						</div>
 					</div>
 				</div>
-			</div>
 			</if>
 			
-			<div class="order-det-mod" id="SendTimeLine">
-				<div class="det-dius-hd">
-					<span class="d10-ico ico-16"></span>
-					<font id="_df10_sent_time_one" style="">
-						<if condition="$ordinfo['delivertype'] eq 1">配送时间<else/>自提时间</if>：
-					</font>
-				</div>
-				<div class="det-dius-bd">
-					<ul class="send-tit fl-clr">
-						<li forid="AutoSendLine" class="checkon on">
-							<font id="_df10_sent_now">
-								<if condition="$ordinfo['delivertype'] eq 1">立即配送<else/>立即自提</if>
-							</font>
-						</li>
-						<li forid="SetDateLine" class="checkon">
-							<font id="_df10_sent_appiont">
-								<if condition="$ordinfo['delivertype'] eq 1">预约配送<else/>预约自提</if>
-							</font>
-						</li>
-					</ul>
-					<div class="date-sele" id="SetDateLine" style="display:none">
-						<select id="myFDDate" name="myFDDate">
-							<option value="">选择时间</option>
-							<option value="2016-09-21">2016-09-21</option>
-						</select>
-						<select id="myFDTime" name="myFDTime">
-							<option value="">选择时间</option>
-							<option value="10:00-11:00">10:00-11:00</option>
-							<option value="11:00-12:00">11:00-12:00</option>
-							<option value="12:00-13:00">12:00-13:00</option>
-							<option value="13:00-14:00">13:00-14:00</option>
-							<option value="14:00-15:00">14:00-15:00</option>
-							<option value="15:00-16:00">15:00-16:00</option>
-							<option value="16:00-17:00">16:00-17:00</option>
-							<option value="17:00-18:00">17:00-18:00</option>
-							<option value="18:00-19:00">18:00-19:00</option>
-						</select>
+				<div class="order-det-mod" id="SendTimeLine">
+					<div class="det-dius-hd">
+						<span class="d10-ico ico-16"></span>
+						<font id="_df10_sent_time_one" style="">
+							<if condition="$ordinfo['delivertype'] eq 1">配送时间<else/>自提时间</if>：
+						</font>
 					</div>
-					<div class="date-sele" id="AutoSendLine">
-						<span>
-							<font id="_df10_sent_fast" style="">
-								<if condition="$ordinfo['delivertype'] eq 1">我们将尽快配送<else/>请尽快到店自提</if>
-							</font>
-						</span>
+					<div class="det-dius-bd">
+						<ul class="send-tit fl-clr">
+							<li forid="AutoSendLine" class="checkon on">
+								<font id="_df10_sent_now">
+									<if condition="$ordinfo['delivertype'] eq 1">立即配送<else/>立即自提</if>
+								</font>
+							</li>
+							<li forid="SetDateLine" class="checkon">
+								<font id="_df10_sent_appiont">
+									<if condition="$ordinfo['delivertype'] eq 1">预约配送<else/>预约自提</if>
+								</font>
+							</li>
+						</ul>
+						<div class="date-sele" id="SetDateLine" style="display:none">
+							<select id="myFDDate" name="myFDDate">
+								<option value="">选择时间</option>
+								<option value="2016-09-21">2016-09-21</option>
+							</select>
+							<select id="myFDTime" name="myFDTime">
+								<option value="">选择时间</option>
+								<option value="10:00-11:00">10:00-11:00</option>
+								<option value="11:00-12:00">11:00-12:00</option>
+								<option value="12:00-13:00">12:00-13:00</option>
+								<option value="13:00-14:00">13:00-14:00</option>
+								<option value="14:00-15:00">14:00-15:00</option>
+								<option value="15:00-16:00">15:00-16:00</option>
+								<option value="16:00-17:00">16:00-17:00</option>
+								<option value="17:00-18:00">17:00-18:00</option>
+								<option value="18:00-19:00">18:00-19:00</option>
+							</select>
+						</div>
+						<div class="date-sele" id="AutoSendLine">
+							<span>
+								<font id="_df10_sent_fast" style="">
+									<if condition="$ordinfo['delivertype'] eq 1">我们将尽快配送<else/>请尽快到店自提</if>
+								</font>
+							</span>
+						</div>
 					</div>
 				</div>
-			</div>
-			</if>
 			<div class="order-det-mod">
 				<div class="det-dius-hd">
 					<span class="d10-ico ico-14"></span><font id="_df10_pay_mothed" style="">付款方式</font>
@@ -133,6 +135,7 @@
 					<ul class="det-pay" id="payinfo">
 						<li <if condition="$ordinfo['paytype'] eq 1">class="on"</if> yes="1"><em><img src="__WEBPUBLIC__/Home/images/pay-1.png"></em>(推荐)微信支付</li>
 						<li <if condition="$ordinfo['paytype'] eq 0">class="on"</if> yes="0"><em><img src="__WEBPUBLIC__/Home/images/payit.png"></em>货到付款</li>
+						<li <if condition="$ordinfo['paytype'] eq 2">class="on"</if> yes="0"><em><img src="__WEBPUBLIC__/Home/images/balance.png"></em>余额支付</li>
 					</ul>
 				</div>
 			</div>
@@ -164,7 +167,7 @@
 								<td class="tb-r" id="freightprice">￥{$ordinfo.luggage}</td>
 							</tr>
 							<tr>
-								<td class="tb-l">总优惠金额：:</td>
+								<td class="tb-l">总优惠金额：</td>
 								<td class="tb-r">-￥{$ordinfo.benefit}</td>
 							</tr>
 						</tbody>

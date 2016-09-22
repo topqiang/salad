@@ -17,7 +17,7 @@ class UserController extends Controller{
 			session("userid",$res[0]['id']);
 			$msg = '登陆成功';
 		}else{
-			$data = array('tel' => $phone,);
+			$data = array('tel' => $phone,'create_time' => time());
 			$res = D('User')->add($data);
 			if (isset($res)) {
 				session("userid",$res);
@@ -46,6 +46,19 @@ class UserController extends Controller{
 		$user = $this->user->where( $where )->select();
 		$this -> assign('user' ,$user[0]);
 		$this -> display();
+	}
+
+	public function updaddress(){
+		$addid = $_POST['id'];
+		$userid = session("userid");
+		$delivertype = $_POST['delivertype'];
+		$data = array('id' => $userid ,'address' => $addid , 'delivertype' => $delivertype);
+		$res = $this -> user -> save ( $data );
+		if (!empty($res)) {
+			$this -> ajaxReturn("设置成功！");
+		}else{
+			$this -> ajaxReturn("error");
+		}
 	}
 
 	public function loginout(){

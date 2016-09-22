@@ -1,6 +1,6 @@
 <include file="Index/header"/>
 	<header>
-		<a href="" class="arrow-l"></a>
+		<a href="javascript:history.go(-1);" class="arrow-l"></a>
 	  <h2><font id="_df8_title" style="">帮我选沙拉</font></h2>
 		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>1</em></span></a></font>
 	</header>
@@ -91,6 +91,7 @@
 <script src="__WEBPUBLIC__/Home/js/system.salad.js"></script>
 <script language="javascript">
 var goodtype = sessionStorage.getItem("goodtype");
+var cut = sessionStorage.getItem("cut");
 
 function savejc(){
     var goods ={"name" : goodtype , "foods" : []};
@@ -107,6 +108,7 @@ function savejc(){
         };
     });
     goods.foods = foods ;
+    goods.cut = cut;
     if (sessionStorage) {
         // sessionStorage.setItem("goods",null);
     };
@@ -140,7 +142,7 @@ $(function(){
     }
 
 
-    if (sessionStorage.getItem("cut") == "true") {
+    if (cut == "切碎") {
         $("#IsShredLine").addClass("on");
     };
 
@@ -149,10 +151,10 @@ $(function(){
         var self = $(this);
         if (self.hasClass("on")) {
             self.removeClass("on");
-            sessionStorage.setItem("cut","false");
+            cut = "不切碎";
         }else{
             self.addClass("on");
-            sessionStorage.setItem("cut","true");
+            cut = "切碎";
         }
     });
 

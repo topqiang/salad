@@ -36,6 +36,7 @@ function login(){
 		data:{"mobile":tel,"code":code},
 		dataType:"json",
 		success:function (data) {
+			console.log(data);
 			window.location.href='{:U('Index/index')}';
 		}
 	});

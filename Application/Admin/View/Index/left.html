@@ -42,7 +42,7 @@
                 <li>
                     <a href="#" class="nav-top-item">订单管理</a>
                     <ul>
-                        <li><a href="{:U('Order/OrderList')}" target="main">订单列表</a></li>
+                        <li><a href="{:U('Order/orderlist')}" target="main">订单列表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -56,11 +56,11 @@
 					<a href="#" class="nav-top-item">用户管理</a>
 					<ul>
                         <if condition="$_SESSION['g_id'] neq 3">
-						<li><a href="{:U('Member/memberList')}" target="main">用户列表</a></li>
-                        <else/>
+						<li>
+                            <a href="{:U('User/userlist')}" target="main">用户列表</a>
+                        </li>
                         </if>
-                        <li><a href="{:U('Member/addScore')}" target="main">堂食加积分</a></li>
-						<li><a href="{:U('Comment/comList')}" target="main">评论列表</a></li>
+						<li><a href="{:U('comment/comList')}" target="main">评论列表</a></li>
 					</ul>
 				</li>
 				<li>

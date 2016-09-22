@@ -7,11 +7,6 @@
 	<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/invalid.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/simpla.jquery.configuration.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/facebox.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.wysiwyg.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.datePicker.js"></script>
-	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.date.js"></script>
 </head>
 <body>
 <div id="main-content">
@@ -64,7 +59,7 @@
 									<input type="checkbox" name="id[]" value="{$vo['id']}"/>{$vo.id}
 								</td>
 								<td>{$vo.name}</td>
-								<td>{$vo.address}</td>
+								<td>{$vo.address}{$vo.numhouse}</td>
 								<td>{$vo.tel}</td>
 								<td>{$vo.working}</td>
 								<td>

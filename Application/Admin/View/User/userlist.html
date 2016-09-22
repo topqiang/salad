@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/invalid.css" type="text/css" media="screen" />
     <!--<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/expand.css" type="text/css" media="screen" />-->
     <script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="__WEBPUBLIC__/Admin/js/facebox.js"></script>
-    <script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery.wysiwyg.js"></script>
-    <script type="text/javascript" src="__WEBPUBLIC__/Admin/js/trivial.jquery.js"></script>
-    <script type="text/javascript" src="__WEBPUBLIC__/Admin/js/simpla.jquery.configuration.js"></script>
-    <script type="text/javascript" src="__WEBPUBLIC__/Admin/js/ajax_operate.js"></script>
 </head>
 <body>
 <!--主页面-->
@@ -45,51 +40,43 @@
                     <!--标题 start-->
                     <thead>
                     <tr>
-                        <th width="">时间</th>
                         <th width="">姓名</th>
                         <th width="">电话</th>
                         <th width="">地址</th>
-                        <th width="">职业</th>
-                        <th width="">积分</th>
-                        <th width="">等级积分</th>
-                        <th width="">会员卡号</th>
+                        <th width="">性别</th>
+                        <th width="">余额</th>
+                        <th width="">创建时间</th>
                         <th width="10%">操作</th>
                     </tr>
                     </thead>
                     <!--标题 end-->
                     <!--内容 start-->
                     <tbody>
-                    <volist name="member_list" id="member">
+                    <volist name="userlist" id="user">
                         <tr>
-                            <td>{$member['ctime']|date='Y-m-d',###}</td>
+                            <td>{$user.name}</td>
                             <td>
-                                {$member['m_name']}
+                                {$user.tel}
                             </td>
                             <td>
-                                {$member['m_tel']}
+                                {$user.address}
                             </td>
                             <td>
-                                {$member['m_address']}
+                                {$user.sex}
                             </td>
                             <td>
-                                {$member['m_work']}
+                                {$user.balance}
                             </td>
                             <td>
-                                {$member['m_score']}
-                            </td>
-                            <td>
-                                {$member['m_level_score']}
-                            </td>
-                            <td>
-                                {$member['m_card_num']}
+                                {$user.create_time|date="y-m-d H:m:i"}
                             </td>
                             <td>
                                 <!--<a href="{:U('WeiXinArticle/editTextBack',array('wxa_id'=>$text_back['wxa_id']))}" title="编辑">
                                     <img src="__WEBPUBLIC__/Admin/images/icons/pencil.png" width="16" height="18" alt="编辑" />
                                 </a>-->
-                                <a href="###" class="del" title="删除">
+                                <a href="###" class="del" title="删除" uid="{$user.id}">
                                     <img src="__WEBPUBLIC__/Admin/images/icons/cross.png" alt="删除" />
-                                </a><input type="hidden" value="{:U('Member/delMember',array('m_id'=>$member['m_id']))}">
+                                </a>
                             </td>
                         </tr>
                     </volist>

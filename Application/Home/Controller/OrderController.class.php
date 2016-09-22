@@ -1,7 +1,6 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-
 /**
  * Class OrderController
  * @package Home\Controller
@@ -13,49 +12,59 @@ class OrderController extends BaseController{
 	public function addorder(){
 		$goods = $_POST['goods'];
 		$fromuser = session("userid");
+		$delivertype = isset($delivertype) ? $delivertype : 1;
 		$name = $fromuser.date("YmdHis").rand(10000,99999);
 		$Order = D("Order");
-		$address = D("User") -> field('address') -> where( array('id'=>$fromuser) ) -> select();
+		$address = D("User") -> field('address,delivertype') -> where( array('id'=>$fromuser) ) -> select();
+		$delivertype = $address[0]['delivertype'];
+		$flag =false;
+		$price = 0;
+		foreach ($goods as $key => $good) {
+			$price += ($good['gprice'] * $good['gnum']);
+		}
 		if (!empty($goods)) {
 			//查询当前物流方式以及地址
+			$Order->startTrans();
 			$order = array(
 				"name" => $name,
 				"fromuser" => $fromuser,
 				"create_time" =>time(),
 				"update_time" =>time(),
-				"price" => 0,
+				"price" => $price,
 				"type" => 0,
-				"delivertype" => 1,//session判断物流方式
+				"delivertype" => $delivertype,
 				"address" => $address[0]['address']
 				);
+			if ($delivertype == 0) {
+				$getcode = rand(10000,99999);
+				$order['getcode'] = $getcode;
+			}
 			$res = $Order -> add($order);
 			if (!empty($res)) {
 				$orobj = D("Orgo");
 				$Gley = D("Gley");
 				$price = 0;
 				foreach ($goods as $key => $good) {
-					$orgo = array(
+					$orgo[$key] = array(
 						"gid" => $good['gid'],
 						"gprice" => $good['gprice'],
 						"gnum" => $good['gnum'],
 						"oid" => $res
 						);
-					$result = $orobj -> add($orgo);
-					if (!empty($result)) {
-						$price += $good['gprice'];
-						$Gley -> delete($good['glid']);
-					}else{
-						$this -> ajaxReturn("添加".$good['gid']."商品失败！");
-						exit();
-					}
+					$Gley -> delete($good['glid']);
 				}
-				$addprice = array('id'=>$res,'price',$price);
-				$flag = $Order -> save($addprice);
-				if ( isset($flag) ) {
+				$result = $orobj -> addAll($orgo);
+				if (!empty($result)) {
+					$flag = true;
 					$ajax = array('status'=>'success','id'=>$res);
+					if ( $flag ) {
+						$Order -> commit();
+					}else{
+						$Order -> rollback();
+					}
 					$this -> ajaxReturn(json_encode($ajax));
 				}else{
-					$this -> ajaxReturn("商品总价统计失败！");
+					$this -> ajaxReturn("添加".$good['gid']."商品失败！");
 				}
 			}else{
 				$this -> ajaxReturn("订单生成失败！");
@@ -99,12 +108,12 @@ class OrderController extends BaseController{
 		
 	}
 
+
 	public function orderlist(){
 		$where[ 'fromuser' ] = session("userid");
-		$where[ 'type' ] = array( 'neq' , 9 );
 		$ordadd = D("Ordadd");
 		$orgood = D("Orgood");
-		$ordinfo = $ordadd -> field("oid,addname,type,price,delivertype") -> where($where) -> select();
+		$ordinfo = $ordadd -> field("oid,addname,ordname,type,price,delivertype") -> where($where) -> select();
 		foreach ($ordinfo as $key => $order) {
 			$good[ 'oid' ] = $order[ 'oid' ];
 			$goods = $orgood -> field('gid,name,gnum,gprice') -> where( $good ) -> select();
@@ -114,5 +123,27 @@ class OrderController extends BaseController{
 		}
 		$this -> assign("ordinfo", $ordinfo);
 		$this -> display();
+	}
+
+	public function fobygood(){
+		$key = $_POST['key'];
+		$user = session("userid");
+		$ordadd = D("Ordadd");
+		$orgood = D("Orgood");
+		$oid = $orgood -> distinct("oid") -> field("oid") -> where(array("name" => array("like","%$key%"), "uid" => $user )) -> select();
+		foreach ($oid as $key => $order) {
+			$newoid[$key] = $order['oid'];
+		}
+		$where['oid'] = array( 'in' , $newoid);
+		$ordinfo = $ordadd -> field("oid,addname,ordname,type,price,delivertype") -> where($where) -> select();
+		foreach ($ordinfo as $key => $order) {
+			$good[ 'oid' ] = $order[ 'oid' ];
+			$goods = $orgood -> field('gid,name,gnum,gprice') -> where( $good ) -> select();
+			 $ordinfo[ $key ][ 'gsnum' ] = $orgood -> where( $good ) -> sum('gnum');
+			// $ordinfo[ $key ][ 'gsnum' ] = count($goods); 
+			$ordinfo[ $key ][ 'goods' ] = $goods;
+		}
+		$this -> assign("ordinfo", $ordinfo);
+		$this -> display("orderlist");
 	}
 }

@@ -27,17 +27,20 @@ class AddressController extends BaseController{
 	public function index(){
 		$type = $_GET['type'];
 		$address = D("Address");
+		$user = session("userid");
 		if (empty($type) || ($type != "1")) {
 			//送货上门
-			$user = session("userid");
 			$where['fromuser'] = array( 'eq' , $user);
 			$cityarr = $address -> field("id,name,tel,city,detailadd") -> where($where) -> select();
 			$this -> assign( 'cityarr' , $cityarr );
 		}
 		if (empty($type) || ($type != "2")) {
-			//到店自提
+
+			$shop = D("Shopadd")->select();
+			$this -> assign("shop" ,$shop);
 		}
-		$uaddid = D("User");
+		$useradd = D("User") -> field('address') -> where(array('id' => $user)) -> select();
+		$this -> assign( "useradd" , $useradd[0]['address'] );
 		$this -> display();
 	}
 	

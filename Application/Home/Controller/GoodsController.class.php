@@ -8,6 +8,7 @@ class GoodsController extends BaseController{
 	public function goodsAdd(){;
 		$name = $_POST['name'];
 		$foods = $_POST['foods'];
+		$cut = $_POST['cut'];
 		$pic = 'Uploads/goods/201609/4c086e017b084739bfec686dfd5fe5c0.jpg';
 		$price = 48;
 		$cate_id = 5;
@@ -39,16 +40,16 @@ class GoodsController extends BaseController{
 			$constituent .= $obj['foodsname'].'X'.$obj['num'].'份    ';
 		}
 		$data=array(
-				'name'			=>	$name,
-				'cate_id'		=>	$cate_id,
-				'constituent'	=>	$constituent,
-				'pic'			=>	$pic,
-				'price'			=>	$price,
-				'create_time'	=>	time(),
-				'update_time'	=>	time(),
-				'remark'		=>	"diy",
-				'status'		=>	0,
-			);
+			'name'			=>	$name,
+			'cate_id'		=>	$cate_id,
+			'constituent'	=>	$constituent,
+			'pic'			=>	$pic,
+			'price'			=>	$price,
+			'create_time'	=>	time(),
+			'update_time'	=>	time(),
+			'remark'		=>	$cut,
+			'status'		=>	0,
+		);
 		$goodid = D('Goods')->add($data);
 		$userid = session("userid");
 		$data = array('goods' => $goodid, 'fromuser' => $userid);
@@ -154,8 +155,6 @@ class GoodsController extends BaseController{
     		$badnum = $Hubgood->where($countarg)->count();
     		$good['wellnum'] = $wellnum;
     		$good['badnum']	= $badnum;
-
-
     		$where['gid'] = array('eq' , $good['gid']);
     		$where['uid'] = array('eq' , session('userid'));
     		$hub = $Hubgood->where($where)->select();
@@ -168,14 +167,11 @@ class GoodsController extends BaseController{
     		}
     		$list[$key] = $good;
     	}
-
     	if (isset($_POST['cid'])) {
     		$this -> ajaxReturn(json_encode($list));
     		exit();
     	}
     	$this->assign( 'list' , $list );
-    	// dump($list);
-    	// exit();
     	$this -> display();
 	}
 

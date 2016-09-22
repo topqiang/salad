@@ -20,40 +20,29 @@
 			<font id="_tip_click" style="">到店自提，请选择提货点</font>
 		</div>
 		<div class="addr-list-wrap" id="myPickupPointList">
-			<div class="addr-list after">
-				<dl>
-					<dt>
-						<span>新城店</span>
-						<i> (8:00-20:00)</i>
-					</dt>
-					<dd>北京朝阳区朝外大街6号（新城国际）26号楼底商103号</dd>
-					<dd>
-						<em class="zt-city">朝阳区</em>
-					</dd>
-				</dl>
-				<em class="after-link on">看地图</em>
-			</div>
-			<div class="addr-list after on">
-				<dl>
-					<dt>
-						<span>望京soho店</span>
-						<i> (8:00-20:00)</i>
-					</dt>
-					<dd>望京SOHO 塔3底商3108</dd>
-					<dd>
-						<em class="zt-city">朝阳区</em>
-					</dd>
-				</dl>
-				<em class="after-link on">看地图</em>
-			</div>
+			<volist name="shop" id="address">
+				<div <if condition="$address['addid'] eq $useradd">class="addr-list after on"<else/>class="addr-list after"</if> addid="{$address.addid}">
+					<dl>
+						<dt>
+							<span>{$address.name}</span>
+							<i> {$address.tel}</i>
+						</dt>
+						<dd>{$address.address}</dd>
+						<dd>
+							<em class="zt-city">{$address.city}</em>
+						</dd>
+					</dl>
+					<em class="after-link on">看地图</em>
+				</div>
+			</volist>
 		</div>
 		</if>
 		<if condition="$_REQUEST['type'] neq 1">
 		<div class="addr-location" id="myAddressTitle"><font id="_tip_click2" style="">送货上门，请选择您的收货地址</font></div>
 		<if condition="!empty($cityarr)">
-			<volist name="cityarr" id="address">
-				<div class="addr-list-wrap" id="myAddressList">
-					<div class="addr-list after">
+			<div class="addr-list-wrap" id="myAddressList">
+				<volist name="cityarr" id="address">
+					<div  <if condition="$address['addid'] eq $useradd">class="addr-list after on"<else/>class="addr-list after"</if>  addid="{$address.id}">
 						<dl>
 							<dt>
 								<span>{$address.name}</span>
@@ -66,8 +55,8 @@
 						</dl>
 						<em class="after-link on">看地图</em>
 					</div>
-				</div>
-			</volist>
+				</volist>
+			</div>
 		<else/>
         <div class="addr-list addr-had had-2" id="myNoDataShowArea">
             <dl>
@@ -95,7 +84,31 @@
 <script src="__WEBPUBLIC__/Home/js/personal.js"></script>
 <script language="javascript">
 $(function(){
+	$(".addr-list").on('tap',checkAddress);
 });
+function checkAddress(){
+	var self = $(this);
+	var myAddressList = self.parent().attr("id");
+	var id = self.attr("addid");
+	var delivertype = 0;
+	if ( myAddressList == "myAddressList" ) {
+		delivertype = 1;
+	};
+	$.ajax({
+		url : "{:U('User/updaddress')}",
+		type : "post",
+		data : { "id" : id , "delivertype" : delivertype},
+		dataType : "json",
+		success : function(res){
+			console.log(res);
+			if (res != "error") {
+				self.addClass("on").siblings().removeClass("on");
+			}else{
+				alert("服务器出现异常！");
+			}
+		}
+	});
+}
 </script>
 
 </body></html>

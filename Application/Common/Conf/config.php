@@ -11,7 +11,7 @@ return  array(
     'ACTION_SUFFIX'         =>  '', // 操作方法后缀
     'MODULE_ALLOW_LIST'     => array('Home','Admin','Api'),
     'DEFAULT_GROUP'         => 'Home', //默认分组
-    // 'SHOW_PAGE_TRACE'       => true,
+    'SHOW_PAGE_TRACE'       => true,
     /* Cookie设置 */
     'COOKIE_EXPIRE'         => 0,    // Coodie有效期
     'COOKIE_DOMAIN'         => '',      // Cookie有效域名

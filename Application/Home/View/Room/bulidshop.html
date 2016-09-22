@@ -23,9 +23,9 @@
 			<volist name="shop" id="vo">
 			<dl>
 				<dt>{$vo.name}</dt>
-				<dd class="addr">{$vo.address}</dd>
+				<dd class="addr">{$vo.address}{$vo.numhouse}</dd>
 				<dd class="phone">电话：{$vo.tel}</dd>
-				<dd class="timer">{$vo.working}</dd>
+				<dd class="timer">营业时间：{$vo.working}</dd>
 			</dl>
 			</volist>
 		</div>

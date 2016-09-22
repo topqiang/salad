@@ -7,8 +7,10 @@
 	<if condition="!empty($ordinfo)">
 	<div class="ord-sch">
 		<div class="sch-inner-2 fl-clr">
-			<input type="text" class="pro-inp inpt-3" placeholder="您可以根据商品名称进行搜索" id="key" name="key">
-			<div class="sch-btn-2"></div>
+			<form id="findform" action="{:U('Order/fobygood')}" method="post">
+				<input type="text" class="pro-inp inpt-3" placeholder="您可以根据商品名称进行搜索" id="key" name="key">
+				<div class="sch-btn-2" onclick="check()"></div>
+			</form>
 		</div>
 	</div>
 	<div class="con-wrap-bt" id="myOrdersList" scrollpagination="enabled">
@@ -18,7 +20,7 @@
 				<ul class="fl-clr">
 					<li class="tec-tit">
 						<a href="{:U('Order/orderinfo')}/id/{$order.oid}">
-						<p>订单编号：<i>{$order.addname}</i></p>
+						<p>订单编号：<i>{$order.ordname}</i></p>
 						<p>订单状态：
 							<span class="mark-bl">
 								<if condition="$order['type'] eq 0">待付款
@@ -52,16 +54,15 @@
 						</table>
 					</li>
 					<li class="tec-btn fl-clr">
-						<div class="order-btn-l">
-							<if condition="$order['type'] eq 0">确认付款
-								<elseif condition="$order['type'] eq 1" />催他
-								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 0)" />联系客服
-								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 1)" />确认收货
-								<elseif condition="$order['type'] eq 3" />评价
+							<if condition="$order['type'] eq 0"><div class="order-btn-l updorder" oid="{$order.oid}" type="1">确认付款
+								<elseif condition="$order['type'] eq 1" /><div class="order-btn-l">催他
+								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 0)" /><div class="order-btn-l">联系客服
+								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 1)" /><div class="order-btn-l updorder" oid="{$order.oid}" type="3">确认收货
+								<elseif condition="$order['type'] eq 3" /><div class="order-btn-l">评价
 							</if>
 						</div>
 						<if condition="$order['type'] eq 0">
-							<div class="order-btn-r">取消订单</div>
+							<div class="order-btn-r updorder" oid="{$order.oid}" type="9">取消订单</div>
 						</if>
 					</li>
 				</ul>
@@ -110,7 +111,35 @@
 <script src="__WEBPUBLIC__/Home/js/cart.js"></script>
 <script src="__WEBPUBLIC__/Home/js/orders.js"></script>
 <script language="javascript">
-
+	$(function(){
+		$(".updorder[type]").on("tap",function(){
+			var self = $(this);
+			var id = self.attr("oid");
+			var type = self.attr("type");
+			var order = {"id" :id ,"type" :type};
+			$.ajax({
+				"url" : "{:U('Order/updorder')}",
+				"type" : "post",
+				"data" : {"order" :order},
+				"dataType" : "json",
+				"success" : function(data){
+					console.log(data);
+					if (data != "error") {
+						//reload  当前页面
+						location.reload();
+					}
+				}
+			})
+		});
+});
+		function check(){
+			var key = $("#key").val();
+			if (key && key != "") {
+				$("#findform").submit();
+			}else{
+				alert("查询数据不能为空！");
+			}
+		}
 </script>
 
 </body></html>
