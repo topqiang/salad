@@ -23,7 +23,7 @@ class ShopController extends AdminBasicController{
 
 	public function shopdel(){
 		$id = $_GET['id'];
-		$res = D('Shop')->delete($id);
+		$res = D('Shop')->save(array('id'=>$id,'status'=>'9'));
 		if ($res) {
 			$this->success("删除成功！",U("Shop/shoplist"));
 		}else{

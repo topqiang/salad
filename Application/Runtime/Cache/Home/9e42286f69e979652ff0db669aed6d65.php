@@ -61,7 +61,7 @@
 	        <li>
 	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tbody>
-	                    <tr>
+	                    <tr onclick="location.href='<?php echo U('User/recharge');?>'">
 	                      <td align="left"><span class="U-black-color icons-3"><font id="_df29_title" style="">储值账户</font></span><span class="mark-bl" id="cardamount">￥0.00</span></td>
 	                    </tr>
 	           		</tbody>

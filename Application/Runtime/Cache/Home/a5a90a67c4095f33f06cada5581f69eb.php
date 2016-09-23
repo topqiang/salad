@@ -1,9 +1,21 @@
-<include file="Index:header"/>
-<link rel="stylesheet" type="text/css" href="__WEBPUBLIC__/Home/css/fakeLoader.css">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<!-- saved from url=(0061)http://daisyfresh.21move.net/df4.html?rand=0.8027869819197804 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Daisy Fresh</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/fakeLoader.css">
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/df2015.css"></head>
+<body>
+	<div class="fakeloader" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 999; display: none; background-color: rgb(68, 68, 68);"><div class="fl spinner2" style="position: fixed; left: 50%; top: 50%;"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div></div>
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/fakeLoader.css">
 	<header>
 		<a href="javascript:history.go(-1);" class="arrow-l" id="BackIcon"></a>
 		<h2><font id="_df10_title" style="">订单确认</font></h2>
-		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+		<font id="CartLine"><a href="<?php echo U('Goods/gley');?>"><span class="cart-ico"><em><?php echo ($count); ?></em></span></a></font>
 	</header>
 	<div class="con-wrap-bt">
 		<div class="order-detail">
@@ -18,52 +30,45 @@
 					</ul>				
 				</div>
 			</div>
-			<if condition="$ordinfo['delivertype'] eq 1">
-				<div class="order-det-mod" id="SendShowLine">
+			<?php if($ordinfo['delivertype'] == 1): ?><div class="order-det-mod" id="SendShowLine">
 					<div class="det-dius-hd">
-						<a href="{:U('Address/index')}/oid/{$ordinfo.oid}">
+						<a href="<?php echo U('Address/index');?>/oid/<?php echo ($ordinfo["oid"]); ?>">
 						<span class="d10-ico ico-11"></span><font id="_df10_your_address" style="">收货地址</font>
 						</a>
 					</div>
 					<ul class="det-dius-bd addr-list">
-						<if condition="!empty($ordinfo['addname'])">
-						<li id="SetAddressLine">
+						<?php if(!empty($ordinfo['addname'])): ?><li id="SetAddressLine">
 							<dl>
 								<dt>
 									<span class="mark-bl"><font id="_df10_sent" style="">【配送】</font></span>
-									<font id="linkname">{$ordinfo.addname}</font>
+									<font id="linkname"><?php echo ($ordinfo["addname"]); ?></font>
 								</dt>
-								<dd id="linkphone">{$ordinfo.tel}</dd>
-								<dd id="address">{$ordinfo.detailadd}</dd>
+								<dd id="linkphone"><?php echo ($ordinfo["tel"]); ?></dd>
+								<dd id="address"><?php echo ($ordinfo["detailadd"]); ?></dd>
 							</dl>
-						</li>
-						</if>
+						</li><?php endif; ?>
 	                    <li id="NewAddressLine">
-							<a href="{:U('Address/location')}"><img src="__WEBPUBLIC__/Home/images/d10-add.png" width="50"></a>
+							<a href="<?php echo U('Address/location');?>"><img src="/salad/Public/Home/images/d10-add.png" width="50"></a>
 						</li>
 					</ul>
-				</div>
-			</if>
+				</div><?php endif; ?>
 
-			<if condition="$ordinfo['delivertype'] eq 0">
-	            <div class="order-det-mod" id="StoreShowLine">
+			<?php if($ordinfo['delivertype'] == 0): ?><div class="order-det-mod" id="StoreShowLine">
 					<div class="det-dius-hd">
-						<a href="{:U('Address/index')}/oid/{$ordinfo.oid}">
+						<a href="<?php echo U('Address/index');?>/oid/<?php echo ($ordinfo["oid"]); ?>">
 						<span class="d10-ico ico-11"></span><font id="_df10_self_shop" style="">自提门店</font>
 						</a>
 					</div>
 					<div class="ord-det-con addr-list">
 						<dl>
-							<dt><span class="mark-bl"><font id="_df10_self" style="">【自提】</font></span><font id="companytitle">{$ordinfo.addname}</font></dt>
-							<dd id="companymobile">{$ordinfo.tel}</dd>
-							<dd id="companyaddress">{$ordinfo.detailadd}</dd>
+							<dt><span class="mark-bl"><font id="_df10_self" style="">【自提】</font></span><font id="companytitle"><?php echo ($ordinfo["addname"]); ?></font></dt>
+							<dd id="companymobile"><?php echo ($ordinfo["tel"]); ?></dd>
+							<dd id="companyaddress"><?php echo ($ordinfo["detailadd"]); ?></dd>
 						</dl>
 					</div>
-				</div>
-			</if>
+				</div><?php endif; ?>
 
-			<if condition="!empty($goods)">
-				<div class="order-det-mod">
+			<?php if(!empty($goods)): ?><div class="order-det-mod">
 					<div class="det-dius-hd">
 						<span class="d10-ico ico-12"></span><font id="_df10_food_list" style="">餐品列表</font>
 					</div>
@@ -71,35 +76,32 @@
 						<div class="tec-order" id="product">
 						<table width="100%" cellpadding="0" cellspacing="0" border="0" class="tb-list">
 							<tbody>
-							<volist name="goods" id="good">
-								<tr>
-									<td class="td-1"><span>{$good.name}</span><i>X{$good.gnum}</i></td>
-									<td class="td-2 mark-bl">￥{$good.gprice}</td>
-								</tr>
-							</volist>
+							<?php if(is_array($goods)): $i = 0; $__LIST__ = $goods;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$good): $mod = ($i % 2 );++$i;?><tr>
+									<td class="td-1"><span><?php echo ($good["name"]); ?></span><i>X<?php echo ($good["gnum"]); ?></i></td>
+									<td class="td-2 mark-bl">￥<?php echo ($good["gprice"]); ?></td>
+								</tr><?php endforeach; endif; else: echo "" ;endif; ?>
 							</tbody>
 						</table>
 						</div>
 					</div>
-				</div>
-			</if>
+				</div><?php endif; ?>
 				<div class="order-det-mod" id="SendTimeLine">
 					<div class="det-dius-hd">
 						<span class="d10-ico ico-16"></span>
 						<font id="_df10_sent_time_one" style="">
-							<if condition="$ordinfo['delivertype'] eq 1">配送时间<else/>自提时间</if>：
+							<?php if($ordinfo['delivertype'] == 1): ?>配送时间<?php else: ?>自提时间<?php endif; ?>：
 						</font>
 					</div>
 					<div class="det-dius-bd">
 						<ul class="send-tit fl-clr">
 							<li forid="AutoSendLine" class="checkon on">
 								<font id="_df10_sent_now">
-									<if condition="$ordinfo['delivertype'] eq 1">立即配送<else/>立即自提</if>
+									<?php if($ordinfo['delivertype'] == 1): ?>立即配送<?php else: ?>立即自提<?php endif; ?>
 								</font>
 							</li>
 							<li forid="SetDateLine" class="checkon">
 								<font id="_df10_sent_appiont">
-									<if condition="$ordinfo['delivertype'] eq 1">预约配送<else/>预约自提</if>
+									<?php if($ordinfo['delivertype'] == 1): ?>预约配送<?php else: ?>预约自提<?php endif; ?>
 								</font>
 							</li>
 						</ul>
@@ -124,7 +126,7 @@
 						<div class="date-sele" id="AutoSendLine">
 							<span>
 								<font id="_df10_sent_fast" style="">
-									<if condition="$ordinfo['delivertype'] eq 1">我们将尽快配送<else/>请尽快到店自提</if>
+									<?php if($ordinfo['delivertype'] == 1): ?>我们将尽快配送<?php else: ?>请尽快到店自提<?php endif; ?>
 								</font>
 							</span>
 						</div>
@@ -136,9 +138,9 @@
 				</div>
 				<div class="det-dius-bd">
 					<ul class="det-pay" id="payinfo">
-						<li <if condition="$ordinfo['paytype'] eq 1">class="on"</if> yes="1"><em><img src="__WEBPUBLIC__/Home/images/pay-1.png"></em>(推荐)微信支付</li>
-						<li <if condition="$ordinfo['paytype'] eq 0">class="on"</if> yes="0"><em><img src="__WEBPUBLIC__/Home/images/payit.png"></em>货到付款</li>
-						<li <if condition="$ordinfo['paytype'] eq 2">class="on"</if> yes="2"><em><img src="__WEBPUBLIC__/Home/images/balance.png"></em>余额支付</li>
+						<li <?php if($ordinfo['paytype'] == 1): ?>class="on"<?php endif; ?> yes="1"><em><img src="/salad/Public/Home/images/pay-1.png"></em>(推荐)微信支付</li>
+						<li <?php if($ordinfo['paytype'] == 0): ?>class="on"<?php endif; ?> yes="0"><em><img src="/salad/Public/Home/images/payit.png"></em>货到付款</li>
+						<li <?php if($ordinfo['paytype'] == 2): ?>class="on"<?php endif; ?> yes="2"><em><img src="/salad/Public/Home/images/balance.png"></em>余额支付</li>
 					</ul>
 				</div>
 			</div>
@@ -163,15 +165,15 @@
 						<tbody>
 							<tr>
 								<td class="tb-l"><font id="_df10_totall_pay" style="">总金额：</font></td>
-								<td class="tb-r" id="totalprice">￥{$ordinfo.price}</td>
+								<td class="tb-r" id="totalprice">￥<?php echo ($ordinfo["price"]); ?></td>
 							</tr>
 							<tr>
 								<td class="tb-l"><font id="_df10_trans_pay" style="">运 费：</font></td>
-								<td class="tb-r" id="freightprice">￥{$ordinfo.luggage}</td>
+								<td class="tb-r" id="freightprice">￥<?php echo ($ordinfo["luggage"]); ?></td>
 							</tr>
 							<tr>
 								<td class="tb-l">总优惠金额：</td>
-								<td class="tb-r">-￥{$ordinfo.benefit}</td>
+								<td class="tb-r">-￥<?php echo ($ordinfo["benefit"]); ?></td>
 							</tr>
 						</tbody>
 					</table>
@@ -186,19 +188,19 @@
 	</div>
 	<div class="choose-menu">
 		<div class="ord-que fl-clr">
-			<span><font id="_df10_have_pay" style="">需要支付：</font></span><i>￥<font id="accountprice">{$ordinfo.price}</font></i>
-			<div class="pay-btn fl-right"><img src="__WEBPUBLIC__/Home/images/d10-ico-2.png" width="34"><font id="_df10_enter_pay">确认</font></div>
+			<span><font id="_df10_have_pay" style="">需要支付：</font></span><i>￥<font id="accountprice"><?php echo ($ordinfo["price"]); ?></font></i>
+			<div class="pay-btn fl-right"><img src="/salad/Public/Home/images/d10-ico-2.png" width="34"><font id="_df10_enter_pay">确认</font></div>
 		</div>
 	</div>
-<script src="__WEBPUBLIC__/Home/js/config.js"></script>
-<script src="__WEBPUBLIC__/Home/js/jweixin-1.0.0.js"></script>
-<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
-<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
-<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
-<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
-<!-- <script src="__WEBPUBLIC__/Home/js/cart.js"></script>
-<script src="__WEBPUBLIC__/Home/js/orders.js"></script> -->
+<script src="/salad/Public/Home/js/config.js"></script>
+<script src="/salad/Public/Home/js/jweixin-1.0.0.js"></script>
+<script src="/salad/Public/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="/salad/Public/Home/js/zepto.js" type="text/javascript"></script>
+<script src="/salad/Public/Home/js/touch.js" type="text/javascript"></script>
+<!-- <script src="/salad/Public/Home/js/wewing.token.js"></script>
+<script src="/salad/Public/Home/js/wewing.init.js"></script> -->
+<!-- <script src="/salad/Public/Home/js/cart.js"></script>
+<script src="/salad/Public/Home/js/orders.js"></script> -->
 <script language="javascript">
 $(function(){
 	$(".checkon").on('tap',function(){
@@ -215,7 +217,7 @@ $(function(){
 		var delidate = $("#SetDateLine:visible");
 		var paytype = $("#payinfo li.on");
 		var remark = $("#remark");
-		var data = { "id" : "{$ordinfo.oid}" };
+		var data = { "id" : "<?php echo ($ordinfo["oid"]); ?>" };
 		if ( delidate.length != 0 ) {
 			var myFDDate = $("#myFDDate").val();
 			var myFDTime = $("#myFDTime").val();
@@ -245,13 +247,13 @@ $(function(){
 		};
 		if ( data.id != "" ) {
 			$.ajax({
-				"url" : "{:U('Order/updorder')}",
+				"url" : "<?php echo U('Order/updorder');?>",
 				"type" : "post",
 				"data" : {"order" : data},
 				"dataType" : "json",
 				"success" : function( res ){
 					if (res != "error") {
-						window.location.href="{:U('Order/orderlist')}";
+						window.location.href="<?php echo U('Order/orderlist');?>";
 					};
 				},
 				"error"  : function ( res ) {

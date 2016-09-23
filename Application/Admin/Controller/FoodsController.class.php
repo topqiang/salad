@@ -10,9 +10,9 @@ class FoodsController extends AdminBasicController {
 
 	public function foodsList(){
 		//获得分类列表
-		$cate_obj=D('Fcate');
-		$cate_list=$cate_obj->select();
-		$this->assign('cate_list',$cate_list);
+		$cate_obj = D('Fcate');
+		$cate_list = $cate_obj -> where(array('status' => array('neq' , '9'))) -> select();
+		$this -> assign('cate_list',$cate_list);
 		//搜索
 		if(!empty($_POST['fid']))$where['fid']=$_POST['fid'];
 		if(!empty($_POST['name']))$where['fname']=array('like','%'.$_POST['name'].'%');
@@ -92,7 +92,7 @@ class FoodsController extends AdminBasicController {
 	}
 	public function foodsDel(){
 		if(empty($_GET['fid']))$this->error('没有餐品id');
-		$res=$this->foods->delete($_GET['fid']);
+		$res = $this -> foods -> save( array( 'id' => $_GET[ 'fid' ] , 'status' => '9' ) );
 		if($res){
 			$this->success('删除成功',U('Foods/foodsList'));
 		}else{

@@ -17,6 +17,13 @@ class OrderController extends BaseController{
 		$Order = D("Order");
 		$address = D("User") -> field('address,delivertype') -> where( array('id'=>$fromuser) ) -> select();
 		$delivertype = $address[0]['delivertype'];
+		$address = $address[0]['address'];
+		if (isset($address)) {
+			$addinfo = D('Address') -> where("id = $address") -> select();
+			$detailadd = $addinfo[0]['detailadd'].$addinfo[0]['numhouse'];
+		}else{
+			$this -> ajaxReturn(json_encode(array('status' => 'noadd')));
+		}
 		$flag =false;
 		$price = 0;
 		foreach ($goods as $key => $good) {
@@ -33,8 +40,9 @@ class OrderController extends BaseController{
 				"price" => $price,
 				"type" => 0,
 				"delivertype" => $delivertype,
-				"address" => $address[0]['address']
-				);
+				"address" => $address,
+				"detailadd" => $detailadd
+			);
 			if ($delivertype == 0) {
 				$getcode = rand(10000,99999);
 				$order['getcode'] = $getcode;

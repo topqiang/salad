@@ -16,10 +16,10 @@ class CateController extends AdminBasicController{
 		}
 	}
 	public function cateList(){
-		$where='';
+		$where='status <> 9';
 		$count=$this->cate->where($where)->count();
 		$page=new \Think\Page($count,15);
-		$list['list']=$this->cate->limit($page->firstRow,$page->listRows)->select();
+		$list['list']=$this->cate->limit($page->firstRow,$page->listRows) -> where($where)->select();
 		$list['page']=$page->show();
 		$this->assign('list',$list['list']);
 		$this->assign('page',$list['page']);
@@ -65,7 +65,7 @@ class CateController extends AdminBasicController{
 	}
 	public function cateDel(){
 		if(empty($_GET['id']))$this->error('没有分类id');
-		$res=$this->cate->where(array('id'=>$_GET['id']))->delete();
+		$res=$this->cate->save(array('id'=>$_GET['id'],'status' => '9'));
 		if($res){
 			$this->success('删除成功',U('Cate/cateList',array('cate' => $_GET['cate'])));
 		}else{

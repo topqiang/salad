@@ -55,7 +55,7 @@
 							</dt>
 							<dd><?php echo ($address["detailadd"]); ?></dd>
 							<dd>
-								<em class="zt-city"><?php echo ($address["city"]); ?></em>
+								<a href="<?php echo U('Address/ediadd');?>/id/<?php echo ($address["id"]); ?>"><em class="zt-city"><?php echo ($address["city"]); ?></em></a>
 							</dd>
 						</dl>
 						<em class="after-link on">看地图</em>
@@ -102,11 +102,15 @@ function checkAddress(){
 		data : { "id" : id , "delivertype" : delivertype},
 		dataType : "json",
 		success : function(res){
-			console.log(res);
-			if (res != "error") {
-				self.addClass("on").siblings().removeClass("on");
+			if (res == "success") {
+				$(".addr-list.on").removeClass("on");
+				self.addClass("on");
 			}else{
-				alert("服务器出现异常！");
+				var json = JSON.parse(res);
+				if (json.oid) {
+					window.location.href = "<?php echo U('Order/orderinfo');?>/id/"+json.oid;
+				};
+				alert("已为当前，请重选！");
 			}
 		}
 	});

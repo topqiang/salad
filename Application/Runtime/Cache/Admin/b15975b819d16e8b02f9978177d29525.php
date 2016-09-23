@@ -7,11 +7,6 @@
 	<link rel="stylesheet" href="/salad/Public/Admin/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="/salad/Public/Admin/css/invalid.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="/salad/Public/Admin/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/salad/Public/Admin/js/simpla.jquery.configuration.js"></script>
-	<script type="text/javascript" src="/salad/Public/Admin/js/facebox.js"></script>
-	<script type="text/javascript" src="/salad/Public/Admin/js/jquery.wysiwyg.js"></script>
-	<script type="text/javascript" src="/salad/Public/Admin/js/jquery.datePicker.js"></script>
-	<script type="text/javascript" src="/salad/Public/Admin/js/jquery.date.js"></script>
 </head>
 <body>
 <div id="main-content">

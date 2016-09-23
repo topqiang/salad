@@ -1,52 +1,60 @@
-<include file="Index/header"/>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<!-- saved from url=(0061)http://daisyfresh.21move.net/df4.html?rand=0.8027869819197804 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>Daisy Fresh</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/reset.css">
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/fakeLoader.css">
+<link rel="stylesheet" type="text/css" href="/salad/Public/Home/css/df2015.css"></head>
+<body>
+	<div class="fakeloader" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 999; display: none; background-color: rgb(68, 68, 68);"><div class="fl spinner2" style="position: fixed; left: 50%; top: 50%;"><div class="spinner-container container1"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container2"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div><div class="spinner-container container3"><div class="circle1"></div><div class="circle2"></div><div class="circle3"></div><div class="circle4"></div></div></div></div>
 	<header>
 		<a href="javascript:history.go(-1)" class="arrow-l"></a>
 	  <h2><font id="_df17_car" style="">购物车</font></h2>
-		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em class="goodtotal">{$count}</em></span></a></font>
+		<font id="CartLine"><a href="<?php echo U('Goods/gley');?>"><span class="cart-ico"><em class="goodtotal"><?php echo ($count); ?></em></span></a></font>
 	</header>
 	<div class="cart-wrap">
-		<if condition="$count eq 0">
-    	<div class="no-content" id="myNoDataShowArea">
+		<?php if($count == 0): ?><div class="no-content" id="myNoDataShowArea">
             <p>
             <font id="_df17_empty_car" style="">购物车还空着呢，快去挑选美味沙拉吧。</font>
             </p>
-            <a href="{:U('Goods/goodlist')}">
+            <a href="<?php echo U('Goods/goodlist');?>">
 	            <div class="no-btn">
 	                <font id="_df17_go" style="">去逛逛</font>
 	            </div>
             </a>
         </div>
-        <else />
+        <?php else: ?>
 		<div class="choose-con cart-con" id="myDataShowArea">
 			<ul id="CartProductList">
-				<volist name="goods" id="good">
-					<li>
+				<?php if(is_array($goods)): $i = 0; $__LIST__ = $goods;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$good): $mod = ($i % 2 );++$i;?><li>
 						<table width="100%" cellpadding="0" cellspacing="0" border="0">
 							<tbody>
 								<tr class="cart-line">
 									<td class="td-1 on">
-										<span><img src="__WEBROOT__/{$good.gpic}"></span>
+										<span><img src="/salad/<?php echo ($good["gpic"]); ?>"></span>
 										<i></i>
 									</td>
 									<td class="td-2">
-										<span class="ct-name">{$good.gname}</span>
+										<span class="ct-name"><?php echo ($good["gname"]); ?></span>
 										<span class="ct-per">
-											￥<i class="goodprice">{$good.gprice}</i>/份 X<small>1</small>
+											￥<i class="goodprice"><?php echo ($good["gprice"]); ?></i>/份 X<small>1</small>
 										</span>
 									</td>
 									<td class="td-3 fl-clr">
 										<em class="car-add-l"></em>
-										<input type="text" value="{$good.goodnum}" readonly="" gid="{$good.gid}" glid="{$good.glid}" class="inpt-shu">
+										<input type="text" value="<?php echo ($good["goodnum"]); ?>" readonly="" gid="<?php echo ($good["gid"]); ?>" glid="<?php echo ($good["glid"]); ?>" class="inpt-shu">
 										<em class="car-add-r"></em>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-					</li>
-				</volist>
+					</li><?php endforeach; endif; else: echo "" ;endif; ?>
 			</ul>
-		</div>
-		</if>
+		</div><?php endif; ?>
 		<div class="other-con" id="OtherProductLine" style="display:none">
 			<h2>其他伙伴还选购了以下商品，勾选即可加入购物车</h2>
 			<div class="other-list" id="OtherProductList">
@@ -56,32 +64,30 @@
 	</div>
     <div class="cart-bt">
 		<div>
-			<span class="amount on" id="AmountLine"><font id="_df17_counts" style="">数量：</font><font class="goodtotal">{$count}</font></span>
-			<em><font id="_df17_totall_price" style="">总价</font>￥<i><font id="totalprice">{$totalprice}</font></i></em><input type="hidden" name="AmountStatus" id="AmountStatus" value="1">
+			<span class="amount on" id="AmountLine"><font id="_df17_counts" style="">数量：</font><font class="goodtotal"><?php echo ($count); ?></font></span>
+			<em><font id="_df17_totall_price" style="">总价</font>￥<i><font id="totalprice"><?php echo ($totalprice); ?></font></i></em><input type="hidden" name="AmountStatus" id="AmountStatus" value="1">
 		</div>
-		<if condition="$count neq 0">
-		<ul class="fl-clr" id="Bottom_Button_1">
+		<?php if($count != 0): ?><ul class="fl-clr" id="Bottom_Button_1">
 			<li class="fl-left">
-				<a href="{:U('Index/diy')}"><span><font id="_df17_self_pick" style="">自选沙拉</font></span></a>
+				<a href="<?php echo U('Index/diy');?>"><span><font id="_df17_self_pick" style="">自选沙拉</font></span></a>
 			</li>
 			<li class="fl-right putorder">
 				<span><font id="_df17_go_buy" style="">去下单</font></span>
 			</li>
 		</ul>
-		<a href="{:U('Goods/goodlist')}">
+		<a href="<?php echo U('Goods/goodlist');?>">
 		<div class="cart-btn-other" id="Bottom_Button_2"><font id="_df17_add_sank" style="">添加其他小吃</font></div>
-		</a>
-		</if>
+		</a><?php endif; ?>
 	</div> 
-<script src="__WEBPUBLIC__/Home/js/config.js"></script>
-<script src="__WEBPUBLIC__/Home/js/jweixin-1.0.0.js"></script>
-<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
-<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
-<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
-<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
-<script src="__WEBPUBLIC__/Home/js/cart.js"></script>
+<script src="/salad/Public/Home/js/config.js"></script>
+<script src="/salad/Public/Home/js/jweixin-1.0.0.js"></script>
+<script src="/salad/Public/Home/js/zepto.js" type="text/javascript"></script>
+<script src="/salad/Public/Home/js/touch.js" type="text/javascript"></script>
+<!-- <script src="/salad/Public/Home/js/wewing.token.js"></script>
+<script src="/salad/Public/Home/js/wewing.init.js"></script> -->
+<script src="/salad/Public/Home/js/cart.js"></script>
 <script language="javascript">
-var totalprice ={$totalprice}*100;
+var totalprice =<?php echo ($totalprice); ?>*100;
 $(function(){
 	$("#AmountLine").on('tap',function() {
 		var self = $(this);
@@ -112,14 +118,14 @@ $(function(){
 		});
 		if (goods.length != 0) {
 			$.ajax({
-				url : "{:U('Order/addorder')}",
+				url : "<?php echo U('Order/addorder');?>",
 				type : "post",
 				data : {"goods" : goods},
 				dataType : "json",
 				success : function(data){
 					var res = JSON.parse(data);
 					if (res.status && (res.status == "success")) {
-						window.location.href = "{:U('Order/orderinfo')}/id/"+res.id;
+						window.location.href = "<?php echo U('Order/orderinfo');?>/id/"+res.id;
 					}else if (res.status && (res.status == "noadd")) {
 						alert("请您返回添加收货地址，或者选择自提");
 					}else{
@@ -175,7 +181,7 @@ $(function(){
 				if (num == 0) {
 					var glid = input.attr("glid");
 					$.ajax({
-						url : "{:U('Goods/delgley')}",
+						url : "<?php echo U('Goods/delgley');?>",
 						type : "get",
 						data : {"glid" : glid},
 						dataType : "json",

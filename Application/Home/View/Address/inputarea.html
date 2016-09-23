@@ -62,7 +62,9 @@
 		if (sessionStorage) {
 			sessionStorage.setItem( "city" , _value.district );
 		};
-		window.location.href = "{:U('Address/location')}/line/"+myValue;
+		<if condition="empty($_REQUEST['edi'])">window.location.href = "{:U('Address/location')}/line/"+myValue;
+		<else/>window.location.href = "{:U('Address/ediadd')}/line/"+myValue;
+		</if>
 	});
 
 	function setPlace(){

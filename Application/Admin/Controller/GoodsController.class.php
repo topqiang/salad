@@ -10,7 +10,7 @@ class GoodsController extends Controller{
 	public function goodsList(){
 		//获得分类列表
 		$cate_obj=D('Gcate');
-		$cate_list=$cate_obj->select();
+		$cate_list=$cate_obj->where(array('status'=>array('neq','9')))->select();
 		$this->assign('cate_list',$cate_list);
 		//搜索
 		if(!empty($_POST['fid']))$where['gid']=$_POST['fid'];
@@ -95,7 +95,7 @@ class GoodsController extends Controller{
 	public function goodsDel(){
 		if(empty($_GET['id']))$this->error('没有商品id');
 		
-		$res=$this->goods->delete($_GET['id']);
+		$res=$this->goods->save(array('id'=>$_GET['id'],'status'=>"9"));
 		if($res){
 			$this->success('删除成功',U('Goods/goodsList'));
 		}else{

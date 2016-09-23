@@ -47,6 +47,7 @@ class IndexController extends BaseController {
     	$foodcate = D("Foodcate");
     	$fcate = D("Fcate");
     	$catew['name'] = array('not in' , '基菜,酱料');
+        $catew['status'] = array('neq' , '9');
     	$catelist = $fcate -> field("id,name") -> where($catew) -> select();
     	$this->assign( 'catelist' , $catelist );
     	$where['fcate_id'] = isset($_POST['fid']) ? $_POST['fid'] : $catelist[0]['id'];
@@ -111,6 +112,7 @@ class IndexController extends BaseController {
     	$fcate = D("Fcate");
     	$Hub = D("Hub");
     	$catew['name'] = array('not in' , '基菜,酱料');
+        $catew['status'] = array('neq' , '9');
     	$catelist = $fcate -> field("id,name") -> where($catew) -> select();
     	$this->assign( 'catelist' , $catelist );
     	$where1['fcate_id'] = isset($_POST['fid']) ? $_POST['fid'] : $catelist[0]['id'];

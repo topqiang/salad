@@ -11,7 +11,7 @@ class GoodsController extends BaseController{
 		$cut = $_POST['cut'];
 		$pic = 'Uploads/goods/201609/4c086e017b084739bfec686dfd5fe5c0.jpg';
 		$price = 48;
-		$cate_id = 5;
+		$cate_id = 5;//配置数据库里大份小份自选id
 		if (count($foods) == 0) {
 			$this->ajaxReturn("empty");
 			exit();
@@ -134,6 +134,7 @@ class GoodsController extends BaseController{
     	$gcate = D("Gcate");
     	$Hubgood = D("Hubgood");
     	$catew['name'] = array('not in' , '自选沙拉大份,自选沙拉小份,自选卷');
+    	$catew['status'] = array('neq' , '9');
     	$catelist = $gcate -> field("id,name") -> where($catew) -> select();
     	$this->assign( 'catelist' , $catelist );
     	if (isset($_GET['cname'])) {

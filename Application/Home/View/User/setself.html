@@ -1,4 +1,9 @@
 <include file="Index:header"/>
+<style type="text/css">
+	body{
+		background: #e6e7e1;
+	}
+</style>
 	<header>
 		<a href="javascript:history.go(-1);" class="arrow-l"></a>
 		<h2><font id="_df36_title" style="">设置</font></h2>
@@ -10,7 +15,7 @@
 	        <li>
 	           <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tbody>
-	                    <tr>
+	                    <tr onclick="location.href='{:U('User/about')}'">
 		                    <td align="left">
 			                    <span class="U-black-color icon-1">
 			                    	<font id="_df36_about_df" style="">关于Daisy Fresh</font>
@@ -26,7 +31,7 @@
 	        <li>
 	            <table width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tbody>
-                    	<tr>
+                    	<tr onclick="location.href='{:U('User/msg')}'">
                     		<td align="left">
 	                    		<span class="U-black-color icon-2">
 	                    		<font id="_df36_notice" style="">系统通知</font>

@@ -1376,6 +1376,8 @@ span.tangram-suggestion-grey{
 	background-image: none;
 }
 
+
+
 .login{
 	margin: 15px auto 0;
 	width: 90%;
@@ -1396,14 +1398,6 @@ span.tangram-suggestion-grey{
 	color: #4c4b4a;
 	background: url(../images/phone-ico.png) 10px center no-repeat;
 	background-size: 15px;
-}
-.pwd-inpt{
-	display: block;
-	padding: 8px 0 8px 30px;
-	font-size: 1.4rem;
-	color: #4c4b4a;
-	background: url(../images/d4-icon.png) 8px -151px no-repeat;
-	background-size: 20px;
 }
 .num-inpt{
 	float: left;
