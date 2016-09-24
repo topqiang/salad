@@ -6,6 +6,42 @@ class UserController extends Controller{
 		$this->user=D('User');
 	}
 	public function index(){
+		$code = $_GET['code'];
+		if (isset( $code )) {
+			session('code','123');
+			$base = A("Base");
+			$appid = $base->appid;
+			$scret = $base->scret;
+			$url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$scret&code=$code&grant_type=authorization_code";
+			$res = $this -> curl("",$url);
+			$access = json_decode($res,true);
+			$openid = $access['openid'];
+			$where['wx_id'] = array('eq',$openid);
+			$userinfo = $this -> user ->where($where) -> select();
+			if (isset($userinfo[0]['id'])) {
+				session('userid',$userinfo[0]['id']);
+				session('code',null);
+				redirect('Index/index');
+			}else{
+				$getuserurl = "https://api.weixin.qq.com/sns/userinfo?access_token=".$access['access_token']."&openid=".$access['openid']."&lang=zh_CN";
+				$userinfo = $this -> curl("",$getuserurl);
+				if (isset($userinfo)) {
+					$array = json_decode($userinfo,true);
+					$userdata = array(
+					'name' => $array['nickname'],
+					'wx_id' => $array['openid'],
+					'sex' => ($array['sex'] == '1') ? "男" : "女",
+					'pic' => $array['headimgurl'],
+					'create_time' => time()
+					);
+					$userid = $this -> user ->add($userdata);
+					session('userid',$userid);
+					session('code',null);
+					redirect('Index/index');
+				}
+				echo($userinfo);
+			}
+		}
 		$this->display("login");
 	}
 
@@ -138,4 +174,25 @@ class UserController extends Controller{
 		session(null);
 		redirect(U('User/index'));
 	}
+
+	public function curl($data,$url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_USERAGENT,  'Mozilla/5.0 (compatible;MSIE 5.01;Windows NT5.0)');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $tmpInfo=curl_exec($ch);
+        if (curl_errno($ch)) {
+            return curl_errno($ch);
+        }
+        curl_close($ch);
+        return $tmpInfo;
+    }
+
 }

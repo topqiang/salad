@@ -57,4 +57,17 @@ class OrderController extends AdminBasicController{
         $this -> assign("orders" , $res);
         $this -> display();
     }
+
+    public function getinfo(){
+        $oid = $_POST['oid'];
+        if ( isset($oid) ) {
+            $where['oid'] = $oid;
+            $res = $this -> orgood -> field('name,gprice,gnum,constituent') -> where($where) -> select();
+            if ( isset($res) ) {
+                $this -> ajaxReturn(json_encode($res));
+            }else{
+                $this -> ajaxReturn('error');
+            }
+        }
+    }
 }

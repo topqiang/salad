@@ -92,10 +92,10 @@
 										<a oid="{$order.oid}" type="2" title="发货" class="button ">发货</a>
 									<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 0)"/>
 										<a oid="{$order.oid}" type="3" title="发货" class="button">提货</a>
-									<else/>
-										<a oid="{$order.oid}" title="修改" class="button">修改</a>
+										<elseif condition="$order['type'] eq 0"/>
+										<a oid="{$order.oid}" type="9" title="取消" class="button">取消</a>
 									</if>
-                                    <a oid="{$order.oid}" type="9" title="删除" class="button">删除</a>
+                                    <a oid="{$order.oid}" title="详情" class="button getinfo">详情</a>
 								</td>
 							</tr>
 						</volist>
@@ -117,7 +117,10 @@
 		</div>
 	</div>
 </div>
+<div class="goodslist" style="padding:10px;display:none">
+</div>
 </body>
+<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/layer/layer.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".playorder a[type]").on("click",function(){
@@ -141,6 +144,39 @@
 					}
 				}
 			})
+		});
+
+		$(".getinfo").on( 'click' ,function(){
+			var self = $(this);
+			var oid = self.attr('oid');
+			$.ajax({
+				url : "{:U('Order/getinfo')}",
+				data : {"oid" : oid},
+				type : "post",
+				dataType : "json",
+				success : function(goods){
+					if (goods != "error") {
+						var jsonlist = JSON.parse(goods);
+						var goods = $(".goodslist").html("");
+						var str = '<tr><th>名称</th><th>数量</th><th>价格</th><th>详情</th></tr>';
+						var length = jsonlist.length;
+						for(var i = 0 ; i < length ; i++){
+							var good = jsonlist[i];
+							str += '<tr><td>'+good.name+'</td><td>'+good.gnum+'</td><td>'+good.gprice+'</td><td>'+good.constituent+'</td></tr>';
+						}
+						$("<table/>").html(str).appendTo(goods);
+						layer.open({
+							"title" : false,
+							"type" : 1,
+							"area" : ['400px','auto'],
+							"content": goods
+						});
+					}else{
+						alert("查询失败！");
+					}
+				}
+			});
+
 		});
 	});
 </script>

@@ -111,35 +111,37 @@
 <script src="__WEBPUBLIC__/Home/js/cart.js"></script>
 <script src="__WEBPUBLIC__/Home/js/orders.js"></script>
 <script language="javascript">
-	$(function(){
-		$(".updorder[type]").on("tap",function(){
-			var self = $(this);
-			var id = self.attr("oid");
-			var type = self.attr("type");
-			var order = {"id" :id ,"type" :type};
-			$.ajax({
-				"url" : "{:U('Order/updorder')}",
-				"type" : "post",
-				"data" : {"order" :order},
-				"dataType" : "json",
-				"success" : function(data){
-					console.log(data);
-					if (data != "error") {
-						//reload  当前页面
-						location.reload();
-					}
+$(function(){
+	$(".updorder[type]").on("tap",function(){
+		var self = $(this);
+		var id = self.attr("oid");
+		var type = self.attr("type");
+		var order = {"id" :id ,"type" :type};
+		$.ajax({
+			"url" : "{:U('Order/updorder')}",
+			"type" : "post",
+			"data" : {"order" :order},
+			"dataType" : "json",
+			"success" : function(data){
+				console.log(data);
+				if (data != "error") {
+					//reload  当前页面
+					location.reload();
 				}
-			})
-		});
-});
-		function check(){
-			var key = $("#key").val();
-			if (key && key != "") {
-				$("#findform").submit();
-			}else{
-				alert("查询数据不能为空！");
 			}
-		}
+		})
+	});
+});
+
+//搜索验证
+function check(){
+	var key = $("#key").val();
+	if (key && key != "") {
+		$("#findform").submit();
+	}else{
+		alert("查询数据不能为空！");
+	}
+}
 </script>
 
 </body></html>
