@@ -18,7 +18,7 @@
 					<input type="text" placeholder="请填写手机号" name="mobile" value="{$address.tel}" id="mobile" class="addr-inp inpt" maxlength="11">
 				</li>
 				<li>
-					<div class="addr-select" id="citySelect" onclick="$('#CitySelectLayer').show();" value="{$address.provice}">北京</div>
+					<div class="addr-select" id="citySelect" onclick="$('#CitySelectLayer').show();" value="{$address.provice}">天津</div>
 				</li>
 				<li>
 					<div class="addr-select" id="selectAddressLine" onclick="Jump();"><if condition="empty($line)">{$address.detailadd}<else/>{$line}</if></div>
@@ -46,7 +46,7 @@
 		<div class="city-select">
 			<p><font id="_please_had_choose_city" style="">请先选择城市</font></p>
 			<ul class="label-list" id="CityListLayer">
-				<li><span>北京</span></li>
+				<li><span>天津</span></li>
 			</ul>
 		</div>
 	</div>
@@ -113,11 +113,17 @@
 			data : data,
 			dataType : "json",
 			success : function( data ){
-				if (data != "error") {
-					console.log(data);
+				if (data != "error" && data != 0) {
 					sessionStorage.setItem("data",null);
-					// window.location.href = "{:U('Address/index')}";
-				};
+					var json = JSON.parse(data);
+					if (json.oid) {
+						window.location.href = "{:U('Order/orderinfo')}/id/"+json.oid;
+					}else{
+						window.location.href = "{:U('Address/index')}";
+					}
+				}else{
+					alert("修改失败！");
+				}
 			}
 		});
 	});

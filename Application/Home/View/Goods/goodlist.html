@@ -1,28 +1,29 @@
 <include file="Index:header"/>
 	<div class="top-bar-wrap">
-		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;fast&#39;);"></i>
 		<h2><font id="_df7_title" style="">订餐</font></h2>
 		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
 	</div>
 	<div class="con-wrap-bt3">
 		<div class="menu-wrap">
 			<div class="top-tit pro-tit">
-			<a href="{:U('Goods/findgood')}">
-			<div class="sch-inner-3 fl-clr">
-				<input type="text" class="pro-inp inpt-4" placeholder="搜索商品名称" id="key" name="key">
-				<div class="sch-btn-3"></div>
-			</div>
-			</a>
+				<a href="{:U('Goods/findgood')}">
+					<div class="sch-inner-3 fl-clr">
+						<input type="text" class="pro-inp inpt-4" placeholder="搜索商品名称" id="key" name="key">
+						<div class="sch-btn-3"></div>
+					</div>
+				</a>
 			</div>
 			<div class="d7-tit">
 			<if condition="empty($text)">
 				<a href="{:U('Index/diy')}">
-				<img src="__WEBPUBLIC__/Home/images/d7-icon.png" width="32">
-				<font id="_diy_tip" style="">沙拉DIY，我的沙拉我做主</font>
+					<img src="__WEBPUBLIC__/Home/images/d7-icon.png" width="32">
+					<font id="_diy_tip" style="">沙拉DIY，我的沙拉我做主</font>
 				</a>
 			<else/>{$text}</if>
 			</div>
 		</div>
+		<if condition="($_REQUEST['cname'] neq '帮选沙拉') && ($_REQUEST['cname'] neq '鲜榨果汁')">
 		<div class="main-menu menu-pro" id="ClassListLine">
 		<volist name="catelist" id="cate">
 			<a id="{$cate['id']}" <if condition="$curid eq $cate['id']">class="mainherf menu-1 on"<else/>class="mainherf menu-1"</if> id="MainHref_4">
@@ -31,7 +32,7 @@
 			</a>
 		</volist>
 		</div>
-
+		</if>
 		<div id="ProductList">
 			<div class="goodlist{$curid}">
 			<volist name="list" id="good">
@@ -65,8 +66,8 @@
 									<td align="center" id="{$good.gid}">
 										<span <if condition="$good.bad eq 1">class="td-m on"<else/>class="td-m"</if> hid="{$good.hid}">{$good.badnum}</span>
 									</td>
-									<td align="right" id="{$good.gid}">
-										<span class="td-r">0</span>
+									<td align="right" id="{$good.gid}" onclick="location.href='{:U('Rate/ratelist')}/gid/{$good.gid}'">
+										<span class="td-r">{$good.ratenum}</span>
 									</td>
 								</tr>
 							</tbody>
@@ -150,6 +151,7 @@ function savejc(){
 				alert("购买失败！请重新购买！");
 				window.location.reload();
 			}else{
+				$(".inpt-shu").val("0");
 				window.location.href = '{:U("Goods/gley")}'+'/res/'+data;
 			}
 		}
@@ -249,7 +251,7 @@ $(function(){
 						var newdom = $("<div/>",{"class" : "goodlist"+id }).appendTo("#ProductList");
 						for(var index in datajson){
 							var obj = datajson[index];
-							newdom.append('<div class="pro-detail"><dl class="pro-des"><dt><img src="__WEBROOT__/'+obj.gpic+'" style="height:165px;"></dt><dd><h3>'+obj.gname+'</h3><ul><li class="fl-clr"><em>'+obj.gconstituent+'</em></li></ul></dd><dd class="fl-clr"><span class="td-2">￥<i class="price">'+obj.gprice+'</i>/份</span><div class="td-3 fl-clr"><em class="car-add-l"></em><input type="text" id="'+obj.gid+'" value="0" readonly="" class="inpt-shu"><em class="car-add-r"></em></div></dd></dl><div class="pro-com"><table><tbody><tr><td align="left" id="'+obj.gid+'"><span class="td-l '+((obj.well == 1) ? "on" : "")+'" hid='+(obj.hid ? obj.hid : "")+'>'+obj.wellnum+'</span></td><td align="center" id="'+obj.gid+'"><span class="td-m '+((obj.bad == 1) ? "on" : "")+'" hid='+(obj.hid ? obj.hid : "")+'>'+obj.badnum+'</span></td><td align="right" id="'+obj.gid+'"><span class="td-r">0</span></td></tr></tbody></table></div></div>');
+							newdom.append('<div class="pro-detail"><dl class="pro-des"><dt><img src="__WEBROOT__/'+obj.gpic+'" style="height:165px;"></dt><dd><h3>'+obj.gname+'</h3><ul><li class="fl-clr"><em>'+obj.gconstituent+'</em></li></ul></dd><dd class="fl-clr"><span class="td-2">￥<i class="price">'+obj.gprice+'</i>/份</span><div class="td-3 fl-clr"><em class="car-add-l"></em><input type="text" id="'+obj.gid+'" value="0" readonly="" class="inpt-shu"><em class="car-add-r"></em></div></dd></dl><div class="pro-com"><table><tbody><tr><td align="left" id="'+obj.gid+'"><span class="td-l '+((obj.well == 1) ? "on" : "")+'" hid='+(obj.hid ? obj.hid : "")+'>'+obj.wellnum+'</span></td><td align="center" id="'+obj.gid+'"><span class="td-m '+((obj.bad == 1) ? "on" : "")+'" hid='+(obj.hid ? obj.hid : "")+'>'+obj.badnum+'</span></td><td align="right" onclick="location.href=\'{:U('Rate/ratelist')}/gid/'+obj.gid+'\'"><span class="td-r">'+obj.ratenum+'</span></td></tr></tbody></table></div></div>');
 						}
 						newdom.find("div.td-3.fl-clr em").on('tap',updem);
 						newdom.find("span[hid]").on('tap',updhub);

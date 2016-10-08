@@ -38,7 +38,6 @@
 							</th>
 							<th width="10%">ID</th>
 							<th width="20%">管理员名称</th>
-							<th width="30%">管理员组</th>
 							<th width="30%">创建时间</th>
 							<th width="10%">操作</th>
 						</tr>
@@ -50,7 +49,6 @@
 								<td><input type="checkbox" name="aid[]" value="{$vo['aid']}"/></td>
 								<td>{$vo.aid}</td>
 								<td>{$vo.account}</td>
-								<td>{$vo.group_name}</td>
 								<td>{$vo.ctime|date="Y-m-d",###}</td>
 								<td>
 									<a href="{:U('Admin/adminEdit',array('aid'=>$vo['aid']))}" title="编辑"><img src="__WEBPUBLIC__/Admin/images/icons/pencil.png" alt="Edit" /></a>

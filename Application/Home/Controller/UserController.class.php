@@ -20,6 +20,7 @@ class UserController extends Controller{
 			$userinfo = $this -> user ->where($where) -> select();
 			if (isset($userinfo[0]['id'])) {
 				session('userid',$userinfo[0]['id']);
+				session('wx_id',$openid);
 				session('code',null);
 				redirect('Index/index');
 			}else{
@@ -36,10 +37,10 @@ class UserController extends Controller{
 					);
 					$userid = $this -> user ->add($userdata);
 					session('userid',$userid);
+					session('wx_id',$openid);
 					session('code',null);
 					redirect('Index/index');
 				}
-				echo($userinfo);
 			}
 		}
 		$this->display("login");
@@ -87,11 +88,15 @@ class UserController extends Controller{
 		$this -> display();
 	}
 	public function about(){
-		
+		$about = M('About')->select();
+		$this -> assign('about',$about[0]);
 		$this -> display();
 	}
 	public function msg(){
 		A('Base');
+		$where['status'] = array('neq','9');
+		$msgs = M('Msg') -> where($where) -> select();
+		$this -> assign('msgs' ,$msgs);
 		$this -> display();
 	}
 	public function balance(){

@@ -304,6 +304,7 @@ header h2,.top-bar-wrap h2{
 	height: 100%;
 	padding: 15px 20px 0;
 	background: rgba(0,0,0,.8);
+	z-index: 5;
 }
 .select-menu span{
 	display: block;
@@ -1587,7 +1588,7 @@ span.tangram-suggestion-grey{
 	background-size: 9px;
 }
 .icon-1 {
-	background-image: url(../images/d36-ico-1.jpg);
+	background-image: url(../images/d36-ico-1n.png);
 }
 .icon-2 {
 	background-image: url(../images/d36-ico-2.png);
@@ -3383,4 +3384,8 @@ height: 100%;
 	background: url(../images/new-close.png) center center no-repeat;
 	background-size: 29.5px;
 	z-index: 105;
+}
+
+.rate span.on{
+	color: #00FF00;
 }

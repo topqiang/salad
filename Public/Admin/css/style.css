@@ -655,3 +655,7 @@ div.wysiwyg iframe { border: 0; margin: 5px 0 0 0; clear: left; width: 97.5% !im
   line-height: 20px;
   padding: 10px;
 }
+
+.disn{
+  display: none;
+}

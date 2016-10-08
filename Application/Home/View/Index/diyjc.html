@@ -1,20 +1,20 @@
 <include file="Index:header"/>
 	<div class="top-bar-wrap">
-		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;fast&#39;);"></i>
 		<h2><font id="_df5_title" style="">选基菜</font></h2>
 		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em class="goodtotal">{$count}</em></span></a></font>
 	</div>
 	<div class="con-wrap-bt2">
 		<div class="top-tit fl-clr">
 			<ul class="tit-1 fl-clr">
-				<li type="big" class="on"><font id="_df5_big" style="">我要大份</font></li>
-				<li type="small"><font id="_df5_small" style="">我要小份</font></li>
-				<li type="free"><font id="_df5_free" style="">自由卷</font></li>
+				<!-- <li type="big"><font id="_df5_big" style="">我要大份</font></li> -->
+				<li type="small" class="on" style="width:100%"><font id="_df5_small" style="">我要沙拉</font></li>
+				<!-- <li type="free"><font id="_df5_free" style="">自由卷</font></li> -->
 			</ul>
 		</div>
-        <p style="font-size: 14px; color: rgb(187, 187, 187); line-height: 22px; text-align: center; padding: 6px 12px 0px;" id="RlueLine_1"><font id="_df5_tipbig" style="">规则：大碗沙拉基础菜可选4份，单个菜品可重复选择</font></p>
-        <p style="font-size:14px; color:#bbb; line-height: 22px; text-align:center; padding:6px 12px 0; display:none;" id="RlueLine_2"><font id="_df5_tipsmall" style="">规则：小碗沙拉基础菜可选4份，单个菜品可重复选择</font></p>
-        <p style="font-size:14px; color:#bbb; line-height: 22px; text-align:center; padding:6px 12px 0; display:none;" id="RlueLine_3"><font id="_df5_tip" style="">规则：自选卷沙拉基础菜可选1份</font></p>
+        <!-- <p style="font-size: 14px; color: rgb(187, 187, 187); line-height: 22px; text-align: center; padding: 6px 12px 0px;" id="RlueLine_1"><font id="_df5_tipbig" style="">规则：大碗沙拉基础菜可选4份，单个菜品可重复选择</font></p> -->
+        <p style="font-size:14px; color:#bbb; line-height: 22px; text-align:center; padding:6px 12px 0;" id="RlueLine_2"><font id="_df5_tipsmall" style="">规则：自选沙拉基础菜可选4份，单个菜品可重复选择</font></p>
+        <!-- <p style="font-size:14px; color:#bbb; line-height: 22px; text-align:center; padding:6px 12px 0; display:none;" id="RlueLine_3"><font id="_df5_tip" style="">规则：自选卷沙拉基础菜可选1份</font></p> -->
 		<div class="choose-con">
 			<ul id="BaseList">
 				<volist name="list" id="obj">
@@ -75,10 +75,15 @@ function savejc(){
 			foods.push(obj);
 		};
 	});
+	if (foods.length <= 0) {
+		alert("基菜不能为空！");
+		return;
+	};
 	var goods = {"name" : type , "foods" : foods};
 	if (sessionStorage) {
 		sessionStorage.setItem("goods",JSON.stringify(goods));
 	};
+	$(".inpt-shu").val("0");
 	window.location.href = '{:U("Index/diyzc")}'+'/type/'+type;
 }
 
@@ -108,12 +113,16 @@ $(function(){
 			if (num > 0) {
 				input.val(--num);
 				BaseTotalCountLine.html(total);
-			};
+			}else{
+				alert("饶了我吧，亲");
+			}
 		};
 		if ( self.hasClass("car-add-r") ) {
 			if (total < totalnum) {
 				input.val(++num);
 				BaseTotalCountLine.html(++total);
+			}else{
+				alert("主菜不能超过"+totalnum+"个");
 			}
 		};
 	});

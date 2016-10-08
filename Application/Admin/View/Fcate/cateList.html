@@ -29,7 +29,7 @@
 						<thead>
 						<tr>
 							<th width="20%">
-								<input class="check-all" type="checkbox" />
+								<!-- <input class="check-all" type="checkbox" /> -->
 								ID
 							</th>
 							<th width="20%">分类名称</th>
@@ -42,7 +42,7 @@
 						<volist name="list" id="vo">
 							<tr>
 								<td>
-									<input type="checkbox" name="id[]" value="{$vo['id']}"/>
+									<!-- <input type="checkbox" name="id[]" value="{$vo['id']}"/> -->
 									{$vo.id}
 								</td>
 								<td>{$vo.name}</td>
@@ -58,9 +58,9 @@
 						<tfoot>
 						<tr>
 							<td colspan="20">
-								<div class="bulk-actions align-left">
+								<!-- <div class="bulk-actions align-left">
 									<input type="submit" value="批量删除" class="button"/>
-								</div>
+								</div> -->
 								<div class="pagination">
 									{$page}
 								</div>

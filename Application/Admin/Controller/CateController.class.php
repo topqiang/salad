@@ -66,6 +66,9 @@ class CateController extends AdminBasicController{
 	public function cateDel(){
 		if(empty($_GET['id']))$this->error('没有分类id');
 		$res=$this->cate->save(array('id'=>$_GET['id'],'status' => '9'));
+
+		//分类所属菜品以及商品更改状态操作（视图已做处理）
+
 		if($res){
 			$this->success('删除成功',U('Cate/cateList',array('cate' => $_GET['cate'])));
 		}else{

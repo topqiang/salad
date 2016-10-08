@@ -53,8 +53,11 @@ class OrderController extends AdminBasicController{
         if (isset($tel)) {
             $where["tel"] = array( 'like' , "%$tel%");
         }
-        $res = $this -> ordadd -> where($where) -> select();
+        $count = $this -> ordadd -> where($where)->count();
+        $page = new \Think\Page($count,15);
+        $res = $this -> ordadd -> where($where)->limit($page->firstRow,$page->listRows) -> select();
         $this -> assign("orders" , $res);
+        $this -> assign("page",$page->show());
         $this -> display();
     }
 
@@ -62,7 +65,7 @@ class OrderController extends AdminBasicController{
         $oid = $_POST['oid'];
         if ( isset($oid) ) {
             $where['oid'] = $oid;
-            $res = $this -> orgood -> field('name,gprice,gnum,constituent') -> where($where) -> select();
+            $res = $this -> orgood -> field('name,gprice,gnum,constituent,remark') -> where($where) -> select();
             if ( isset($res) ) {
                 $this -> ajaxReturn(json_encode($res));
             }else{

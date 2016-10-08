@@ -1,6 +1,6 @@
 <include file="Index:header"/>
 	<div class="top-bar-wrap">
-		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+		<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;fast&#39;);"></i>
 		<h2><font id="_df22_0_title" style="">最近订单</font></h2>
 		<font id="CartLine"><a href="{:U('Goods/gley')}"></a><span class="cart-ico"><em>{$count}</em></span></font>
 	</div>
@@ -27,7 +27,7 @@
 									<elseif condition="$order['type'] eq 1" />待发货
 									<elseif condition="$order['type'] eq 2" />待收货
 									<elseif condition="$order['type'] eq 3" />已完成
-									<else/>售后中
+									<else/>已评价
 								</if>
 							</span>
 						</p>
@@ -48,23 +48,25 @@
 							<tbody>
 								<tr>
 									<td class="td-1 mark-bl">共计{$order.gsnum}个商品</td>
-									<td class="td-2">实付：<em class="mark-bl">￥{$order.price}</em></td>
+									<td class="td-2">实付：<em class="mark-bl">￥{$order.paymoney}</em></td>
 								</tr>
 							</tbody>
 						</table>
 					</li>
-					<li class="tec-btn fl-clr">
-							<if condition="$order['type'] eq 0"><div class="order-btn-l updorder" oid="{$order.oid}" type="1">确认付款
-								<elseif condition="$order['type'] eq 1" /><div class="order-btn-l">催他
-								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 0)" /><div class="order-btn-l">联系客服
-								<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 1)" /><div class="order-btn-l updorder" oid="{$order.oid}" type="3">确认收货
-								<elseif condition="$order['type'] eq 3" /><div class="order-btn-l">评价
+					<if condition="$order['type'] neq 4">
+						<li class="tec-btn fl-clr">
+								<if condition="$order['type'] eq 0"><div class="order-btn-l"><a href="{:U('Order/gopay')}/oid/{$order.oid}">确认付款</a>
+									<elseif condition="$order['type'] eq 1" /><div class="order-btn-l">催他
+									<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 0)" /><div class="order-btn-l">联系客服
+									<elseif condition="($order['type'] eq 2) AND ($order['delivertype'] eq 1)" /><div class="order-btn-l updorder" oid="{$order.oid}" type="3">确认收货
+									<elseif condition="$order['type'] eq 3" /><div class="order-btn-l"><a href="{:U('Order/rate')}/oid/{$order.oid}">评价</a>
+								</if>
+							</div>
+							<if condition="$order['type'] eq 0">
+								<div class="order-btn-r updorder" oid="{$order.oid}" type="9">取消订单</div>
 							</if>
-						</div>
-						<if condition="$order['type'] eq 0">
-							<div class="order-btn-r updorder" oid="{$order.oid}" type="9">取消订单</div>
-						</if>
-					</li>
+						</li>
+					</if>
 				</ul>
 			</div>
 		</volist>
@@ -76,7 +78,7 @@
             <p id="myNoDataContent">
             <font id="_non_order" style="">您尚未购买任何商品</font>
             </p>
-			<a href="{:U('Goods/goodlist')}">
+			<a href="{:U('Index/index')}">
             <div class="no-btn">
                 <font id="_df17_go" style="">去逛逛</font>
             </div>

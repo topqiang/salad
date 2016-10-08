@@ -11,14 +11,19 @@
 	</header>
 	<div class="con-wrap">
 		<div class="back-w">
-			<ul class="sys-infor" id="myMessageList" scrollpagination="enabled" style="display: none;">
-
+        <if condition="!empty($msgs)">
+			<ul class="sys-infor" id="myMessageList" scrollpagination="enabled">
+                <volist name="msgs" id="msg">
+                <li>{$msg.msg}</li>
+                </volist>
 			</ul>
+        <else />
             <div class="no-content" id="myNoDataShowArea" style="">
                 <p>
                 <font id="_df36_4_no_message" style="">暂无消息</font>
                 </p>
             </div>
+            </if>
             <div class="U-login-warp" id="loading" style="display: none;">
             <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center">
                 <tbody><tr>

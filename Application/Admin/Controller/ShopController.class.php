@@ -16,7 +16,11 @@ class ShopController extends AdminBasicController{
 	}
 
 	public function shoplist(){
-		$list = D("Shopadd")->select();
+		$shopadd = D("Shopadd");
+		$count = $shopadd ->count();
+        $page = new \Think\Page($count,15);
+		$list = $shopadd->limit($page->firstRow,$page->listRows)->select();
+		$this->assign('page',$page->show());
 		$this->assign("list",$list);
 		$this->display();
 	}
@@ -114,6 +118,19 @@ class ShopController extends AdminBasicController{
 			}
 		}else{
 			$this->ajaxReturn("error");	
+		}
+	}
+	public function picdel(){
+		$id = $_GET['id'];
+		if (isset($id)) {
+			$res = D("Shoppic")->delete($id);
+			if (isset($res)) {
+				$this -> success("删除成功！",U('Shop/manapic'));
+			}else{
+				$this->error("删除失败！",U('Shop/manapic'));
+			}
+		}else{
+			$this->error("删除失败！",U('Shop/manapic'));
 		}
 	}
 }

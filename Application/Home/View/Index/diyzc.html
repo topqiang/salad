@@ -20,7 +20,7 @@
 		规则：大碗沙拉主菜可选12份，单个菜品可重复选择
 		</if>
 		<if condition="$totalnum eq 9">
-		规则：小碗沙拉主菜可选9份，单个菜品可重复选择
+		规则：自选沙拉主菜可选9份，单个菜品可重复选择
 		</if>
 		 <if condition="$totalnum eq 4">
 		 规则：自选卷沙拉主菜可选4份，单个菜品可重复选择
@@ -76,6 +76,7 @@ function savejc(){
 	var goods =JSON.parse(sessionStorage.getItem("goods"));
 	var type = goods.name ? goods.name : "big";
 	var foods = goods.foods ? goods.foods : [];
+	var foodlen = foods.length;
 	$(".inpt-shu").each(function(){
 		var obj = {};
 		var self = $(this);
@@ -86,10 +87,15 @@ function savejc(){
 			foods.push(obj);
 		};
 	});
+	if (foods.length <= foodlen) {
+		alert("主菜不能为空！");
+		return;
+	};
 	goods.foods= foods ;
 	if (sessionStorage) {
 		sessionStorage.setItem("goods",JSON.stringify(goods));
 	};
+	$(".inpt-shu").val("0");
 	window.location.href = '{:U("Index/diyjl")}';
 }
 
@@ -134,7 +140,7 @@ $(function(){
 					var newdom = $("<ul/>",{class:id}).appendTo(".choose-con");
 					for(var index in datajson){
 						var obj = datajson[index];
-						newdom.append('<li><table width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="td-1"><img src="/salad/'+obj.fpic+'"></td><td class="td-2">'+obj.fname+'</td><td class="td-3 fl-clr"><em class="car-add-l"></em><input type="text" id="'+obj.fid+'" name="'+obj.fname+'" value="0" readonly="" class="inpt-shu"><em class="car-add-r"></em></td></tr></tbody></table></li>');
+						newdom.append('<li><table width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="td-1"><img src="/'+obj.fpic+'"></td><td class="td-2">'+obj.fname+'</td><td class="td-3 fl-clr"><em class="car-add-l"></em><input type="text" id="'+obj.fid+'" name="'+obj.fname+'" value="0" readonly="" class="inpt-shu"><em class="car-add-r"></em></td></tr></tbody></table></li>');
 					}
 					newdom.find("td.td-3.fl-clr em").on('tap',updem);
 					newdom.siblings().hide();

@@ -1,0 +1,37 @@
+<include file="Index:header"/>
+	<header>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
+		<h2><font id="_payment_interruption" style="">支付中断</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</header>
+	<div>
+		<div class="result-tit">
+			<p id="OrdersCodeNum">您的订单：{$order.name}</p>
+			<h3><font id="_payment_interruption" style="display:none">支付中断</font></h3>
+		</div>
+		<div class="pay-word">
+			<div>
+				<h2><font id="_df9_0_tip" style="">温馨提示：</font></h2>
+				<p><font id="_order_tip4" style=""><font color="#27A794"></font> 您可以选择查看订单继续支付;</font></p>
+				<p><font id="_order_tip5" style=""><font color="#27A794"></font> 您也可以取消订单选择其他支付方式进行支付;</font></p>
+				<p><font id="_order_tip3" style=""><font color="#27A794"></font> 如有疑问请拨打客服电话：<a href="tel:010%E2%80%9364796887">010–64796887</a>我们将竭诚为你服务。</font></p>
+			</div>
+			<div class="pay-btn-wrap fl-clr">
+				<a href="{:U('Order/orderlist')}"><div class="order-btn"><font id="_view_orders" style="">订单列表</font></div></a>
+				<a href="{:U('Order/gopay')}/oid/{$order.id}"><div class="car-btn"><font id="_continue_pay" style="">继续支付</font></div></a>
+			</div>
+		</div>
+		
+	</div>
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+<script src="__WEBPUBLIC__/Home/js/cart.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+</script>
+
+</body></html>

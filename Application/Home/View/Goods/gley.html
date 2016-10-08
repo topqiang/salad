@@ -10,7 +10,7 @@
             <p>
             <font id="_df17_empty_car" style="">购物车还空着呢，快去挑选美味沙拉吧。</font>
             </p>
-            <a href="{:U('Goods/goodlist')}">
+            <a href="{:U('Index/index')}">
 	            <div class="no-btn">
 	                <font id="_df17_go" style="">去逛逛</font>
 	            </div>
@@ -62,14 +62,14 @@
 		<if condition="$count neq 0">
 		<ul class="fl-clr" id="Bottom_Button_1">
 			<li class="fl-left">
-				<a href="{:U('Index/diy')}"><span><font id="_df17_self_pick" style="">自选沙拉</font></span></a>
+				<a href="{:U('Index/index')}"><span><font id="_df17_self_pick" style="">再来一份</font></span></a>
 			</li>
 			<li class="fl-right putorder">
 				<span><font id="_df17_go_buy" style="">去下单</font></span>
 			</li>
 		</ul>
-		<a href="{:U('Goods/goodlist')}">
-		<div class="cart-btn-other" id="Bottom_Button_2"><font id="_df17_add_sank" style="">添加其他小吃</font></div>
+		<a href="{:U('Goods/goodlist',array('cname'=>'鲜榨果汁'))}" data="javascript:alert('敬请期待');">
+		<div class="cart-btn-other" id="Bottom_Button_2"><font id="_df17_add_sank" style="">添加鲜榨果汁</font></div>
 		</a>
 		</if>
 	</div> 
@@ -119,6 +119,8 @@ $(function(){
 				success : function(data){
 					var res = JSON.parse(data);
 					if (res.status && (res.status == "success")) {
+						$(".goodtotal").text(0);
+						$("inpt-shu").text(0);
 						window.location.href = "{:U('Order/orderinfo')}/id/"+res.id;
 					}else if (res.status && (res.status == "noadd")) {
 						alert("请您返回添加收货地址，或者选择自提");

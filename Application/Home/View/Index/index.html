@@ -19,7 +19,7 @@
 			</div>
 		</div>
         <div class="index-hd">
-			<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;slow&#39;);"></i>
+			<i onclick="$(&#39;#HomeLeftNav&#39;).slideDown(&#39;fast&#39;);"></i>
 			<div id="CartLine">
 				<a href="{:U('Goods/gley')}">
 					<span class="cart-ico">
@@ -30,11 +30,11 @@
 		</div>
 	</div>
 	<div class="index-logo">
-		<img src="__WEBPUBLIC__/Home/images/d4-logo.png" width="100%">
+		<img src="__WEBPUBLIC__/Home/images/d4-logon.png" width="100%">
 	</div>
 	<a href="{:U('Index/diy')}">
 		<div class="adv">
-			<img src="__WEBPUBLIC__/Home/images/d4-tit-icon.png" width="32"><font id="_sala_diy" style="">沙拉DIY</font>
+			<img src="__WEBPUBLIC__/Home/images/d4-tit-icon.png" width="32"><font id="_sala_diy">沙拉DIY</font>
 		</div>
 	</a>
 	<div class="nav">
@@ -42,7 +42,7 @@
 			<tbody>
 				<tr>
 					<td class="homeNav nav-1">
-						<a href="{:U('Index/saselect')}">
+						<a href="{:U('Goods/goodlist',array('cname'=>'帮选沙拉'))}" data="{:U('Index/saselect')}">
 							<div>
 								<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
 								<p><font id="_help_select" style="">帮选沙拉</font></p>
@@ -50,18 +50,18 @@
 						</a>
 					</td>
 					<td class="homeNav nav-2">
-						<a href="{:U('Goods/goodlist',array('cname'=>'三明治'))}">
+						<a href="" data="{:U('Goods/goodlist',array('cname'=>'三明治'))}">
 							<div>
 								<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
-								<p id="HomeSubject_2">三明治</p>
+								<p id="HomeSubject_2">敬请期待</p>
 							</div>
 						</a>
 					</td>
 					<td class="homeNav nav-3">
-						<a href="{:U('Goods/goodlist',array('cname'=>'健康饮品'))}">
+						<a href="{:U('Goods/goodlist',array('cname'=>'鲜榨果汁'))}" data="">
 							<div>
 								<img src="__WEBPUBLIC__/Home/images/nav-back.png" width="100%">
-								<p id="HomeSubject_3">健康饮品</p>
+								<p id="HomeSubject_3">鲜榨果汁</p>
 							</div>
 						</a>
 					</td>
@@ -70,7 +70,7 @@
 		</table>
 	</div>
 	
-    <div class="bottom-menu"> 
+    <div class="bottom-menu" style="display:none"> 
 		<ul class="bt-menu-inner fl-clr">
 			<li>
 				<a href="{:U('Address/index',array('type'=>'1'))}"><span>到店自提</span></a>

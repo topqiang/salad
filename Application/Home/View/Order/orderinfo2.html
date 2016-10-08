@@ -14,16 +14,15 @@
 						<elseif condition="$ordinfo['type'] eq 1" />待发货
 						<elseif condition="$ordinfo['type'] eq 2" />待收货
 						<elseif condition="$ordinfo['type'] eq 3" />已完成
-						<else/>售后中
+						<else/>已评价
 					</if>
 				</i>
 				<em id="PayButton" style="">
 					<font id="_df_pay" style="">
-						<if condition="$ordinfo['type'] eq 0">付款
-							<elseif condition="$ordinfo['type'] eq 1" />催他
+						<if condition="$ordinfo['type'] eq 0"><a href="{:U('Order/gopay')}/oid/{$ordinfo.oid}">付款</a>
 							<elseif condition="($ordinfo['type'] eq 2) AND ($ordinfo['delivertype'] eq 0)" />联系客服
-							<elseif condition="($ordinfo['type'] eq 2) AND ($ordinfo['delivertype'] eq 1)" />确认收货
-							<elseif condition="$ordinfo['type'] eq 3" />评价
+							<elseif condition="($ordinfo['type'] eq 2) AND ($ordinfo['delivertype'] eq 1)" /><div class="order-btn-l updorder" oid="{$order.oid}" type="3">收货</div>
+							<elseif condition="$ordinfo['type'] eq 3" /><a href="{:U('Order/rate')}/oid/{$ordinfo.oid}">评价</a>
 						</if>
 					</font>
 				</em>
@@ -58,15 +57,16 @@
 			</div>
 			</if>
 		</div>
-        <div class="ord-det-bd" id="FCodeShowLine" style="display: none;">
+		<if condition="$ordinfo.getcode neq 0">
+        <div class="ord-det-bd" id="FCodeShowLine">
 			<div class="ord-det-hd fl-clr"><font id="_pick_up_code" style="">提货码：</font></div>
 			<div class="ord-det-con">
 				<div class="th-code fl-clr">
-					<span class="mark-bl" id="fcode_txt"></span>
-					<em id="FCodeSmallArea"><canvas width="100" height="0" id="qrcodeSmallCanvas"></canvas></em>
+					<span class="mark-bl" id="fcode_txt">{$ordinfo.getcode}</span>
 				</div>
 			</div>
 		</div>
+		</if>
 		<div class="ord-det-bd">
 			<div class="ord-det-hd fl-clr"><font id="_order_info" style="">订单信息</font>
 				<span id="CancelButton" style=""><font id="df_iscancle" style="display:none">取消订单</font></span>
@@ -95,7 +95,7 @@
 					<li>
 						<font id="_pay_state" style="">付款状态：</font>
 						<font id="pay_status">
-							<if condition="($ordinfo['type'] eq 0) OR (($ordinfo['paytype'] eq 0) OR ($ordinfo['type'] lt 3)) ">
+							<if condition="($ordinfo['type'] eq 0) OR (($ordinfo['paytype'] eq 0) AND ($ordinfo['type'] lt 3)) ">
 							未付款
 							<else/>已付款
 							</if>
@@ -209,7 +209,26 @@
 <script src="__WEBPUBLIC__/Home/js/orders.js"></script>
 
 <script language="javascript">
+$(".updorder[type]").on("tap",function(){
+		var self = $(this);
+		var id = self.attr("oid");
+		var type = self.attr("type");
+		var order = {"id" :id ,"type" :type};
+		$.ajax({
+			"url" : "{:U('Order/updorder')}",
+			"type" : "post",
+			"data" : {"order" :order},
+			"dataType" : "json",
+			"success" : function(data){
+				console.log(data);
+				if (data != "error") {
+					//reload  当前页面
+					location.reload();
+				}
+			}
+		})
+	});
 </script>
-
+	
 </body>
 </html>

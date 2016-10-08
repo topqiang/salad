@@ -34,27 +34,6 @@
 							<input class="text-input small-input" type="password" id="small-input" name="password"/>
 						</p>
 						<p>
-							<label>管理员组</label>
-							<if condition="$info['g_id'] eq 99">
-								超级管理员
-								<else/>
-								<select name="g_id" class="small-input">
-									<if condition="$info['g_id'] eq 0">
-										<option value="0" selected="selected">初级管理员</option>
-										<else/>
-										<option value="0">初级管理员</option>
-									</if>
-									<volist name="group_list" id="vo">
-										<if condition="$info['g_id'] eq $vo['g_id']">
-											<option value="{$vo.g_id}" selected="selected">{$vo.name}</option>
-											<else/>
-											<option value="{$vo.g_id}">{$vo.name}</option>
-										</if>
-									</volist>
-								</select>
-							</if>
-						</p>
-						<p>
 							<input class="button" type="submit" value="保存" />
 						</p>
 					</fieldset>

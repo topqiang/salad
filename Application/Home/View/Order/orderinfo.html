@@ -39,7 +39,7 @@
 						</li>
 						</if>
 	                    <li id="NewAddressLine">
-							<a href="{:U('Address/location')}"><img src="__WEBPUBLIC__/Home/images/d10-add.png" width="50"></a>
+							<a href="{:U('Address/location')}/oid/{$ordinfo.oid}"><img src="__WEBPUBLIC__/Home/images/d10-add.png" width="50"></a>
 						</li>
 					</ul>
 				</div>
@@ -92,36 +92,39 @@
 					</div>
 					<div class="det-dius-bd">
 						<ul class="send-tit fl-clr">
-							<li forid="AutoSendLine" class="checkon on">
+							<li forid="AutoSendLine" class="checkon <if condition='empty($date)'>on</if>">
 								<font id="_df10_sent_now">
 									<if condition="$ordinfo['delivertype'] eq 1">立即配送<else/>立即自提</if>
 								</font>
 							</li>
-							<li forid="SetDateLine" class="checkon">
+							<li forid="SetDateLine" class="checkon <if condition='!empty($date)'>on</if>">
 								<font id="_df10_sent_appiont">
 									<if condition="$ordinfo['delivertype'] eq 1">预约配送<else/>预约自提</if>
 								</font>
 							</li>
 						</ul>
-						<div class="date-sele" id="SetDateLine" style="display:none">
+						
+						<div class="date-sele" id="SetDateLine" <if condition='empty($date)'>style="display:none"</if>>
 							<select id="myFDDate" name="myFDDate">
 								<option value="">选择时间</option>
-								<option value="2016-09-21">2016-09-21</option>
+								<option value="{$datee}" selected>{$datee}</option>
+								<option value="{$tomaro}">{$tomaro}</option>
 							</select>
 							<select id="myFDTime" name="myFDTime">
 								<option value="">选择时间</option>
-								<option value="10:00-11:00">10:00-11:00</option>
-								<option value="11:00-12:00">11:00-12:00</option>
-								<option value="12:00-13:00">12:00-13:00</option>
-								<option value="13:00-14:00">13:00-14:00</option>
-								<option value="14:00-15:00">14:00-15:00</option>
-								<option value="15:00-16:00">15:00-16:00</option>
-								<option value="16:00-17:00">16:00-17:00</option>
-								<option value="17:00-18:00">17:00-18:00</option>
-								<option value="18:00-19:00">18:00-19:00</option>
+								<option value="10:00-11:00" <if condition="!empty($time) && $time eq '10:00-11:00'">selected</if>>10:00-11:00</option>
+								<option value="11:00-12:00" <if condition="!empty($time) && $time eq '11:00-12:00'">selected</if>>11:00-12:00</option>
+								<option value="12:00-13:00" <if condition="!empty($time) && $time eq '12:00-13:00'">selected</if>>12:00-13:00</option>
+								<option value="13:00-14:00" <if condition="!empty($time) && $time eq '13:00-14:00'">selected</if>>13:00-14:00</option>
+								<option value="14:00-15:00" <if condition="!empty($time) && $time eq '14:00-15:00'">selected</if>>14:00-15:00</option>
+								<option value="15:00-16:00" <if condition="!empty($time) && $time eq '15:00-16:00'">selected</if>>15:00-16:00</option>
+								<option value="16:00-17:00" <if condition="!empty($time) && $time eq '16:00-17:00'">selected</if>>16:00-17:00</option>
+								<option value="17:00-18:00" <if condition="!empty($time) && $time eq '17:00-18:00'">selected</if>>17:00-18:00</option>
+								<option value="18:00-19:00" <if condition="!empty($time) && $time eq '18:00-19:00'">selected</if>>18:00-19:00</option>
 							</select>
 						</div>
-						<div class="date-sele" id="AutoSendLine">
+						
+						<div class="date-sele" id="AutoSendLine" <if condition='!empty($date)'>style="display:none"</if>>
 							<span>
 								<font id="_df10_sent_fast" style="">
 									<if condition="$ordinfo['delivertype'] eq 1">我们将尽快配送<else/>请尽快到店自提</if>
@@ -132,13 +135,29 @@
 				</div>
 			<div class="order-det-mod">
 				<div class="det-dius-hd">
+					<span class="d10-ico ico-14"></span><font id="_df10_pay_mothed" style="">优惠方式</font>
+				</div>
+				<div class="date-sele" style="margin-top:10px">
+					<select id="benefit" name="benefit">
+						<option value="" selected>无</option>
+						<volist name="coupon" id="vo">
+							<if condition="$vo['type'] eq 1"><option value="{$vo.id}" type="{$vo.type}" man="{$vo.man}" jian="{$vo.jian}">满{$vo.man}减{$vo.jian}</option>
+							<elseif condition="$vo['type'] eq 2"/><option value="{$vo.id}" type="{$vo.type}" zhe="{$vo.zhe}">{$vo.zhe}折</option>
+							<elseif condition="$vo['type'] eq 3"/><option value="{$vo.id}" type="{$vo.type}" miane="{$vo.miane}">优惠{$vo.miane}</option>
+							</if>
+						</volist>
+					</select>
+				</div>
+			</div>
+			<div class="order-det-mod">
+				<div class="det-dius-hd">
 					<span class="d10-ico ico-14"></span><font id="_df10_pay_mothed" style="">付款方式</font>
 				</div>
 				<div class="det-dius-bd">
 					<ul class="det-pay" id="payinfo">
-						<li <if condition="$ordinfo['paytype'] eq 1">class="on"</if> yes="1"><em><img src="__WEBPUBLIC__/Home/images/pay-1.png"></em>(推荐)微信支付</li>
-						<li <if condition="$ordinfo['paytype'] eq 0">class="on"</if> yes="0"><em><img src="__WEBPUBLIC__/Home/images/payit.png"></em>货到付款</li>
-						<li <if condition="$ordinfo['paytype'] eq 2">class="on"</if> yes="2"><em><img src="__WEBPUBLIC__/Home/images/balance.png"></em>余额支付</li>
+						<li class="on" yes="1"><em><img src="__WEBPUBLIC__/Home/images/pay-1.png"></em>(推荐)微信支付</li>
+						<!-- <li <if condition="$ordinfo['paytype'] eq 0">class="on"</if> yes="0"><em><img src="__WEBPUBLIC__/Home/images/payit.png"></em>货到付款</li> -->
+						<!-- <li <if condition="$ordinfo['paytype'] eq 2">class="on"</if> yes="2"><em><img src="__WEBPUBLIC__/Home/images/balance.png"></em>余额支付</li> -->
 					</ul>
 				</div>
 			</div>
@@ -163,15 +182,15 @@
 						<tbody>
 							<tr>
 								<td class="tb-l"><font id="_df10_totall_pay" style="">总金额：</font></td>
-								<td class="tb-r" id="totalprice">￥{$ordinfo.price}</td>
+								<td class="tb-r">￥<span id="totalprice">{$ordinfo.price}</span></td>
 							</tr>
 							<tr>
 								<td class="tb-l"><font id="_df10_trans_pay" style="">运 费：</font></td>
-								<td class="tb-r" id="freightprice">￥{$ordinfo.luggage}</td>
+								<td class="tb-r">￥<span id="freightprice">{$ordinfo.luggage}</span></td>
 							</tr>
 							<tr>
 								<td class="tb-l">总优惠金额：</td>
-								<td class="tb-r">-￥{$ordinfo.benefit}</td>
+								<td class="tb-r">-￥<span id="benepri">{$ordinfo.benefit}</span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -179,14 +198,14 @@
 			</div>
 			<div class="order-det-mod">
 				<div class="det-dius-bd msg">
-					<input type="text" placeholder="请输入您的留言" class="inpt" name="remark" id="remark" rows="5">
+					<input type="text" placeholder="请输入您的留言" class="inpt" name="remark" id="remark" rows="5" value="{$ordinfo.remark}">
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="choose-menu">
 		<div class="ord-que fl-clr">
-			<span><font id="_df10_have_pay" style="">需要支付：</font></span><i>￥<font id="accountprice">{$ordinfo.price}</font></i>
+			<span><font id="_df10_have_pay" style="">需要支付：</font></span><i>￥<font id="accountprice">{$ordinfo.paymoney}</font></i>
 			<div class="pay-btn fl-right"><img src="__WEBPUBLIC__/Home/images/d10-ico-2.png" width="34"><font id="_df10_enter_pay">确认</font></div>
 		</div>
 	</div>
@@ -201,9 +220,43 @@
 <script src="__WEBPUBLIC__/Home/js/orders.js"></script> -->
 <script language="javascript">
 $(function(){
+	//优惠方式切换事件响应
+	$("#benefit").on('change',function(){
+		var id = $(this).val();
+		var self = $("#benefit option[value="+id+"]");
+		var luggage = $("#freightprice").text()-0;
+		var totalprice = $("#totalprice").text()-0;
+		var accountprice = luggage + totalprice;
+		switch(self.attr("type")){
+			case "1":
+			if (self.attr( "man" ) <= totalprice) {
+				accountprice = accountprice - self.attr('jian');
+			};
+			break;
+			case "2":
+				accountprice = totalprice*self.attr("zhe")/10 + luggage;
+			break;
+			case "3":
+				var price = accountprice - self.attr('miane');
+				accountprice = (price>0) ? price : 0;
+			break;
+			default:
+				$("#accountprice").text( accountprice );
+			break;
+		}
+		$("#accountprice").text( accountprice );
+		$("#benepri").text(((luggage+totalprice)*100-accountprice*100)/100);
+	});
 	$(".checkon").on('tap',function(){
 		var self = $(this);
 		var id = self.attr("forid");
+		if (self.index() == 0) {
+			var h = new Date().getHours();
+			if ( h < 9 || h > 19) {
+				alert("立即配送必须在9:00--19:00之间！");
+				return;
+			};
+		};
 		self.addClass("on").siblings().removeClass("on");
 		$("#"+id).show().siblings("div").hide();
 	});
@@ -215,15 +268,21 @@ $(function(){
 		var delidate = $("#SetDateLine:visible");
 		var paytype = $("#payinfo li.on");
 		var remark = $("#remark");
+		var SetAddressLine = $(".addr-list li");
 		var data = { "id" : "{$ordinfo.oid}" };
+		if (!SetAddressLine || SetAddressLine.length < 2) {
+			alert("请添加有效地址！");
+			return;
+		};
 		if ( delidate.length != 0 ) {
 			var myFDDate = $("#myFDDate").val();
 			var myFDTime = $("#myFDTime").val();
 			if (myFDDate && myFDTime) {
-				delidate = myFDDate+ "=====" + myFDTime;
+				delidate = myFDDate+ "=" + myFDTime;
 				data.delidate = delidate;
 			}else{
 				alert("请填写完整时间！");
+				return;
 			}
 		}else{
 			data.delidate = "尽快";
@@ -233,9 +292,9 @@ $(function(){
 			if ( paytype ) {
 				data.paytype = paytype;
 				if (paytype == 0) {
-					data.type =2;
-				}else{
-					data.type =1;
+					data.type = 2;//货到付款直接到待收货
+				}else if (paytype == 1) {
+					//data.type = 1;//微信支付调用微信支付api
 				}
 			};
 		};
@@ -243,16 +302,29 @@ $(function(){
 			remark = remark.val();
 			data.remark = remark;
 		};
+		var benefit = $("#benepri").text();
+		var paymoney = $("#accountprice").text();
+		var couid = $("#benefit").val();
+		if ( benefit ){
+			data.benefit = benefit;
+		};
+		if ( paymoney ){
+			data.paymoney = paymoney;
+		};
 		if ( data.id != "" ) {
 			$.ajax({
 				"url" : "{:U('Order/updorder')}",
 				"type" : "post",
-				"data" : {"order" : data},
+				"data" : { "order" : data , "couid" : couid},
 				"dataType" : "json",
 				"success" : function( res ){
-					if (res != "error") {
+					if (res == "error") {
+						alert("提交失败！");
+					}else if(res == "gopay"){
+						window.location.href="{:U('Order/gopay')}/oid/{$ordinfo.oid}";
+					}else{
 						window.location.href="{:U('Order/orderlist')}";
-					};
+					}
 				},
 				"error"  : function ( res ) {
 					console.log(res);

@@ -21,7 +21,7 @@ class GoodsController extends BaseController{
 				$name = "自选沙拉大份";
 				break;
 			case 'small':
-				$name = "自选沙拉小份";
+				$name = "自选沙拉";
 				$price = 38;
 				$cate_id = 6;
 				break;
@@ -73,24 +73,27 @@ class GoodsController extends BaseController{
 	}
 
 	public function updHub(){
+		$hub = D("Hub");
 		$clum = $_POST['clum'];
-		$hid = $_POST['hid'];
 		$fid = $_POST['fid'];
 		$zhi = $_POST['zhi'];
+		$uid = session("userid");
 		$data[$clum] = $zhi;
 		if ($clum == "well") {
 			$data["bad"] = 0;
 		}else{
 			$data["well"] = 0;
 		}
-		if (isset($hid) && !empty($hid)) {
-			$data['id'] = $hid;
-			$res = D("Hub")->save($data);
+		$where = array('uid'=>$uid,'fid'=>$fid);
+		$hid = $hub -> field('id') -> where($where) -> select();
+		if (!empty($hid)) {
+			$data['id'] = $hid[0]['id'];
+			$res = $hub ->save($data);
 			$this->ajaxReturn("success");
 		}else{
-			$data['uid'] = session("userid");
+			$data['uid'] = $uid;
 			$data['fid'] = $fid;
-			$res = D("Hub")->add($data);
+			$res = $hub->add($data);
 			$this->ajaxReturn($res);
 		}
 	}
@@ -133,7 +136,8 @@ class GoodsController extends BaseController{
 		$goodcate = D("Goodcate");
     	$gcate = D("Gcate");
     	$Hubgood = D("Hubgood");
-    	$catew['name'] = array('not in' , '自选沙拉大份,自选沙拉小份,自选卷');
+    	$rate = M('Rate');
+    	$catew['name'] = array('not in' , '自选沙拉大份,自选沙拉小份,自选卷,帮选沙拉');
     	$catew['status'] = array('neq' , '9');
     	$catelist = $gcate -> field("id,name") -> where($catew) -> select();
     	$this->assign( 'catelist' , $catelist );
@@ -166,6 +170,8 @@ class GoodsController extends BaseController{
     			$good['bad'] = $hub[0]['bad'];
     			$good['hid'] = $hub[0]['id']; 
     		}
+    		$sum = $rate -> where(array('gid'=>$good['gid'])) -> select();
+    		$good['ratenum'] = count( $sum );
     		$list[$key] = $good;
     	}
     	if (isset($_POST['cid'])) {
@@ -177,7 +183,6 @@ class GoodsController extends BaseController{
 	}
 
 	public function delgley(){
-
 		if (isset($_GET['glid'])) {
 			$gley = D("Gley");
 			$where["id"] = $_GET['glid'];
@@ -188,8 +193,6 @@ class GoodsController extends BaseController{
 				$this ->ajaxReturn("error");
 			}
 		}
-
-
 	}
 	public function togley(){
 		$goods = $_POST['goods'];
@@ -199,10 +202,10 @@ class GoodsController extends BaseController{
 		foreach ($goods as $key => $good) {
 			$data['goods'] = $good['gid'];
 			$data['fromuser'] = $userid;
-			$ids = $gley->field('id')->where(array('goods' =>$good['gid'],'fromuser' =>$userid))->select();
+			$ids = $gley->field('id,goodnum')->where(array('goods' =>$good['gid'],'fromuser' =>$userid))->select();
 			if (isset($ids) && count($ids) > 0) {
 				$data['id'] = $ids[0]['id'];
-				$data['goodnum'] = $good['goodnum'];
+				$data['goodnum'] = $good['goodnum'] + $ids[0]['goodnum'];
 				$res = D("Gley")->save($data);
 			}else{
 				$data['goodnum'] = $good['goodnum'];

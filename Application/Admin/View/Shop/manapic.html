@@ -21,10 +21,14 @@
 					<div>
 						<div><img src="{$vo.pic}" style="width:250px;height:170px" /></div>
 						<input class="text-input small-input" type="file" id="{$vo.id}" name="pic"/>
+						<a href="{:U('Shop/picdel',array('id'=>$vo['id']))}" title="删除">
+                            <img src="__WEBPUBLIC__/Admin/images/icons/cross.png" alt="Delete" />
+                        </a>
 					</div>
 				</volist>
 				<div class="btnpic">
 					<input class="button addpic" value="添加图片" />
+					<span style="margin-right:10px;color:red">请上传宽高比为3:2的图片，不然图片会失真。（上传前将名称改为英文或数字哦）</span>
 				</div>
 			<div class="clear"></div>
 			</div>
@@ -48,7 +52,8 @@
 				dataType : "json",
 				success : function(data){
 					if(data != "error"){
-						self.attr("id",id);
+						self.attr("id",data);
+						self.after('<a href="{:U('Shop/picdel')}/id/'+data+'" title="删除"><img src="__WEBPUBLIC__/Admin/images/icons/cross.png" alt="Delete" /></a>');
 					}
 				}
 			});

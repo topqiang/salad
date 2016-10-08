@@ -10,19 +10,23 @@ class GoodsController extends Controller{
 	public function goodsList(){
 		//获得分类列表
 		$cate_obj=D('Gcate');
+		
 		$cate_list=$cate_obj->where(array('status'=>array('neq','9')))->select();
 		$this->assign('cate_list',$cate_list);
 		//搜索
 		if(!empty($_POST['fid']))$where['gid']=$_POST['fid'];
 		if(!empty($_POST['name']))$where['gname']=array('like','%'.$_POST['name'].'%');
 		if($_POST['cate_id']!=99 and !empty($_POST['cate_id'])){
-			$where['gcate_id']=$_POST['cate_id'];
+			$where['gcate_id'] = $_POST['cate_id'];
 			// dump($where);
 			// exit();
 		}
-		$res=$this->goodcate->where($where)->select();
+		$where['cstatus'] = array('neq' , '9');
+		$count = $this->goodcate->where($where)->count();
+		$page = new \Think\Page($count,15);
+		$res=$this -> goodcate -> where($where)->limit($page->firstRow,$page->listRows)->select();
 		$this->assign('list',$res);
-		// $this->assign('page',$res['page']);
+		$this->assign('page',$page->show());
 		$this->display('goodsList');
 	}
 
@@ -30,7 +34,7 @@ class GoodsController extends Controller{
 		if(empty($_POST)){
 			//获得分类列表
 			$cate_obj=D('Gcate');
-			$cate_list=$cate_obj-> where(array('id' => array('not in','5,6,7')))->select();
+			$cate_list=$cate_obj-> where(array('id' => array('not in','5,6,7'),'status' => array('neq','9')))->select();
 			$this->assign('cate_list',$cate_list);
 			$this->display('goodsAdd');
 		}else{

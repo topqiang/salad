@@ -36,7 +36,7 @@
                     <ul>
                         <li><a href="{:U('Goods/GoodsList')}" target="main">商品列表</a></li>
                         <li><a href="{:U('Cate/CateList',array('cate'=>'Gcate'))}" target="main">商品分类</a></li>
-                        <li><a href="" target="main">评论管理</a></li>
+                        <li><a href="{:U('Rate/ratelist')}" target="main">评论管理</a></li>
                     </ul>
                 </li>
                 <li>
@@ -50,6 +50,15 @@
                     <ul>
                         <li><a href="{:U('Shop/manapic')}" target="main">门店轮播</a></li>
                         <li><a href="{:U('Shop/shoplist')}" target="main">门店列表</a></li>
+                        <li><a href="{:U('Msg/index')}" target="main">通知列表</a></li>
+                        <li><a href="{:U('About/aboutupd',array('id'=>1))}" target="main">关于Happy Daze</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="nav-top-item">业务管理</a>
+                    <ul>
+                        <li><a href="{:U('Coupon/index')}" target="main">优惠券列表</a></li>
+                        <li><a href="{:U('Luggage/index')}" target="main">运费管理</a></li>
                     </ul>
                 </li>
 				<li>
@@ -60,18 +69,16 @@
                             <a href="{:U('User/userlist')}" target="main">用户列表</a>
                         </li>
                         </if>
-						<li><a href="{:U('comment/comList')}" target="main">评论列表</a></li>
 					</ul>
 				</li>
 				<li>
 					<a href="#" class="nav-top-item">管&nbsp;理&nbsp;员</a>
 					<ul>
 						<li><a href="{:U('Admin/adminList')}" target="main">管理员列表</a></li>
-						<li><a href="{:U('Group/groupList')}" target="main">分组管理</a></li>
+						<!-- <li><a href="{:U('Group/groupList')}" target="main">分组管理</a></li> -->
 						<li><a href="{:U('Manager/editPwd')}" target="main">修改密码</a></li>
 					</ul>
 				</li>
-                <!-- 
                 <if condition="$_SESSION['g_id'] neq 3">
                 <li>
                     <a href="#" class="nav-top-item">微信配置</a>
@@ -84,14 +91,14 @@
                         <li><a href="{:U('WeiXinArticle/backType',array('back_type'=>'noneBack'))}" target="main">空回答回复</a></li>
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#" class="nav-top-item">文章管理</a>
                     <ul>
                         <li><a href="{:U('Article/articleList')}" target="main">文章列表</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <else/>
-                </if> -->
+                </if>
             </ul>
             <!--菜单 end-->
         </div>

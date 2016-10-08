@@ -1,0 +1,100 @@
+<include file="Index:header"/>
+	<header>
+		<a href="javascript:history.go(-1)" class="arrow-l"></a>
+		<h2><font id="_payment_interruption" style="">订单评价</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</header>
+	<div>
+		<div class="result-tit">
+			<p id="OrdersCodeNum">为您的订单打个分吧</p>
+			<h3><font id="_payment_interruption" style="display:none">已完成</font></h3>
+		</div>
+		<div class="pay-word">
+			<volist name="goods" id="good">
+			<div style="border-bottom:1px solid #00ff00;">
+				<h2>{$good.name}</h2>
+				<div class="rate" style="display:flex;justify-content: space-around;flex-direction: row;font-size: 30px;margin-bottom: 10px;">
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+				</div>
+				<div class="det-dius-bd msg">
+					<input type="text" placeholder="请输入您对该商品的评价" gid="{$good.gid}" class="inpt" name="remark">
+				</div>
+			</div>
+			</volist>
+			<div class="pay-btn-wrap fl-clr">
+				<div class="rate-btn order-btn" oid="{$_REQUEST['oid']}"><font id="_view_orders" style="">提交</font></div>
+				<a href="{:U('Index/index')}"><div class="car-btn"><font id="_continue_pay" style="">首页</font></div></a>
+			</div>
+		</div>
+		
+	</div>
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+<script src="__WEBPUBLIC__/Home/js/cart.js"></script>
+<script language="javascript">
+$(function(){
+	$(".rate span").on('click',function(){
+		var self = $(this);
+		var prev = self.prevAll();
+		var next = self.nextAll();
+		prev.addClass("on");
+		next.removeClass("on");
+		self.addClass("on");
+	});
+	$(".rate-btn").on('click',function(){
+		var self = $(this).parent().prevAll();
+		var rate = [];
+		var oid = $(this).attr('oid');
+		self.each(function(){
+			var gself = $(this);
+			var wellnum = gself.find(".rate span.on").length;
+			var msgtext = gself.find(".msg input").val();
+			var gid = gself.find(".msg input").attr("gid");
+			if (wellnum >= 0) {
+				rate.push({
+					"wellnum" : wellnum,
+					"msgtext" : msgtext,
+					"gid" : gid,
+				});
+			};
+		});
+		console.log(rate);
+		if (rate.length > 0) {
+			$.ajax({
+				url : "{:U('Rate/addrate')}",
+				type : "post",
+				data : {"rate" : rate},
+				dataType : "json",
+				success : function( res ){
+					if ( res != "error") {
+						$.ajax({
+							"url" : "{:U('Order/updorder')}",
+							"type" : "post",
+							"data" : {"order" : {"id":oid,"type":"4"}},
+							"dataType" : "json",
+							"success" : function( res ){
+								if (res == "error") {
+									alert("提交失败！");
+								}else{
+									window.location.href="{:U('Order/orderlist')}";
+								}
+							},
+							"error"  : function ( res ) {
+								console.log(res);
+							}
+						})
+					};
+				}
+			});
+		};
+	});
+});
+</script>
+
+</body></html>

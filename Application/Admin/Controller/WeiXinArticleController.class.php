@@ -330,7 +330,7 @@ class WeiXinArticleController extends Controller{
     /**
      * 添加菜单
      */
-    public function(){
+    public function createMenu(){
         if(empty($_POST)){
             $menu_list = $this->menu->searchMenu('','sort desc','');
             $sel_menu_list = $this->menu->searchMenu(array('parent_id'=>0),'sort desc','');

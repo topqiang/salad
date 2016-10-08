@@ -1,0 +1,55 @@
+[ 2016-10-08T10:04:51+08:00 ] ::1 /salad/index.php?s=/User/login
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000903s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001854s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_user` [ RunTime:0.004827s ]
+SQL: SELECT * FROM `shala_user` WHERE ( `tel` = '13163177870' )  [ RunTime:0.017481s ]
+
+[ 2016-10-08T10:05:38+08:00 ] ::1 /salad/index.php?s=/Goods/goodsAdd
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000756s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001492s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_gleygood` [ RunTime:0.005070s ]
+SQL: SELECT `goodnum`,`gprice` FROM `shala_gleygood` WHERE ( `glfromuser` = '7' )  [ RunTime:0.000782s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\salad\Application\Home\Controller\BaseController.class.php 第 23 行.
+SQL: SHOW COLUMNS FROM `shala_goods` [ RunTime:0.004711s ]
+SQL: INSERT INTO `shala_goods` (`name`,`cate_id`,`constituent`,`pic`,`price`,`create_time`,`update_time`,`remark`,`status`) VALUES ('自选沙拉',6,'罗马生菜X1份    橙子X1份    蒜酱X1份    ','Uploads/goods/201609/4c086e017b084739bfec686dfd5fe5c0.jpg',38,1475892338,1475892338,'切碎',0) [ RunTime:0.087549s ]
+SQL: SHOW COLUMNS FROM `shala_gley` [ RunTime:0.009700s ]
+SQL: INSERT INTO `shala_gley` (`goods`,`fromuser`) VALUES (27,7) [ RunTime:0.046750s ]
+
+[ 2016-10-08T10:05:42+08:00 ] ::1 /salad/index.php?s=/Order/addorder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000723s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001412s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_gleygood` [ RunTime:0.004669s ]
+SQL: SELECT `goodnum`,`gprice` FROM `shala_gleygood` WHERE ( `glfromuser` = '7' )  [ RunTime:0.000738s ]
+SQL: SHOW COLUMNS FROM `shala_order` [ RunTime:0.006805s ]
+SQL: SHOW COLUMNS FROM `shala_user` [ RunTime:0.004637s ]
+SQL: SELECT `address`,`delivertype` FROM `shala_user` WHERE ( `id` = 7 )  [ RunTime:0.000551s ]
+SQL: SHOW COLUMNS FROM `shala_address` [ RunTime:0.004714s ]
+SQL: SELECT * FROM `shala_address` WHERE ( id = 15 )  [ RunTime:0.014966s ]
+SQL: SHOW COLUMNS FROM `shala_luggage` [ RunTime:0.004523s ]
+SQL: SELECT * FROM `shala_luggage`  [ RunTime:0.000526s ]
+SQL: INSERT INTO `shala_order` (`name`,`fromuser`,`create_time`,`update_time`,`price`,`type`,`delivertype`,`address`,`detailadd`,`luggage`,`paymoney`) VALUES ('72016100810054229363',7,1475892342,1475892342,38,0,1,'15','天津市南开区天津市南开区咸阳路小学1234',12,50) [ RunTime:0.016867s ]
+SQL: SHOW COLUMNS FROM `shala_orgo` [ RunTime:0.004547s ]
+SQL: SHOW COLUMNS FROM `shala_gley` [ RunTime:0.004492s ]
+SQL: DELETE FROM `shala_gley` WHERE ( `id` = 18 ) [ RunTime:0.010936s ]
+SQL: INSERT INTO `shala_orgo` (`gid`,`gprice`,`gnum`,`oid`) VALUES (27,38,1,25) [ RunTime:0.004524s ]
+
+[ 2016-10-08T13:18:48+08:00 ] ::1 /salad/index.php?s=/Order/updorder
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001330s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002370s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_gleygood` [ RunTime:0.005010s ]
+SQL: SELECT `goodnum`,`gprice` FROM `shala_gleygood` WHERE ( `glfromuser` = '7' )  [ RunTime:0.000756s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\salad\Application\Home\Controller\BaseController.class.php 第 23 行.
+SQL: SHOW COLUMNS FROM `shala_order` [ RunTime:0.006824s ]
+SQL: UPDATE `shala_order` SET `delidate`='2016-10-09=10:00-11:00',`paytype`=1,`remark`='',`benefit`=7.6,`paymoney`=42.4 WHERE ( `id` = 25 ) [ RunTime:0.070261s ]
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.011222s ]
+SQL: SELECT `num` FROM `shala_coupon` WHERE ( `id` = '1' )  [ RunTime:0.001049s ]
+SQL: UPDATE `shala_coupon` SET `num`=11 WHERE ( `id` = 1 ) [ RunTime:0.064588s ]
+

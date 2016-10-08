@@ -154,7 +154,6 @@ $(function(){
 			data:{"clum" : type, "zhi" : change ,"hid":hid ,"fid":fid},
 			dataType:"json",
 			success:function (data) {
-				console.log(data);
 				if (data == "success") {
 
 				}else{
@@ -188,7 +187,7 @@ $(function(){
 					var newdom = $("<ul/>",{class:id}).appendTo(".choose-con");
 					for(var index in datajson){
 						var obj = datajson[index];
-						newdom.append('<li><table width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="td-1"><img src="/salad/'+obj.fpic+'"></td><td class="td-2">'+obj.fname+'</td><td hid="'+(obj.hid ? obj.hid : "")+'" fid="'+obj.fid+'" class="td-4 '+(obj.well ? "on" : "")+'"><i></i></td><td hid="'+(obj.hid ? obj.hid : "")+'" fid="'+obj.fid+'" class="td-5 '
+						newdom.append('<li><table width="100%" cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="td-1"><img src="/'+obj.fpic+'"></td><td class="td-2">'+obj.fname+'</td><td hid="'+(obj.hid ? obj.hid : "")+'" fid="'+obj.fid+'" class="td-4 '+(obj.well ? "on" : "")+'"><i></i></td><td hid="'+(obj.hid ? obj.hid : "")+'" fid="'+obj.fid+'" class="td-5 '
 							+(obj.bad ? "on" : "")+'"><i></i></td></tr></tbody></table></li>');
 					}
 					newdom.find("td.td-4,td.td-5").on('tap',updem);

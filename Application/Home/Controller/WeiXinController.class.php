@@ -25,7 +25,9 @@ use Think\Controller;
         $str=sha1(implode(sort($arr)));
         if (!empty($echostr)) {
             echo($echostr);
+            file_put_contents('error.txt', '响应配置');
         }else{
+            file_put_contents('error.txt', '响应消息');
             $Article = A('Api/WeiXin');
             $Article->responseMsg();
         }

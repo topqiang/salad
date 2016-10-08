@@ -16,10 +16,10 @@
 		</div>
 
 		<if condition="$_REQUEST['type'] neq 2">
-		<div class="addr-location-2" id="myPickupPointTitle">
+		<div class="addr-location-2" id="myPickupPointTitle" style="display:none">
 			<font id="_tip_click" style="">到店自提，请选择提货点</font>
 		</div>
-		<div class="addr-list-wrap" id="myPickupPointList">
+		<div class="addr-list-wrap" id="myPickupPointList" style="display:none">
 			<volist name="shop" id="address">
 				<div <if condition="$address['addid'] eq $useradd">class="addr-list after on"<else/>class="addr-list after"</if> addid="{$address.addid}">
 					<dl>
@@ -84,7 +84,7 @@
 <script src="__WEBPUBLIC__/Home/js/personal.js"></script>
 <script language="javascript">
 $(function(){
-	$(".addr-list").on('tap',checkAddress);
+	$(".addr-list.after").on('tap',checkAddress);
 });
 function checkAddress(){
 	var self = $(this);
@@ -103,13 +103,13 @@ function checkAddress(){
 			if (res == "success") {
 				$(".addr-list.on").removeClass("on");
 				self.addClass("on");
-			}else{
+			}else if (res != "error") {
 				var json = JSON.parse(res);
 				if (json.oid) {
 					window.location.href = "{:U('Order/orderinfo')}/id/"+json.oid;
-				}else{
-					alert("已为当前，请重选！");
 				}
+			}else{
+				alert("已为当前，请重选！");
 			}
 		}
 	});

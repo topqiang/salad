@@ -90,15 +90,24 @@ class IndexController extends BaseController {
     	$argarr['uid'] = array('eq' , $userid);
     	$argarr['well'] = array('eq' , "1");
     	$zclist = $hubfooduser -> field("fid,fpic,fname,fcate_id") -> order('rand()') ->limit($zc) -> where($argarr) -> select();
-    	$oldnum = count($zclist);
+    	$oldnum = 0;
+        if (isset($zclist)) {
+           $oldnum = count($zclist);
+        }else{
+            $zclist = array();
+        }
     	if ($oldnum < $zc) {
     		$newnum = $zc - $oldnum;
     		$resid =$hubfooduser -> field("fid") -> where(array('uid' => array('eq', $userid))) -> select();
-    		foreach ($resid as $key => $value) {
-    			$guoluid[$key] = $value['fid'];
-    		}
+            if (isset($resid)) {
+                foreach ($resid as $key => $value) {
+                    $guoluid[$key] = $value['fid'];
+                }
+            }
     		$zclist2 = $foodcate -> field("fid,fpic,fname") ->order('rand()') ->limit($newnum) -> where(array('fid' => array('not in',$guoluid),'cname' => array('not in' , '基菜,酱料'))) -> select();
-    		$zclist = array_merge( $zclist , $zclist2 );
+    		if (isset($zclist2)) {
+                $zclist = array_merge( $zclist , $zclist2 );
+            }
     	}
     	$list['jclist'] = $jclist;
     	$list['zclist'] = $zclist;

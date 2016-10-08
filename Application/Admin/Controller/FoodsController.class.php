@@ -21,9 +21,11 @@ class FoodsController extends AdminBasicController {
 			// dump($where);
 			// exit();
 		}
-		$res=$this->Foodcate->where($where)->select();
+		$count = $this->Foodcate -> where($where)->count();
+		$page = new \Think\Page($count,15);
+		$res = $this -> Foodcate -> where($where) -> limit($page->firstRow,$page->listRows)->select();
 		$this->assign('list',$res);
-		// $this->assign('page',$res['page']);
+		$this->assign('page',$page->show());
 		$this->display('foodsList');
 	}
 

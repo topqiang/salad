@@ -12,23 +12,28 @@ class OrderController extends BaseController{
 	public function addorder(){
 		$goods = $_POST['goods'];
 		$fromuser = session("userid");
-		$delivertype = isset($delivertype) ? $delivertype : 1;
 		$name = $fromuser.date("YmdHis").rand(10000,99999);
 		$Order = D("Order");
 		$address = D("User") -> field('address,delivertype') -> where( array('id'=>$fromuser) ) -> select();
 		$delivertype = $address[0]['delivertype'];
+		$delivertype = isset($delivertype) ? $delivertype : 1;
 		$address = $address[0]['address'];
 		if (isset($address)) {
 			$addinfo = D('Address') -> where("id = $address") -> select();
 			$detailadd = $addinfo[0]['detailadd'].$addinfo[0]['numhouse'];
 		}else{
-			$this -> ajaxReturn(json_encode(array('status' => 'noadd')));
+			$address = 0;
+			$detailadd = "";
+			//强制用户生成订单前保存地址
+			// $this -> ajaxReturn(json_encode(array('status' => 'noadd')));
 		}
 		$flag =false;
 		$price = 0;
 		foreach ($goods as $key => $good) {
 			$price += ($good['gprice'] * $good['gnum']);
 		}
+		//获取运费，以及优惠卷使用
+		$luggage = M('Luggage') -> select();
 		if (!empty($goods)) {
 			//查询当前物流方式以及地址
 			$Order->startTrans();
@@ -47,6 +52,13 @@ class OrderController extends BaseController{
 				$getcode = rand(10000,99999);
 				$order['getcode'] = $getcode;
 			}
+			if (isset($luggage)) {
+				if ($price <= $luggage[0]['man']) {
+					$order['luggage'] = $luggage[0]['price'];
+					$price = $price + $order['luggage'];
+				}
+			}
+			$order['paymoney'] = $price;
 			$res = $Order -> add($order);
 			if (!empty($res)) {
 				$orobj = D("Orgo");
@@ -88,9 +100,18 @@ class OrderController extends BaseController{
 	public function updorder(){
 		$order = $_POST['order'];
 		if ( isset($order) ) {
+			$couid = $_POST['couid'];
 			$ord = D("Order");
 			$res = $ord -> save( $order );
 			if ( isset( $res ) ) {
+				if (isset($couid)) {
+					$couobj = M('Coupon');
+					$coupon = $couobj -> field('num') -> where( array( 'id' => array( 'eq' , $couid ) ) ) -> select();
+					$res = $couobj -> save(array('id' =>$couid ,'num'=>$coupon[0]['num']-1));
+				}
+				if ( !empty($order['paytype']) && $order['paytype']  == '1') {
+					$this -> ajaxReturn("gopay");
+				}
 				$this -> ajaxReturn( $res );
 			}else{
 				$this -> ajaxReturn( "error" );
@@ -98,6 +119,58 @@ class OrderController extends BaseController{
 		}
 	}
 
+	public function gopay(){
+		$oid = $_GET['oid'];
+		if (isset($oid)) {
+			$ord = D("Order");
+			$res = $ord -> field('id,name,price,delivertype,paymoney') -> where( array('id' => $oid)) -> limit(1) -> select();
+			$order = $res[0];
+			$openid = session('wx_id');
+			$callbackurl = "http://".$_SERVER['SERVER_NAME']."/index.php/Home/Order/comord/id/".$order['id']."/delivertype/".$order['delivertype'];
+			$url = "http://www.happydaze.cn/pay/example/jsapi.php?ordname=".$order['name']."&price=".$order['paymoney']."&openid=$openid&callbackurl=$callbackurl";
+			Header("Location: $url");
+		}
+	}
+
+	public function comord(){
+		$id = $_GET['id'];
+		$delivertype = $_GET['delivertype'];
+		$type = 0;
+		if (isset($id)) {
+			if ($delivertype == 0) {
+				$type = 2;
+			}else{
+				$type = 1;
+			}
+		}
+		$data = array(
+			"id" => $id,
+			"type" => $type
+			);
+		$res = M("Order") -> save($data);
+		$this -> redirect("Order/orderlist");
+	}
+
+	public function payerror(){
+		$ordname = $_GET['ordname'];
+		$where['name'] = array('eq',$ordname);
+		$order = M('Order') -> field('id,name') -> where($where) -> select();
+		if (isset($order)) {
+		 	$this -> assign('order' ,$order[0]);
+		 	$this -> display();
+		 }else{
+		 	$this -> display("Index/index");
+		 }
+	}
+
+	public function rate(){
+		$oid = $_GET['oid'];
+		$where['oid'] = array('eq',$oid);
+		$orgood = D("Orgood");
+		$goods = $orgood -> where($where) -> select();
+		$this -> assign("goods" , $goods);
+		$this -> display();
+	}
 
 	public function orderinfo(){
 		$id = $_GET['id'];
@@ -106,14 +179,34 @@ class OrderController extends BaseController{
 		$orgood = D("Orgood");
 		$ordinfo = $ordadd -> where($where) -> select();
 		$goods = $orgood -> where($where) -> select();
-		$this -> assign("goods" , $goods);
-		$this -> assign("ordinfo",$ordinfo[0]);
+		//处理配送时间
+		$date = date("Y-m-d",(time()+48*60*60));
+		$tomaro = date("Y-m-d",(time()+24*60*60));
+		//查询优惠方式
+		$couarr['status'] = array('neq',9);
+		$couarr['num'] = array('gt',0);
+		$couarr['startime'] = array( 'elt' , date('Y/m/d'));
+		$couarr['endtime'] = array( 'egt' , date('Y/m/d'));
+		$coupon = M('Coupon') -> where( $couarr ) ->select();
+		$this -> assign( "coupon" , $coupon );
+		$this -> assign( "datee" , $date );
+		$this -> assign( "tomaro" , $tomaro );
+		$this -> assign( "goods" , $goods );
+		$this -> assign( "ordinfo" , $ordinfo[0] );
 		if ($ordinfo[0]['type'] == 0) {
+			if (isset($ordinfo[0]['delidate']) && $ordinfo[0]['delidate'] != "尽快") {
+				$datearr = explode("=", $ordinfo[0]['delidate']);
+			}
+			if (date('h',time()) >= 9 && date('h',time()) <= 19) {
+				$this -> assign('date',$datearr[0]);
+			}else{
+				$this -> assign('date',"123");
+			}
+			$this -> assign('time',$datearr[1]);
 			$this -> display();
 		}else{
 			$this -> display("orderinfo2");
 		}
-		
 	}
 
 
@@ -121,7 +214,7 @@ class OrderController extends BaseController{
 		$where[ 'fromuser' ] = session("userid");
 		$ordadd = D("Ordadd");
 		$orgood = D("Orgood");
-		$ordinfo = $ordadd -> field("oid,addname,ordname,type,price,delivertype") -> where($where) -> select();
+		$ordinfo = $ordadd -> field("oid,addname,ordname,type,price,delivertype,paymoney") -> where($where) -> order('type asc,update_time desc') -> select();
 		foreach ($ordinfo as $key => $order) {
 			$good[ 'oid' ] = $order[ 'oid' ];
 			$goods = $orgood -> field('gid,name,gnum,gprice') -> where( $good ) -> select();
@@ -143,7 +236,7 @@ class OrderController extends BaseController{
 			$newoid[$key] = $order['oid'];
 		}
 		$where['oid'] = array( 'in' , $newoid);
-		$ordinfo = $ordadd -> field("oid,addname,ordname,type,price,delivertype") -> where($where) -> select();
+		$ordinfo = $ordadd -> field("oid,addname,ordname,type,price,delivertype") -> order('type asc,update_time desc') -> where($where) -> select();
 		foreach ($ordinfo as $key => $order) {
 			$good[ 'oid' ] = $order[ 'oid' ];
 			$goods = $orgood -> field('gid,name,gnum,gprice') -> where( $good ) -> select();
