@@ -16,19 +16,13 @@
         <!--头部切换-->
         <div class="content-box-header">
             <h3>会员列表</h3>
-            <ul class="content-box-tabs">
-                <li><a href="<?php echo U('Member/memberList');?>" <?php if(($tab_type) == "1"): ?>class="default-tab"<?php endif; ?>>列表</a></li>
-                <li><a href="<?php echo U('Member/memberList',array('type'=>'1'));?>" <?php if(($tab_type) == "2"): ?>class="default-tab"<?php endif; ?>>智能排序</a></li>
-            </ul>
             <div class="clear"></div>
         </div>
 
         <div class="content-search" style="height: 40px;margin: 10px 0 0 10px;">
-            <form action="<?php echo U('Member/memberList');?>" method="post">
-                用户手机号：<input type="text" name="m_tel" class="text-input">
+            <form action="<?php echo U('User/userlist');?>" method="post">
+                用户名：<input type="text" name="name" class="text-input">
                 <input type="submit" class="button search-btn" value="查询">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="<?php echo U('Member/delLevelScore');?>" onclick="return confirm('只有顶级管理员具备此项操作权限，确定清空吗？')">清空等级积分</a>
             </form>
         </div>
 
@@ -40,12 +34,13 @@
                     <!--标题 start-->
                     <thead>
                     <tr>
-                        <th width="">姓名</th>
-                        <th width="">电话</th>
-                        <th width="">地址</th>
-                        <th width="">性别</th>
-                        <th width="">余额</th>
-                        <th width="">创建时间</th>
+                        <th width="5%">ID</th>
+                        <th width="5%">姓名</th>
+                        <th width="10%">电话</th>
+                        <th width="50%">地址</th>
+                        <th width="5%">性别</th>
+                        <th width="5%">余额</th>
+                        <th width="10%">创建时间</th>
                         <th width="10%">操作</th>
                     </tr>
                     </thead>
@@ -53,6 +48,7 @@
                     <!--内容 start-->
                     <tbody>
                     <?php if(is_array($userlist)): $i = 0; $__LIST__ = $userlist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$user): $mod = ($i % 2 );++$i;?><tr>
+                            <td><?php echo ($user["id"]); ?></td>
                             <td><?php echo ($user["name"]); ?></td>
                             <td>
                                 <?php echo ($user["tel"]); ?>

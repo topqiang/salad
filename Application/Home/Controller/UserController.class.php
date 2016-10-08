@@ -180,6 +180,15 @@ class UserController extends Controller{
 		redirect(U('User/index'));
 	}
 
+	public function coupon(){
+		A('Base');
+		$uid = session('userid');
+		$ucoupon = M('Ucoupon');
+		$res = $ucoupon -> where(array('uid' => $uid)) ->order('utype asc , endtime asc') -> select();
+		$this -> assign('coupons',$res);
+		$this -> display();
+	}
+
 	public function curl($data,$url){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

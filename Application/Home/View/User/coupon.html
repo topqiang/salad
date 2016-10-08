@@ -1,0 +1,88 @@
+<include file="Index:header"/>
+	<style type="text/css">
+		body{
+			background: #e6e7e1;
+		}
+	</style>
+	<header>
+		<a href="javascript:history.go(-1);" class="arrow-l" id="BackIcon"></a>
+	  	<h2><font id="_df39_title" style="">优惠卷</font></h2>
+		<font id="CartLine"><a href="{:U('Goods/gley')}"><span class="cart-ico"><em>{$count}</em></span></a></font>
+	</header>
+    <div>
+		<div class="addr-location" id="myAddressTitle"><font id="_tip_click2" style="">优多多，慧多多</font></div>
+			<div class="addr-list-wrap" id="myAddressList">
+				<volist name="coupons" id="coupon">
+					<div  <if condition="$coupon['utype'] eq 0">class="addr-list after on"<else/>class="addr-list after"</if>  addid="{$coupon.id}">
+						<dl>
+							<dt>
+								<span>
+									<if condition="$coupon['type'] eq 1">满{$coupon.man}减{$coupon.jian}
+									<elseif condition="$coupon['type'] eq 2"/>{$coupon.zhe}折
+									<elseif condition="$coupon['type'] eq 3"/>优惠{$coupon.miane}
+									</if>
+								</span>
+								<i>
+								
+								</i>
+							</dt>
+							<dd>{$coupon.startime}==={$coupon.endtime}</dd>
+							<dd>
+								<a><em class="zt-city">
+								<if condition="$coupon['type'] eq 1">满减劵
+								<elseif condition="$coupon['type'] eq 2"/>折扣劵
+								<elseif condition="$coupon['type'] eq 3"/>定额劵
+								</if>
+								</em></a>
+							</dd>
+						</dl>
+						<em class="after-link on"><if condition="$coupon['utype'] eq 0">未使用<else/>已使用</if></em>
+					</div>
+				</volist>
+			</div>
+	</div>
+<script src="__WEBPUBLIC__/Home/js/config.js"></script>
+<script src="__WEBPUBLIC__/Home/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/zepto.js" type="text/javascript"></script>
+<script src="__WEBPUBLIC__/Home/js/touch.js" type="text/javascript"></script>
+<!-- <script src="__WEBPUBLIC__/Home/js/wewing.token.js"></script>
+<script src="__WEBPUBLIC__/Home/js/wewing.init.js"></script> -->
+<script language="javascript">
+// GetUserLoginInfo();
+</script>
+<script src="__WEBPUBLIC__/Home/js/personal.js"></script>
+<script language="javascript">
+$(function(){
+	// $(".addr-list.after").on('tap',checkAddress);
+});
+function checkAddress(){
+	var self = $(this);
+	var myAddressList = self.parent().attr("id");
+	var id = self.attr("addid");
+	var delivertype = 0;
+	if ( myAddressList == "myAddressList" ) {
+		delivertype = 1;
+	};
+	$.ajax({
+		url : "{:U('User/updaddress')}",
+		type : "post",
+		data : { "id" : id , "delivertype" : delivertype},
+		dataType : "json",
+		success : function(res){
+			if (res == "success") {
+				$(".addr-list.on").removeClass("on");
+				self.addClass("on");
+			}else if (res != "error") {
+				var json = JSON.parse(res);
+				if (json.oid) {
+					window.location.href = "{:U('Order/orderinfo')}/id/"+json.oid;
+				}
+			}else{
+				alert("已为当前，请重选！");
+			}
+		}
+	});
+}
+</script>
+
+</body></html>

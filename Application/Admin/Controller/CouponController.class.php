@@ -100,4 +100,32 @@ class CouponController extends Controller{
 			}
 		}
 	}
+
+	public function toUser(){
+		$couid = $_POST['couid'];
+		$uid = $_POST['uid'];
+		if (isset($couid) && isset($uid)) {
+			$where['couid'] = $couid;
+			$where['uid'] = $uid;
+			$usercou = M('Usercou');
+			$num = $usercou -> where($where) -> limit(1) -> select();
+			if (empty($num)) {
+				$couobj = M('Coupon');
+				$coupon = $couobj -> field('num') -> where( array( 'id' => array( 'eq' , $couid ) ) ) -> select();
+				if ($coupon[0]['num'] > 0) {
+					$res = $usercou -> add( $where );
+					if (!empty($res)) {
+						$res = $couobj -> save(array('id' =>$couid ,'num'=>$coupon[0]['num']-1));
+						$this -> ajaxReturn(json_encode(array('status'=>1,'code'=>'发放完成！')));
+					}else{
+						$this -> ajaxReturn(json_encode(array('status'=>2,'code'=>'发放失败！')));
+					}
+				}else{
+					$this -> ajaxReturn(json_encode(array('status'=>1,'code'=>'数量不足！')));
+				}
+			}else{
+				$this -> ajaxReturn(json_encode(array('status'=>'error','code'=>'已发放！')));
+			}
+		}
+	}
 }

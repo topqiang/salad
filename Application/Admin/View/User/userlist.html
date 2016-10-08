@@ -16,19 +16,13 @@
         <!--头部切换-->
         <div class="content-box-header">
             <h3>会员列表</h3>
-            <ul class="content-box-tabs">
-                <li><a href="{:U('Member/memberList')}" <eq name="tab_type" value="1">class="default-tab"</eq>>列表</a></li>
-                <li><a href="{:U('Member/memberList',array('type'=>'1'))}" <eq name="tab_type" value="2">class="default-tab"</eq>>智能排序</a></li>
-            </ul>
             <div class="clear"></div>
         </div>
 
         <div class="content-search" style="height: 40px;margin: 10px 0 0 10px;">
-            <form action="{:U('Member/memberList')}" method="post">
-                用户手机号：<input type="text" name="m_tel" class="text-input">
+            <form action="{:U('User/userlist')}" method="post">
+                用户名：<input type="text" name="name" class="text-input">
                 <input type="submit" class="button search-btn" value="查询">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{:U('Member/delLevelScore')}" onclick="return confirm('只有顶级管理员具备此项操作权限，确定清空吗？')">清空等级积分</a>
             </form>
         </div>
 
@@ -40,12 +34,13 @@
                     <!--标题 start-->
                     <thead>
                     <tr>
-                        <th width="">姓名</th>
-                        <th width="">电话</th>
-                        <th width="">地址</th>
-                        <th width="">性别</th>
-                        <th width="">余额</th>
-                        <th width="">创建时间</th>
+                        <th width="5%">ID</th>
+                        <th width="5%">姓名</th>
+                        <th width="10%">电话</th>
+                        <th width="50%">地址</th>
+                        <th width="5%">性别</th>
+                        <th width="5%">余额</th>
+                        <th width="10%">创建时间</th>
                         <th width="10%">操作</th>
                     </tr>
                     </thead>
@@ -54,6 +49,7 @@
                     <tbody>
                     <volist name="userlist" id="user">
                         <tr>
+                            <td>{$user.id}</td>
                             <td>{$user.name}</td>
                             <td>
                                 {$user.tel}

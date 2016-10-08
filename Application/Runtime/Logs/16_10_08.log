@@ -53,3 +53,296 @@ SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.011222s ]
 SQL: SELECT `num` FROM `shala_coupon` WHERE ( `id` = '1' )  [ RunTime:0.001049s ]
 SQL: UPDATE `shala_coupon` SET `num`=11 WHERE ( `id` = 1 ) [ RunTime:0.064588s ]
 
+[ 2016-10-08T15:39:36+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000762s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001555s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005094s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.006018s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000677s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.065338s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:38+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000887s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001957s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005232s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.006663s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000660s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.059337s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:38+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001067s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001912s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005328s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.006290s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000622s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.065827s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:39+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000778s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001588s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005828s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004378s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000621s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.056861s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:39+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000754s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001477s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005318s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005277s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000686s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.039196s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:40+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000766s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001472s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004840s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005499s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000635s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.058948s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:41+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000768s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001451s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005004s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005321s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000630s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.079699s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:41+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000760s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001494s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005742s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005212s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000629s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.067851s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:41+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000769s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001503s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004806s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004395s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000630s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.030688s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:42+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000751s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001474s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.012725s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005431s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000621s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.038830s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:42+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000761s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001489s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004751s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004567s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000627s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.030778s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:56+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000756s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001456s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005428s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004406s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000630s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.068599s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:58+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000761s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001519s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004998s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004574s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000629s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.061940s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:39:59+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000746s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001478s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004819s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.006087s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000631s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.050635s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:41:34+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000790s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001553s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.006307s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005083s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000671s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.038746s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:42:26+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001508s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002487s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004902s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004849s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000668s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.065945s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:42:31+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001117s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002104s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005362s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004948s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000641s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0) [ RunTime:0.062171s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,0)
+
+[ 2016-10-08T15:46:52+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000786s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001639s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005445s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005113s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 0 ) LIMIT 1   [ RunTime:0.000646s ]
+
+[ 2016-10-08T15:47:51+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001170s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002642s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.006025s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.007620s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 3 ) LIMIT 1   [ RunTime:0.000661s ]
+
+[ 2016-10-08T15:48:17+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000965s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002530s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.007963s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.007262s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 3 ) LIMIT 1   [ RunTime:0.000709s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,3) [ RunTime:0.063282s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,3)
+
+[ 2016-10-08T15:48:22+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000768s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001510s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.006279s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.007405s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 2 ) LIMIT 1   [ RunTime:0.000648s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (1,2) [ RunTime:0.055304s ]
+
+[ 2016-10-08T15:48:45+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000952s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001815s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004721s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005180s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 2 ) LIMIT 1   [ RunTime:0.000668s ]
+
+[ 2016-10-08T15:50:33+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000921s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001870s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.004841s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004587s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 2 ) AND ( `uid` = 4 ) LIMIT 1   [ RunTime:0.000729s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (2,4) [ RunTime:0.065167s ]
+ERR: 1452:Cannot add or update a child row: a foreign key constraint fails (`shala`.`shala_usercou`, CONSTRAINT `u_c` FOREIGN KEY (`uid`) REFERENCES `shala_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE)
+ [ SQL语句 ] : INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (2,4)
+
+[ 2016-10-08T15:50:38+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000866s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001720s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.006518s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005186s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 2 ) AND ( `uid` = 5 ) LIMIT 1   [ RunTime:0.000648s ]
+SQL: INSERT INTO `shala_usercou` (`couid`,`uid`) VALUES (2,5) [ RunTime:0.066375s ]
+
+[ 2016-10-08T15:51:33+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000933s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001947s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.005301s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.005627s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 1 ) AND ( `uid` = 2 ) LIMIT 1   [ RunTime:0.029376s ]
+
+[ 2016-10-08T15:51:40+08:00 ] ::1 /salad/index.php?s=/Admin/Coupon/toUser
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000781s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001540s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\wamp\www\salad\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `shala_coupon` [ RunTime:0.007272s ]
+SQL: SHOW COLUMNS FROM `shala_usercou` [ RunTime:0.004609s ]
+SQL: SELECT * FROM `shala_usercou` WHERE ( `couid` = 2 ) AND ( `uid` = 5 ) LIMIT 1   [ RunTime:0.000671s ]
+

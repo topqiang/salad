@@ -81,6 +81,9 @@
                                     <?php echo ($vo["miane"]); ?>
                                 </td>
                                 <td>
+                                	<a class="giveuser" id="<?php echo ($vo["id"]); ?>" title="发放">
+                                        <img src="/salad/Public/Admin/images/icons/msg.png" alt="msg" />
+                                    </a>
                                     <a href="<?php echo U('Coupon/couponupd',array('id'=>$vo['id']));?>" title="编辑">
                                         <img src="/salad/Public/Admin/images/icons/pencil.png" alt="Edit" />
                                     </a>
@@ -110,5 +113,46 @@
 		</div>
 	</div>
 </div>
+<div class="uid" style="padding:10px;display:none">
+	<input type="num" id="uid" placeholder="请输入用户ID"/>
+</div>
 </body>
+<script type="text/javascript" src="/salad/Public/Admin/js/layer/layer.js"></script>
+<script type="text/javascript">
+	$(".giveuser").on('click',function(){
+		var couid = $(this).attr("id");
+		var index = layer.open({
+			"title" : false,
+			"type" : 1,
+			"area" : ['250px','100px'],
+			"content": $(".uid"),
+			"btn":['确认','取消'],
+			"yes":function(){
+				var uid = $("#uid").val();
+				$.ajax({
+					"url":"<?php echo U('Coupon/toUser');?>",
+					"type":"post",
+					"data":{"couid":couid,"uid":uid},
+					"dataType":"json",
+					"success":function (res) {
+						console.log(res);
+						var resjson = JSON.parse(res);
+						if (resjson.status == 1) {
+							alert(resjson.code);
+							layer.close(index);
+						}else if(resjson.status == 2){
+							alert(resjson.code);
+						}else{
+							alert(resjson.code);
+							layer.close(index);
+						}
+					}
+				});
+			},
+			"btn2":function() {
+				console.log("取消");
+			}
+		});
+	});
+</script>
 </html>

@@ -105,9 +105,8 @@ class OrderController extends BaseController{
 			$res = $ord -> save( $order );
 			if ( isset( $res ) ) {
 				if (isset($couid)) {
-					$couobj = M('Coupon');
-					$coupon = $couobj -> field('num') -> where( array( 'id' => array( 'eq' , $couid ) ) ) -> select();
-					$res = $couobj -> save(array('id' =>$couid ,'num'=>$coupon[0]['num']-1));
+					$couobj = M('Usercou');
+					$res = $couobj -> save(array('id' =>$couid ,'utype'=>1));
 				}
 				if ( !empty($order['paytype']) && $order['paytype']  == '1') {
 					$this -> ajaxReturn("gopay");
@@ -187,7 +186,9 @@ class OrderController extends BaseController{
 		$couarr['num'] = array('gt',0);
 		$couarr['startime'] = array( 'elt' , date('Y/m/d'));
 		$couarr['endtime'] = array( 'egt' , date('Y/m/d'));
-		$coupon = M('Coupon') -> where( $couarr ) ->select();
+		$couarr['uid'] = array( 'eq' , session('userid'));
+		$couarr['utype'] = array( 'neq' , 1);
+		$coupon = M('Ucoupon') -> where( $couarr ) ->select();
 		$this -> assign( "coupon" , $coupon );
 		$this -> assign( "datee" , $date );
 		$this -> assign( "tomaro" , $tomaro );
@@ -208,7 +209,6 @@ class OrderController extends BaseController{
 			$this -> display("orderinfo2");
 		}
 	}
-
 
 	public function orderlist(){
 		$where[ 'fromuser' ] = session("userid");
