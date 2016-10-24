@@ -7,45 +7,33 @@
 	<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="__WEBPUBLIC__/Admin/css/invalid.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="__WEBPUBLIC__/Admin/js/laydate/laydate.js"></script>
 </head>
 <body>
 <div id="main-content">
 	<div class="content-box">
 		<!--头部切换-->
 		<div class="content-box-header">
-			<h3>添加菜品</h3>
-			<ul class="content-box-tabs">
-				<li><a href="{:U('Foods/foodsList')}">菜品列表</a></li>
-				<li><a href="{:U('Foods/foodsAdd')}" class="default-tab">添加菜品</a></li>
-			</ul>
+			<h3>配送时间</h3>
 			<div class="clear"></div>
 		</div>
 		<div class="content-box-content">
 			<div class="tab-content default-tab">
-				<form action="{:U('Foods/foodsAdd')}" method="post" enctype="multipart/form-data">
+				<form action="{:U('Luggage/set')}" method="post" enctype="multipart/form-data">
 					<fieldset>
 						<p>
-							<label>菜品名称</label>
-							<input class="text-input small-input" type="text" id="small-input" name="name" />
+							<label>周六是否配送</label>
+							<input type="radio" value="yes" name="setsix" <if condition="!empty($set['setsix']) && $set.setsix eq 'yes'">checked</if>/>是
+							<input type="radio" value="no" name="setsix" <if condition="empty($set['setsix']) || $set.setsix eq 'no'">checked</if>/>否
 						</p>
 						<p>
-							<label>分类</label>
-							<select name="cate_id">
-								<volist name="cate_list" id="vo">
-									<option value="{$vo.id}">{$vo.name}</option>
-								</volist>
-							</select>
-						</p>
-						<p>
-							<label>缩略图</label>
-							<input type="file" name="pic"/>
-						</p>
-						<p>
-							<label>现价</label>
-							<input class="text-input small-input" type="text" id="small-input" name="price" />
+							<label>周日是否配送</label>
+							<input type="radio" value="yes" name="setsev" <if condition="!empty($set['setsev']) && $set.setsev eq 'yes'">checked</if>/>是
+							<input type="radio" value="no" name="setsev" <if condition="empty($set['setsev']) || $set.setsev eq 'no'">checked</if>/>否
 						</p>
 						<p>
 							<input class="button" type="submit" value="保存" />
+							<span id="errormsg" style="color:red;float:right"></span>
 						</p>
 					</fieldset>
 					<div class="clear"></div>
@@ -54,13 +42,7 @@
 		</div>
 	</div>
 </div>
-</body>
 <script type="text/javascript">
-	$("input[type='file']").on("change",function(){
-		var filesize = this.files[0].size;
-		if (filesize > 500*1024) {
-			alert("请上传大小在500k以下的图片");
-		};
-	});
 </script>
+</body>
 </html>

@@ -29,4 +29,17 @@ class LuggageController extends Controller{
 			$this -> redirect('Luggage/index');
 		}
 	}
+
+	public function set(){
+		$set['setsix'] = $_POST['setsix'];
+		$set['setsev'] = $_POST['setsev'];
+		if (isset($_POST['setsix'])) {
+			$jsonstr = json_encode($set);
+			file_put_contents('set.txt', $jsonstr);
+		}else{
+			$set = json_decode(file_get_contents('set.txt'),true);
+		}
+		$this -> assign('set',$set);
+		$this ->  display();
+	}
 }

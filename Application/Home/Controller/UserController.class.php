@@ -184,7 +184,9 @@ class UserController extends Controller{
 		A('Base');
 		$uid = session('userid');
 		$ucoupon = M('Ucoupon');
-		$res = $ucoupon -> where(array('uid' => $uid)) ->order('utype asc , endtime asc') -> select();
+		$where['status'] = array('neq',9);
+		$where['uid'] = array('eq',$uid);
+		$res = $ucoupon -> where($where) ->order('utype asc , endtime asc') -> select();
 		$this -> assign('coupons',$res);
 		$this -> display();
 	}

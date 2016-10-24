@@ -92,23 +92,24 @@
 					</div>
 					<div class="det-dius-bd">
 						<ul class="send-tit fl-clr">
-							<li forid="AutoSendLine" class="checkon <if condition='empty($date)'>on</if>">
+							<li forid="AutoSendLine" class="checkon <if condition='!empty($date)'>on</if>">
 								<font id="_df10_sent_now">
 									<if condition="$ordinfo['delivertype'] eq 1">立即配送<else/>立即自提</if>
 								</font>
 							</li>
-							<li forid="SetDateLine" class="checkon <if condition='!empty($date)'>on</if>">
+							<li forid="SetDateLine" class="checkon <if condition='empty($date)'>on</if>">
 								<font id="_df10_sent_appiont">
 									<if condition="$ordinfo['delivertype'] eq 1">预约配送<else/>预约自提</if>
 								</font>
 							</li>
 						</ul>
 						
-						<div class="date-sele" id="SetDateLine" <if condition='empty($date)'>style="display:none"</if>>
+						<div class="date-sele" id="SetDateLine" <if condition='!empty($date)'>style="display:none"</if>>
 							<select id="myFDDate" name="myFDDate">
 								<option value="">选择时间</option>
-								<option value="{$datee}" selected>{$datee}</option>
-								<option value="{$tomaro}">{$tomaro}</option>
+								<if condition="!empty($today)"><option value="{$today}">{$today}</option></if>
+								<option value="{$tomaro}" selected>{$tomaro}</option>
+								<option value="{$datee}">{$datee}</option>
 							</select>
 							<select id="myFDTime" name="myFDTime">
 								<option value="">选择时间</option>
@@ -124,7 +125,7 @@
 							</select>
 						</div>
 						
-						<div class="date-sele" id="AutoSendLine" <if condition='!empty($date)'>style="display:none"</if>>
+						<div class="date-sele" id="AutoSendLine" <if condition='empty($date)'>style="display:none"</if>>
 							<span>
 								<font id="_df10_sent_fast" style="">
 									<if condition="$ordinfo['delivertype'] eq 1">我们将尽快配送<else/>请尽快到店自提</if>
@@ -252,8 +253,23 @@ $(function(){
 		var id = self.attr("forid");
 		if (self.index() == 0) {
 			var h = new Date().getHours();
-			if ( h < 9 || h > 19) {
-				alert("立即配送必须在9:00--19:00之间！");
+			var day = new Date().getDay();
+			if ( h < 10 || h > 17) {
+				alert("立即配送必须在10:00--18:00之间！");
+				return;
+			}
+			var six = "{$six}";
+			var sev = "{$sev}";
+			if ((six == "no" && sev == "no") && (day == 6 || day == 0)) {
+				alert("周六周日不配送哦，亲！");
+				return;
+			};
+			if (six == "no" && day == 6) {
+				alert("周六不配送哦，亲！");
+				return;
+			};
+			if (sev == "no" && day == 0) {
+				alert("周日不配送哦，亲！");
 				return;
 			};
 		};

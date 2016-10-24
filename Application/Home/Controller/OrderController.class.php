@@ -102,6 +102,7 @@ class OrderController extends BaseController{
 		if ( isset($order) ) {
 			$couid = $_POST['couid'];
 			$ord = D("Order");
+			$order['update_time'] = time();
 			$res = $ord -> save( $order );
 			if ( isset( $res ) ) {
 				if (isset($couid)) {
@@ -122,7 +123,12 @@ class OrderController extends BaseController{
 		$oid = $_GET['oid'];
 		if (isset($oid)) {
 			$ord = D("Order");
-			$res = $ord -> field('id,name,price,delivertype,paymoney') -> where( array('id' => $oid)) -> limit(1) -> select();
+			$res = $ord -> field('id,name,price,delivertype,paymoney,delidate') -> where( array('id' => $oid)) -> limit(1) -> select();
+			if (empty($res[0]['delidate'])) {
+				// $this -> redirect("index.php/Order/orderinfo/id/$oid");
+				$_GET['id'] = $oid;
+				$this -> orderinfo();
+			}
 			$order = $res[0];
 			$openid = session('wx_id');
 			$callbackurl = "http://".$_SERVER['SERVER_NAME']."/index.php/Home/Order/comord/id/".$order['id']."/delivertype/".$order['delivertype'];
@@ -135,6 +141,14 @@ class OrderController extends BaseController{
 		$id = $_GET['id'];
 		$delivertype = $_GET['delivertype'];
 		$type = 0;
+		$arr = array(
+			"id" => $id,
+			"type" => $type
+			);
+		$yes = M("Order") -> where($arr) -> limit(1)-> select();
+		if (!isset($yes)) {
+			exit();
+		}
 		if (isset($id)) {
 			if ($delivertype == 0) {
 				$type = 2;
@@ -144,7 +158,8 @@ class OrderController extends BaseController{
 		}
 		$data = array(
 			"id" => $id,
-			"type" => $type
+			"type" => $type,
+			"update_time" => time()
 			);
 		$res = M("Order") -> save($data);
 		$this -> redirect("Order/orderlist");
@@ -178,9 +193,6 @@ class OrderController extends BaseController{
 		$orgood = D("Orgood");
 		$ordinfo = $ordadd -> where($where) -> select();
 		$goods = $orgood -> where($where) -> select();
-		//处理配送时间
-		$date = date("Y-m-d",(time()+48*60*60));
-		$tomaro = date("Y-m-d",(time()+24*60*60));
 		//查询优惠方式
 		$couarr['status'] = array('neq',9);
 		$couarr['num'] = array('gt',0);
@@ -190,21 +202,87 @@ class OrderController extends BaseController{
 		$couarr['utype'] = array( 'neq' , 1);
 		$coupon = M('Ucoupon') -> where( $couarr ) ->select();
 		$this -> assign( "coupon" , $coupon );
-		$this -> assign( "datee" , $date );
-		$this -> assign( "tomaro" , $tomaro );
 		$this -> assign( "goods" , $goods );
 		$this -> assign( "ordinfo" , $ordinfo[0] );
-		if ($ordinfo[0]['type'] == 0) {
+		if ( empty( $ordinfo[0]['delidate'] ) ) {
 			if (isset($ordinfo[0]['delidate']) && $ordinfo[0]['delidate'] != "尽快") {
 				$datearr = explode("=", $ordinfo[0]['delidate']);
 			}
-			if (date('h',time()) >= 9 && date('h',time()) <= 19) {
-				$this -> assign('date',$datearr[0]);
+			//处理配送时间
+			$date = date("Y-m-d",(time()+48*60*60));
+			$tomaro = date("Y-m-d",(time()+24*60*60));
+			$set = json_decode(file_get_contents('set.txt'),true);
+
+			$six = isset($set['setsix']) ? $set['setsix'] : 'no';
+			$sev = isset($set['setsev']) ? $set['setsev'] : 'no';
+			$this -> assign('six', $six);
+			$this -> assign('sev', $sev);
+			if ($six == 'no' || $sev == 'no') {
+				if ( $six == 'no' && $sev == 'no') {
+					if (date("w") == 4) {//今天是周四
+						$date = date("Y-m-d",(time()+96*60*60));
+					}else if (date("w") == 5) {//今天是周五
+						$date = date("Y-m-d",(time()+96*60*60));
+						$tomaro = date("Y-m-d",(time()+72*60*60));
+					}else if (date("w") == 6) {//今天是周六
+						$date = date("Y-m-d",(time()+72*60*60));
+						$tomaro = date("Y-m-d",(time()+48*60*60));
+					}
+					if (date("w") != 6 && date("w") != 0) {
+						if ( date('H',time()) < 10 ) {
+							$this -> assign('today',date("Y-m-d",time()));
+						}
+						if (date('H',time()) >= 10 && date('H',time()) < 18) {
+							$this -> assign('date',"yes");
+						}
+					}
+				}else if ($sev == 'yes' && $six == 'no') {
+					if (date("w") == 4) {//今天是周四
+						$date = date("Y-m-d",(time()+72*60*60));
+					}else if (date("w") == 5) {//今天是周五
+						$date = date("Y-m-d",(time()+72*60*60));
+						$tomaro = date("Y-m-d",(time()+48*60*60));
+					}else if (date("w") == 6) {//今天是周六
+						$date = date("Y-m-d",(time()+48*60*60));
+						$tomaro = date("Y-m-d",(time()+24*60*60));
+					}
+					if (date("w") != 6) {
+						if ( date('H',time()) < 10 ) {
+							$this -> assign('today',date("Y-m-d",time()));
+						}
+						if (date('H',time()) >= 10 && date('H',time()) < 18) {
+							$this -> assign('date',"yes");
+						}
+					}
+				}else if ($sev == 'no' && $six == 'yes') {
+					if (date("w") == 5) {//今天是周五
+						$date = date("Y-m-d",(time()+72*60*60));
+					}else if (date("w") == 6) {//今天是周六
+						$date = date("Y-m-d",(time()+72*60*60));
+						$tomaro = date("Y-m-d",(time()+48*60*60));
+					}
+					if ( date("w") != 0) {
+						if ( date('H',time()) < 10 ) {
+							$this -> assign('today',date("Y-m-d",time()));
+						}
+						if (date('H',time()) >= 10 && date('H',time()) < 18) {
+							$this -> assign('date',"yes");
+						}
+					}
+				}
 			}else{
-				$this -> assign('date',"123");
+				if ( date('H',time()) < 10 ) {
+					$this -> assign('today',date("Y-m-d",time()));
+				}
+				if (date('H',time()) >= 10 && date('H',time()) < 18) {
+					$this -> assign('date',"yes");
+				}
 			}
+			$this -> assign( "datee" , $date );
+			$this -> assign( "tomaro" , $tomaro );
+			
 			$this -> assign('time',$datearr[1]);
-			$this -> display();
+			$this -> display("orderinfo");
 		}else{
 			$this -> display("orderinfo2");
 		}

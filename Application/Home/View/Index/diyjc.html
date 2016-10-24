@@ -65,6 +65,7 @@
 function savejc(){
 	var type = $("li.on").attr("type");
 	var foods = [];
+	var len = 0;
 	$(".inpt-shu").each(function(){
 		var obj = {};
 		var self = $(this);
@@ -72,14 +73,22 @@ function savejc(){
 			obj.foodsid = self.attr("id");
 			obj.foodsname = self.attr("name");
 			obj.num =  self.val();
+			len += parseInt(obj.num);
 			foods.push(obj);
 		};
 	});
-	if (foods.length <= 0) {
+	if (len <= 0) {
 		alert("基菜不能为空！");
 		return;
 	};
-	var goods = {"name" : type , "foods" : foods};
+	
+	if (len < 4) {
+		var flag = confirm("您还可以再选"+(4-len)+"份基菜，是否要继续选菜！");
+		if (flag) {
+			return;
+		};
+	};
+	var goods = {"name" : type , "foods" : foods,"jclen":len};
 	if (sessionStorage) {
 		sessionStorage.setItem("goods",JSON.stringify(goods));
 	};

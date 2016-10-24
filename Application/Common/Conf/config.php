@@ -8,10 +8,10 @@ return  array(
     'APP_SUB_DOMAIN_DEPLOY' => false,   // 是否开启子域名部署
     'APP_SUB_DOMAIN_RULES'  => array(), // 子域名部署规则
     'APP_SUB_DOMAIN_DENY'   => array(), //  子域名禁用列表
-    'ACTION_SUFFIX'         =>  '', // 操作方法后缀
+    'ACTION_SUFFIX'         =>  '',// 操作方法后缀
     'MODULE_ALLOW_LIST'     => array('Home','Admin','Api'),
     'DEFAULT_GROUP'         => 'Home', //默认分组
-    'SHOW_PAGE_TRACE'       => true,
+   
     /* Cookie设置 */
     'COOKIE_EXPIRE'         => 0,    // Coodie有效期
     'COOKIE_DOMAIN'         => '',      // Cookie有效域名
@@ -20,7 +20,7 @@ return  array(
 
     /* 数据库设置 */
     'DB_TYPE'               => 'mysql',     // 数据库类型
-    'DB_HOST'               => 'localhost', // 服务器地址
+    'DB_HOST'               => '127.0.0.1', // 服务器地址
     'DB_NAME'               => 'shala',          // 数据库名
     'DB_USER'               => 'root',      // 用户名
     'DB_PWD'                => '',          // 密码

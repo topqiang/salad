@@ -146,7 +146,7 @@ class GoodsController extends BaseController{
     	}else{
     		$where1['gcate_id'] = isset($_POST['cid']) ? $_POST['cid'] : $catelist[0]['id'];
     	}
-    	$list = $goodcate -> field("gid,gpic,gprice,gconstituent,gname,gcate_id,cname") -> where($where1) -> select();
+    	$list = $goodcate -> field("gid,gpic,gprice,gconstituent,gname,gcate_id,cname,zannum,unzannum") -> where($where1) -> select();
     	// dump($list);
     	// exit();
     	$curid = $list[0]['gcate_id'];
@@ -158,8 +158,8 @@ class GoodsController extends BaseController{
     		$countarg['well'] = array('eq' , 0);
     		$countarg['bad'] = array('eq' , 1);
     		$badnum = $Hubgood->where($countarg)->count();
-    		$good['wellnum'] = $wellnum;
-    		$good['badnum']	= $badnum;
+    		$good['wellnum'] = $wellnum + $good['zannum'];
+    		$good['badnum']	= $badnum + $good['unzannum'];
     		$where['gid'] = array('eq' , $good['gid']);
     		$where['uid'] = array('eq' , session('userid'));
     		$hub = $Hubgood->where($where)->select();

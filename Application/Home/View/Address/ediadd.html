@@ -84,12 +84,12 @@
 	$("#TagListLayer li").on('tap',function(){
 		var self = $(this);
 		$("#tagSelect").text(self.text());
-		$(".black-layer").hide();
+		$(".black-layer").fadeOut();
 	});
 	$("#CityListLayer li").on('tap',function(){
 		var self = $(this);
 		$("#citySelect").text(self.text());
-		$(".black-layer").hide();
+		$(".black-layer").fadeOut();
 	});
 	function Jump(){
 		var citySelect = $("#citySelect").text();

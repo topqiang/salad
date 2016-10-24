@@ -211,8 +211,8 @@
 <script language="javascript">
 $(".updorder[type]").on("tap",function(){
 		var self = $(this);
-		var id = self.attr("oid");
-		var type = self.attr("type");
+		var id = $.trim(self.attr("oid"));
+		var type = $.trim(self.attr("type"));
 		var order = {"id" :id ,"type" :type};
 		$.ajax({
 			"url" : "{:U('Order/updorder')}",

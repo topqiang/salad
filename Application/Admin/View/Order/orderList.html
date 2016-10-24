@@ -28,6 +28,14 @@
 				订单号：<input type="text" name="ordname" class="text-input" value="{$_REQUEST['ordname']}">
 				订单人姓名：<input type="text" name="addname" class="text-input" value="{$_REQUEST['addname']}">
 				订单人电话：<input type="text" name="tel" class="text-input" value="{$_REQUEST['tel']}">
+				订单状态：
+				<select name="type">
+					<option value="" <if condition="empty($_REQUEST)">selected</if>>不限</option>
+					<option value="1" <if condition="$_REQUEST['type'] eq 1">selected</if>>待发货</option>
+					<option value="2" <if condition="$_REQUEST['type'] eq 2">selected</if>>待收货</option>
+					<option value="3" <if condition="$_REQUEST['type'] eq 3">selected</if>>已完成</option>
+					<option value="4" <if condition="$_REQUEST['type'] eq 4">selected</if>>已评价</option>
+				</select>
 				<input type="submit" class="button search-btn" value="查询">
 			</form>
 		</div>
@@ -70,15 +78,15 @@
                                 	</if>
                                 </td>
                                  <td>
-                                	<if condition="$order['type'] eq 0">待付款
-										<elseif condition="$order['type'] eq 1" />待发货
-										<elseif condition="$order['type'] eq 2" />待收货
-										<elseif condition="$order['type'] eq 3" />已完成
-										<else/>待评价
+                                	<if condition="$order['type'] eq 0"><font style="color:red">待付款</font>
+										<elseif condition="$order['type'] eq 1" /><font style="color:#ff37bf">待发货</font>
+										<elseif condition="$order['type'] eq 2" /><font style="color:blue">待收货</font>
+										<elseif condition="$order['type'] eq 3" /><font style="color:green">已完成</font>
+										<else/>已评价
 									</if>
                                 </td>
                                  <td>
-                                	￥{$order.price}
+                                	￥{$order.paymoney}
                                 </td>
 								<td>
 									<if condition="$order['delivertype'] eq 1">送货上门
@@ -131,6 +139,12 @@
 			if (type == 3) {
 				var getcode = prompt("提货码","请输入提货码");
 				order.getcode = $.trim(getcode);
+			};
+			if (type == 9) {
+				var flag = confirm("您确认要取消该订单吗？取消后将不能恢复！");
+				if (!flag) {
+					return;
+				};
 			};
 			$.ajax({
 				"url" : "{:U('Order/updorder')}",

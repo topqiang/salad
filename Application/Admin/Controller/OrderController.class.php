@@ -25,6 +25,7 @@ class OrderController extends AdminBasicController{
                 exit();
             }
         }
+        $order['update_time'] = time();
         $res = $ord -> save( $order );
         if ( isset( $res ) ) {
             $this -> ajaxReturn( $res );
@@ -35,6 +36,7 @@ class OrderController extends AdminBasicController{
 
     public function orderlist(){
         $type = $_GET['type'];
+        $type = !empty($_REQUEST['type']) ? $_REQUEST['type'] : $type;
         $ordname = $_POST['ordname'];
         $addname = $_POST['addname'];
         $tel = $_POST['tel'];
@@ -43,6 +45,7 @@ class OrderController extends AdminBasicController{
             $where["type"] = array( 'neq' , 9 );
         }else{
             $where["type"] = array( 'eq' , $type);
+            $parameter["type"] = $type;
         }
         if (isset($ordname)) {
             $where["ordname"] = array( 'like' , "%$ordname%");
@@ -55,7 +58,8 @@ class OrderController extends AdminBasicController{
         }
         $count = $this -> ordadd -> where($where)->count();
         $page = new \Think\Page($count,15);
-        $res = $this -> ordadd -> where($where)->limit($page->firstRow,$page->listRows) -> select();
+        $page->parameter = $parameter;
+        $res = $this -> ordadd -> where($where)->limit($page->firstRow,$page->listRows) -> order('update_time desc , type asc')-> select();
         $this -> assign("orders" , $res);
         $this -> assign("page",$page->show());
         $this -> display();
@@ -72,5 +76,18 @@ class OrderController extends AdminBasicController{
                 $this -> ajaxReturn('error');
             }
         }
+    }
+
+    /**
+    *计划任务执行方法
+    */ 
+    public function autoupd(){
+        $time = time() - 48*60*60;
+        $ord = D("Order");
+        $where['type'] = 0;
+        $where['update_time'] = array('lt' , $time);
+        $ord -> where($where) -> save(array('type' => 9));
+        $where['type'] = 2;
+        $ord -> where($where) -> save(array('type' => 3));
     }
 }

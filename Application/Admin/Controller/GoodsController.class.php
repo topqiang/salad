@@ -50,6 +50,8 @@ class GoodsController extends Controller{
 				'create_time'	=>time(),
 				'update_time'	=>time(),
 				'remark'		=>$_POST['remark'],
+				'zannum'		=>$_POST['zannum'],
+				'unzannum'		=>$_POST['unzannum'],
 				'status'		=>0,
 			);
 			$res=$this->goods->add($data);
@@ -76,7 +78,6 @@ class GoodsController extends Controller{
 		}else{
 			$upload_res=$this->upload();
 			//删除历史缩略图。。。。
-			
 			//存储数据
 			$data=array(
 				'id'			=>$_GET['id'],
@@ -85,6 +86,8 @@ class GoodsController extends Controller{
 				'cate_id'		=>$_POST['cate_id'],
 				'price'			=>$_POST['price'],
 				'update_time'	=>time(),
+				'zannum'		=>$_POST['zannum'],
+				'unzannum'		=>$_POST['unzannum'],
 				'remark'		=>$_POST['remark'],
 			);
 			if($upload_res['flag']=='success')$data['pic']="Uploads/goods/".$upload_res['result'];

@@ -71,12 +71,17 @@
 <script src="./js/wewing.init.js"></script> -->
 <script src="__WEBPUBLIC__/Home/js/salad.js"></script>
 <script language="javascript">
-
+var totalnum = {$totalnum};//存储最多可选数
 function savejc(){
 	var goods =JSON.parse(sessionStorage.getItem("goods"));
 	var type = goods.name ? goods.name : "big";
 	var foods = goods.foods ? goods.foods : [];
+	var jclen = goods.jclen ? goods.jclen : 0;
 	var foodlen = foods.length;
+	var len = 0;
+	if (foodlen > jclen ) {
+		foods.splice(jclen,foodlen-jclen);
+	};
 	$(".inpt-shu").each(function(){
 		var obj = {};
 		var self = $(this);
@@ -84,12 +89,19 @@ function savejc(){
 			obj.foodsid = self.attr("id");
 			obj.foodsname = self.attr("name");
 			obj.num =  self.val();
+			len += parseInt(obj.num);
 			foods.push(obj);
 		};
 	});
-	if (foods.length <= foodlen) {
+	if (len <= 0) {
 		alert("主菜不能为空！");
 		return;
+	};
+	if (len < totalnum) {
+		var flag = confirm("您还可以再选"+(totalnum-len)+"份主菜，是否要继续选菜！");
+		if (flag) {
+			return;
+		};
 	};
 	goods.foods= foods ;
 	if (sessionStorage) {
@@ -101,7 +113,6 @@ function savejc(){
 
 
 $(function(){
-	var totalnum = {$totalnum};//存储最多可选数
 	function updem(){
 		var self = $(this);
 		var input =  self.siblings("input");
