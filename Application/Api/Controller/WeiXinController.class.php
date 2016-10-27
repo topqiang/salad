@@ -169,6 +169,16 @@ class WeiXinController extends Controller {
             }
             $resultStr = sprintf($tpl, $fromUsername, $toUsername,$time);
             echo $resultStr;
+        }else{
+            //识别不到关键词，转发到多客服、
+            $tmp = "<xml>
+                         <ToUserName><![CDATA[%s]]></ToUserName>
+                         <FromUserName><![CDATA[%s]]></FromUserName>
+                         <CreateTime>%s</CreateTime>
+                         <MsgType><![CDATA[transfer_customer_service]]></MsgType>
+                     </xml>";
+            $resultStr = sprintf($tmp,$fromUsername, $toUsername,$time,"xiaoqiang0672");
+            echo $resultStr;
         }
     }
 
